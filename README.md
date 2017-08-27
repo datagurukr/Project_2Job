@@ -1,4 +1,4 @@
 # 2job
 2job web
 
-관리자 -> 사용자 -> Android -> IOS -> TEST
+관리자 (08.30) -> 사용자 (09.03) -> Android (09.04) -> IOS (09.04) -> TEST (09.04 ~ 06)
