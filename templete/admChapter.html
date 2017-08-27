@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/customizing.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+		<ul class="right hide-on-med-and-down">
+        <li><a href="admUserInfo.html">회원정보</a></li>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="admCourse.html">코스</a></li>
+				<li><a href="admSubCourse.html">서브코스</a></li>
+				<li><a href="admChapter.html">챕터</a></li>
+				<li><a href="admUnit.html">유닛</a></li>
+				<li><a href="#">구매내역</a></li>
+				<li><a href="">통계</a></li>
+				<li><a href="admQna.html">Q&A</a></li>
+				<li><a href="logIn.html">로그아웃</a></li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="admUserInfo.html">회원정보</a></li>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="admCourse.html">코스</a></li>
+				<li><a href="admSubCourse.html">서브코스</a></li>
+				<li><a href="admChapter.html">챕터</a></li>
+				<li><a href="admUnit.html">유닛</a></li>
+				<li><a href="#">구매내역</a></li>
+				<li><a href="#">통계</a></li>
+				<li><a href="admQna.html">Q&A</a></li>
+				<li><a href="admLogIn.html">로그아웃</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="section">
+			<div class="row">
+				<form class="col s12">
+					<div class="row">
+						<div class="col s12">
+							<h4>챕터</h4>
+							<table class="striped centered">
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>코스</th>
+										<th>서브코스</th>
+										<th>챕터</th>
+										<th>삭제</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>코스</td>
+										<td>서브코스</td>
+										<td><a href="admChapterEdit.html">챕터</a></td>
+										<td><a class="red-text">삭제</a></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>코스</td>
+										<td>서브코스</td>
+										<td><a href="admChapterEdit.html">챕터</a></td>
+										<td><a class="red-text">삭제</a></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>코스</td>
+										<td>서브코스</td>
+										<td><a href="admChapterEdit.html">챕터</a></td>
+										<td><a class="red-text">삭제</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12 right-align">
+							<a href="admChapterEdit.html" class="waves-effect waves-light btn">생성</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="footer-copyright">
+      <div class="container">
+				이용약관 | 개인정보 처리방침
+				서울시 서초구 서초대로 301 동성빌딩
+				대표: 대표명 | 사업자등록번호: 111-23-45678
+				사업신고번호: 서울 22
+				고객센터: 1500-1500 Copyright Company. Allright
+				
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+	<script>
+	$(document).ready(function() {
+    $('select').material_select();
+  });
+	</script>
+
+  </body>
+</html>

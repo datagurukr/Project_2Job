@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MUGSTAR-이메일 인증</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <div style="display: inline-block;padding-top: 50px;padding-bottom: 50px;padding-left: 60px;padding-right: 60px;border-radius: 5px;text-align: left;">
+            <h1 style="margin: 0px;font-size: 17px;color: #333333;"><b style="color: #02b875;margin-right: 10px;border-right: solid 1px #ccc;padding-right: 10px;">MUGSTAR</b>이메일 인증</h1>
+            <div style="height: 2px;background-color: #000;margin-top: 28px;margin-bottom: 28px;"></div>
+            <h2 style="margin: 0px;font-size: 18px;color: #333333;">비밀번호를 재설정할 준비가 되셨나요?</h2>
+            <a href="<? echo 'http://'.$_SERVER['HTTP_HOST'].'/mail/password/'.$user_out[0]['user_auth_code']; ?>" style="color: #fff;font-weight: bold;text-decoration: none;height: 45px;line-height: 45px;min-width: 300px;text-align: center;padding-left: 10px;font-size: 20px;padding-right: 10px;display: inline-block;background-color: #02b875;border-radius: 5px;margin-top: 37px;margin-bottom: 37px;">이메일 인증</a>            
+            <p style="margin: 0px;font-size: 12px;color: #333333;">비밀번호는 24시간 내에 재설정 하셔야 합니다.</p>
+            <p style="margin: 0px;font-size: 12px;color: #333333;">24시간이 지나면 새 확인 이메일을 다시 요청하셔야 합니다.</p>            
+            <div style="background-color: #e5e5e5;height: 1px;margin-top: 40px;margin-bottom: 20px;"></div>
+            <p style="margin: 0px;font-size: 12px;color: #333333;">
+                <a href="https://www.facebook.com/mugstar4/?fref=ts" style="color: #333;text-decoration: none;">페이스북</a>,
+                <a href="https://www.instagram.com/mugstar4/" style="color: #333;text-decoration: none;">인스타그램</a>,
+                <a href="https://twitter.com/mugstar4" style="color: #333;text-decoration: none;">트위터</a>
+                <span style="margin-left: 6px;margin-right: 6px;">|</span>
+                <a href="http://www.mugstar.xyz/privacy" style="color: #333;text-decoration: none;">개인정보 보호정책</a>
+                <span style="margin-left: 6px;margin-right: 6px;">|</span>                
+                <a href="http://www.mugstar.xyz/thirdparty" style="color: #333;text-decoration: none;">개인정보 제3자 제공동의</a>
+                <span style="margin-left: 6px;margin-right: 6px;">|</span>                
+                <a href="http://www.mugstar.xyz/term" style="color: #333;text-decoration: none;">약관</a>                
+            </p>
+            <p style="margin: 0px;font-size: 12px;color: #333333;">본 메일은 발신전용 입니다. 서비스와 관련한 궁금한 사항은 <a href="mailto:help@mugstar.xyz" style="color: #333;text-decoration: underline;font-weight: bold;">문의하기</a>를 통해 질문 주세요.</p>
+            <p style="margin: 0px;font-size: 11px;color: #333333;">Copyright NEXT INNOVATION.All Right Reserved.</p>
+        </div>    
+    </div>
+
+
+</body>
+</html>

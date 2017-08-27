@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/customizing.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <script src="http://cdn.ckeditor.com/4.7.1/standard-all/ckeditor.js"></script>
+
+
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+        <li><a href="admUserInfo.html">회원정보</a></li>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="admCourse.html">코스</a></li>
+				<li><a href="admSubCourse.html">서브코스</a></li>
+				<li><a href="admChapter.html">챕터</a></li>
+				<li><a href="admUnit.html">유닛</a></li>
+				<li><a href="#">구매내역</a></li>
+				<li><a href="">통계</a></li>
+				<li><a href="admQna.html">Q&A</a></li>
+				<li><a href="logIn.html">로그아웃</a></li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="admUserInfo.html">회원정보</a></li>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="admCourse.html">코스</a></li>
+				<li><a href="admSubCourse.html">서브코스</a></li>
+				<li><a href="admChapter.html">챕터</a></li>
+				<li><a href="admUnit.html">유닛</a></li>
+				<li><a href="#">구매내역</a></li>
+				<li><a href="#">통계</a></li>
+				<li><a href="admQna.html">Q&A</a></li>
+				<li><a href="admLogIn.html">로그아웃</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="section">
+			 <div class="row">
+				<form class="col s12">
+                    <h4>문제 등록</h4>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" class="validate">
+							<label for="no">순번</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<h6>문제</h6>
+                            <textarea id="editor1" name="editor1"></textarea>
+                            <script>
+                                CKEDITOR.replace( 'editor1', {
+                                    extraPlugins: 'mathjax',
+                                    mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                                    height: 150
+                                } );
+
+                                if ( CKEDITOR.env.ie && CKEDITOR.env.version == 8 ) {
+                                    document.getElementById( 'ie8-warning' ).className = 'tip alert';
+                                }
+                            </script>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<h6>보기</h6>
+                            <textarea id="editor2" name="editor2"></textarea>
+                            <script>
+                                CKEDITOR.replace( 'editor2', {
+                                    extraPlugins: 'mathjax',
+                                    mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                                    height: 150
+                                } );
+
+                                if ( CKEDITOR.env.ie && CKEDITOR.env.version == 8 ) {
+                                    document.getElementById( 'ie8-warning' ).className = 'tip alert';
+                                }
+                            </script>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<h6>답안</h6>
+                            <textarea id="editor3" name="editor3">
+①<br>②<br>③<br>④<br>⑤                           
+                            </textarea>
+                            <script>
+                                CKEDITOR.replace( 'editor3', {
+                                    extraPlugins: 'mathjax',
+                                    mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                                    height: 150
+                                } );
+
+                                if ( CKEDITOR.env.ie && CKEDITOR.env.version == 8 ) {
+                                    document.getElementById( 'ie8-warning' ).className = 'tip alert';
+                                }
+                            </script>
+						</div>
+					</div>
+					<div class="row">
+                        <div class="input-field col s12">
+                            <h6>해설</h6>
+                            <textarea id="editor4" name="editor4"></textarea>
+                            <script>
+                                CKEDITOR.replace( 'editor4', {
+                                    extraPlugins: 'mathjax',
+                                    mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                                    height: 150
+                                } );
+
+                                if ( CKEDITOR.env.ie && CKEDITOR.env.version == 8 ) {
+                                    document.getElementById( 'ie8-warning' ).className = 'tip alert';
+                                }
+                            </script>                            
+                        </div>
+                    </div>
+					<div class="row">
+						<div class="input-field col s6">
+							<a class="waves-effect waves-light btn right">적용</a>
+						</div>
+						<div class="input-field col s6">
+							<a class="waves-effect waves-light btn left">취소</a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			
+		</div>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="footer-copyright">
+      <div class="container">
+				이용약관 | 개인정보 처리방침
+				서울시 서초구 서초대로 301 동성빌딩
+				대표: 대표명 | 사업자등록번호: 111-23-45678
+				사업신고번호: 서울 22
+				고객센터: 1500-1500 Copyright Company. Allright
+				
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+	<script>
+	$(document).ready(function() {
+    $('select').material_select();
+  });
+	</script>
+
+  </body>
+</html>
