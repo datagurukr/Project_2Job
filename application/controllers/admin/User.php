@@ -177,9 +177,9 @@ class User extends CI_Controller {
             $response['status'] = 401;
         };                 
         
-        $data['response'] = $response;        
+        $data['response'] = $response;      
         *******************/
-        $data['response'] = $response;        
+        
         if ( $ajax ) {
         } else {
             if ( $post_type == 1 ) {
