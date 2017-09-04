@@ -1,85 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>투잡다모아</title>
+        <link href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" rel="stylesheet">
+        <link href="assets/css/common.css" rel="stylesheet">
+        <link href="assets/css/general.css" rel="stylesheet">
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-	<link href="css/customizing.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
-<body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="userInfo.html">마이페이지</a></li>
-				<li><a href="#">구매내역</a></li>
-				<li><a href="logIn.html">로그아웃</a></li>
-				
-      </ul>
+    </head>
+    <body style="background:#F4F5FB">
+        <div class="main-header">
+            <div class="container">
+                <div class="logo text-center">
+                    <img src="assets/images/main/logo.png">
+                </div>
+                <div class="row" style="margin-bottom:10px">
+                    <div class="col s12 text-center main-searchbar">
+                        <input class="form-element" type="search">
+                        <button>
+                            <img src="assets/images/main/search.png">
+                        </button>    
+                    </div>
+                </div>
+                <nav>
+                    <div class="main-nav clear-float">
+                        <div class="row text-center">
+                            <div class="col s3"><a href="#">영업사원</a></div>
+                            <div class="col s3"><a href="#">투잡하기</a></div>
+                            <div class="col s3"><a href="#">가맹점제휴</a></div>
+                            <div class="col s3"><a href="#">입점비용</a></div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>	
+        <div class="container">
+            <div class="row main-thirdmenu">
+                <div class="col s4 text-center">
+                    <a href="">
+                        <img src="assets/images/main/pin.png">
+                        <div>지도에서<br>가맹점 찾기</div>
+                    </a>
+                </div>
+                <div class="col s4 text-center">
+                    <a href="">
+                        <img src="assets/images/main/likeit.png">
+                        <div>일하기 편한<br>추천 가맹점</div>
+                    </a>
+                </div>
+                <div class="col s4 text-center">
+                    <a href="">
+                        <img src="assets/images/main/find.png">
+                        <div>맞춤조건으로<br>가맹점 찾기</div>
+                    </a>
+                </div>
+            </div>
+            <div class="row main-userinfo">
+                <div class="col s6">
+                    <strong>홍길동</strong> 회원님
+                    <span class="text-green">LV. 17</span>
+                </div>
+                <div class="col s6">
+                    <div class="progress">
+                        <div class="progress-bar" style="width:40%"></div>
+                    </div>
+                </div>
 
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="userInfo.html">마이페이지</a></li>
-				<li><a href="#">구매내역</a></li>
-				<li><a href="logIn.html">로그아웃</a></li>
-				
-<!--				로그인 전-->
-<!--				<li><a href="#">로그인</a></li>-->
-				
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-  <div class="container">
-    <div class="section">
-			<div class="collection">
-        <a href="subCourse.html" class="collection-item">서브코스1</a>
-        <a href="subCourse.html" class="collection-item active">서브코스2</a>
-        <a href="subCourse.html" class="collection-item">서브코스3</a>
-        <a href="subCourse.html" class="collection-item">서브코스4</a>
-      </div>
-			 <ul class="collapsible collection with-header" data-collapsible="accordion">
-				 <li class="collection-item"><div>Q&A<a href="qna.html" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-
-				<li>
-					<div class="collapsible-header">이용문의1</div>
-					<div class="collapsible-body"><span>답변1</span></div>
-				</li>
-				<li>
-					<div class="collapsible-header">이용문의2</div>
-					<div class="collapsible-body"><span>답변2</span></div>
-				</li>
-				 <li>
-					<div class="collapsible-header">이용문의3</div>
-					<div class="collapsible-body"><span>답변3</span></div>
-				</li>
-			</ul>
-		</div>
-  </div>
-  <footer class="page-footer orange">
-		<div class="container">
-			<div class="row">
-				이용약관 | 개인정보 처리방침
-				서울시 서초구 서초대로 301 동성빌딩
-				대표: 대표명 | 사업자등록번호: 111-23-45678
-				사업신고번호: 서울 22
-				고객센터: 1500-1500 Copyright Company. Allright
-			</div>
-		</div>
-    <div class="footer-copyright">	
-      <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-      </div>
-    </div>
-  </footer>
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-
-  </body>
+                <div class="col s8">
+                    <span><img src="assets/images/main/dot.png"></span>
+                    이용 가능한 직권 할인율
+                    <span class="text-lightblue">25%</span>
+                </div>
+                <div class="col s4">
+                    <a href="" class="text-center">
+                        직권 할인율이란?
+                    </a>
+                </div>
+                <div class="col s8">
+                    <span><img src="assets/images/main/dot.png"></span>
+                    이번 달 나의 월급
+                    <span class="text-lightblue">120,000원</span>
+                </div>
+                <div class="col s4">
+                    <a href="" class="text-center">
+                        급여내역
+                    </a>
+                </div>
+                
+                <div class="col s5 text-right">
+                    <a href="" class="text-center">
+                        예약번호 사용조회
+                    </a>
+                </div>
+                <div class="col s5">
+                    <a href="" class="text-center">
+                        나의 활동 내역
+                    </a>
+                </div>
+                <div class="col s2">
+                    <a href="" class="text-center">
+                        <img src="assets/images/main/menu.png">
+                    </a>
+                </div>
+            </div> 
+            <div class="row main-banner">
+                <div class="col s12">
+                    <a href="">
+                        <img src="assets/images/main/banner.png" width="100%">
+                    </a>
+                </div>
+            </div>
+            <div class="row main-notice">
+                <div class="col s12">
+                    <h6><span><img src="assets/images/main/blit.png"></span> 공지사항</h6>
+                    <div class="col s8">
+                        <a href="" class="truncate">공지사항입니다.공지사항입니다.공지사항입니다.공지사항입니다.공지사항입니다.</a>
+                    </div>
+                    <div class="col s4">
+                        2017.04.07.
+                    </div>
+                </div>
+            </div>
+            <div class="row main-notice">
+                <div class="col s12">
+                    <h6><span><img src="assets/images/main/blit.png"></span> 이벤트</h6>
+                    <div class="col s8">
+                        <a href="" class="truncate">공지사항입니다.공지사항입니다.공지사항입니다.공지사항입니다.공지사항입니다.</a>
+                    </div>
+                    <div class="col s4">
+                        2017.04.07.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

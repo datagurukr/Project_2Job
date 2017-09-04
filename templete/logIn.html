@@ -1,93 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
-
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-	<link href="css/customizing.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
-<body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">마이페이지</a></li>
-				<li><a href="#">구매내역</a></li>
-				<li><a href="#">로그아웃</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-  <div class="container">
-    <div class="section">
-			<div class="row">
-				<form class="col s12">
-					<div class="row">
-						<div class="col s12">
-							<div class="card grey lighten-5">
-								<div class="card-content">
-									<span class="card-title">로그인</span>
-									<div class="row">
-										<div class="input-field col s12">
-											<input id="email" type="email" class="validate">
-											<label for="email" data-error="wrong" data-success="right">Email</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="input-field col s12">
-											<input id="password" type="password" class="validate">
-											<label for="password">Password</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col s12">
-											<p>
-												<input type="checkbox" class="filled-in" id="filled-in-box" checked="checked"/>
-												<label for="filled-in-box">자동 로그인</label>
-											</p>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col s12">
-											<a class="waves-effect waves-light btn">로그인</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-action">
-									<a href="signUp.html">회원가입</a>
-									<a href="recover.html">비밀번호 찾기</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-  </div>
-
-  <footer class="page-footer orange">
-    <div class="footer-copyright">
-      <div class="container">
-				이용약관 | 개인정보 처리방침
-				서울시 서초구 서초대로 301 동성빌딩
-				대표: 대표명 | 사업자등록번호: 111-23-45678
-				사업신고번호: 서울 22
-				고객센터: 1500-1500 Copyright Company. Allright
-				
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-      </div>
-    </div>
-  </footer>
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-
-  </body>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>투잡다모아</title>
+        <link href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" rel="stylesheet">
+        <link href="assets/css/common.css" rel="stylesheet">
+        <link href="assets/css/general.css" rel="stylesheet">
+        <style>
+            .login-logo{margin:60px 0 30px 0}
+            
+            .form-check {
+    position: relative;
+    display: block;
+    margin-bottom: .5rem;
+}
+            .form-check-label {
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+}
+        </style>
+    </head>
+    <body>
+        <div class="login-header">
+            <div class="container">
+                <div class="back">
+                    <a href="#!">
+                        <img src="assets/images/login/back_button.png">
+                    </a>
+                    <h6><strong>로그인</strong></h6>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row login-logo">
+                <div class="col s12 text-center">
+                    <img src="assets/images/login/logo_green.png">
+                </div>
+            </div>
+            <div class="row login-formarea">
+                <div class="col s12 text-center">
+                    <input class="form-element" type="email" placeholder="이메일 주소를 입력하세요"> 
+                </div>
+                <div class="col s12 text-center">
+                    <input class="form-element" type="password" placeholder="비밀번호를 입력하세요"> 
+                </div>
+                <div class="col s12 text-center">
+                    <a href="#!" class="login-btn">로그인</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"> 자동로그인
+                      </label>
+                    </div>
+                </div>
+            </div> 
+            <div class="row main-banner">
+                <div class="col s12">
+                    <a href="">
+                        <img src="assets/images/main/banner.png" width="100%">
+                    </a>
+                </div>
+            </div>
+            <div class="row main-notice">
+                <div class="col s12">
+                    <h6><span><img src="assets/images/main/blit.png"></span> 공지사항</h6>
+                    <div class="col s8">
+                        <a href="" class="truncate">공지사항입니다.공지사항입니다.공지사항입니다.공지사항입니다.공지사항입니다.</a>
+                    </div>
+                    <div class="col s4">
+                        2017.04.07.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
