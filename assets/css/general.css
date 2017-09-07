@@ -360,3 +360,45 @@ nav .main-nav a{
     color: #fff;
     padding: 10px;
 }
+.login-logo{margin:60px 0 30px 0}
+.login-logo p{
+    margin:0;
+    color: #757677;
+}
+
+.form-check {
+    position: relative;
+    display: block;
+    margin-bottom: .5rem;
+}
+            .form-check-label {
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+}
+            .form-check-input {
+    position: absolute;
+    margin-top: .25rem;
+    margin-left: -1.25rem;
+}
+.login-option{
+    font-weight: 400;
+}
+.login-option .text-center a{
+    text-decoration: underline;
+}
+.signupstep1-row h6{
+    font-size: 16px;
+    font-weight: 500
+}
+.signupstep1-row p{
+    margin: 0;
+    color: #646566;
+}
+.signupstep1-row a{
+    background: #00C63C;
+    border: 1px solid #00C100;
+    color: #fff;
+    padding: 10px;
+    margin-top: 5px;
+    display: block;
+}
