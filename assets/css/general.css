@@ -247,6 +247,52 @@ small {
   right: auto;
 }
 
+.row .col.offset-s1 {
+  margin-left: 8.3333333333%;
+}
+
+.row .col.offset-s2 {
+  margin-left: 16.6666666667%;
+}
+.row .col.offset-s3 {
+  margin-left: 25%;
+}
+
+.row .col.offset-s4 {
+  margin-left: 33.3333333333%;
+}
+
+.row .col.offset-s5 {
+  margin-left: 41.6666666667%;
+}
+
+.row .col.offset-s6 {
+  margin-left: 50%;
+}
+
+.row .col.offset-s7 {
+  margin-left: 58.3333333333%;
+}
+
+.row .col.offset-s8 {
+  margin-left: 66.6666666667%;
+}
+
+.row .col.offset-s9 {
+  margin-left: 75%;
+}
+
+.row .col.offset-s10 {
+  margin-left: 83.3333333333%;
+}
+
+.row .col.offset-s11 {
+  margin-left: 91.6666666667%;
+}
+
+.row .col.offset-s12 {
+  margin-left: 100%;
+}
 
 .form-element{
     display: block;
@@ -354,11 +400,19 @@ nav .main-nav a{
 .login-formarea .col{
     margin-bottom: 10px;
 }
-.login-formarea .col .login-btn{
+.btn{
     display: block;
+    padding: 10px;
+    border-radius: 3px;
+}
+.primary-btn{
     background: #00C63C;
     color: #fff;
-    padding: 10px;
+}
+.default-btn{
+    background: #CBCCCD;
+    font-weight: 500;
+    color: black;
 }
 .login-logo{margin:60px 0 30px 0}
 .login-logo p{
@@ -371,11 +425,11 @@ nav .main-nav a{
     display: block;
     margin-bottom: .5rem;
 }
-            .form-check-label {
+.form-check-label {
     padding-left: 1.25rem;
     margin-bottom: 0;
 }
-            .form-check-input {
+.form-check-input {
     position: absolute;
     margin-top: .25rem;
     margin-left: -1.25rem;
@@ -402,3 +456,8 @@ nav .main-nav a{
     margin-top: 5px;
     display: block;
 }
+.row-provision{border: 1px solid #ccc;border-radius:3px ;margin: 0 0 20px 0;background: #FEFFFF;color: #9A9B9C}
+.row-provision .form-check-frt{border: 1px solid #ccc;border-radius:3px;padding: 8px 5px;margin: 3px -5px;background: #F3F4F5;color: #000}
+.row-provision .form-check-label a{color:#9A9B9C;right: 0;
+position: absolute;}
+.form-hd-txt{font-size: 15px;font-weight: 600}
