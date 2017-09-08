@@ -2,7 +2,7 @@
     <h5 class="header">가맹정 회원관리</h5>
     <div class="row">
         <div class="col s12">
-            <p>투잡다모아에 가입한 일반회원의 내역을 확인할 수 있습니다.</p>
+            <p>투잡다모아에 가입한 가맹점 회원의 내역을 확인할 수 있습니다.</p>
             <table class="striped">
                 <thead>
                     <tr>

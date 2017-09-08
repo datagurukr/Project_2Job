@@ -179,7 +179,7 @@ class Shop extends CI_Controller {
         
         $data['response'] = $response;        
         *******************/
-        $data['response'] = $response;        
+        $data['response'] = $respdonse;        
         if ( $ajax ) {
         } else {
             if ( $post_type == 1 ) {

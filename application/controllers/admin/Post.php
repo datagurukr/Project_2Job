@@ -101,7 +101,7 @@ class Post extends CI_Controller {
         /*******************
         session
         *******************/
-        $data['session'] = $this->session->all_userdata();  
+        $data['session'] = $this->sessidon->all_userdata();  
         $data['session_id'] = 0;
         if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
             if ( $data['session']['admin'] ) {

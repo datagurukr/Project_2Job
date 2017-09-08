@@ -49,6 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['default_controller'] = 'main';
+
 /* Admin */
 // auth
 $route['admin/auth/login'] = 'admin/auth/login'; // 로그인
@@ -73,7 +75,15 @@ $route['admin/post/list/4'] = 'admin/post/index/4'; // 고객센터
 // post > detail
 $route['admin/post/(:num)'] = 'admin/post/detail/$1'; // 상세보기
 
-// API
+/* Front */
+$route['login'] = 'front/auth/login';
+$route['logout'] = 'front/auth/logout';
+$route['register'] = 'front/auth/register/0';
+$route['register/general'] = 'front/auth/register/1';
+$route['register/sales'] = 'front/auth/register/2';
+$route['register/shop'] = 'front/auth/register/3';
+
+/* API */
 $route['api/upload'] = "api/upload/ckupload";
 
 /* api/1.0 

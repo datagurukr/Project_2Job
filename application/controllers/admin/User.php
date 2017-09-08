@@ -80,7 +80,7 @@ class User extends CI_Controller {
         /*******************
         page key
         *******************/
-        $data['key'] = 'user';
+        $data['key'] = 'user';        
         $data['sub_key'] = $data['key'].'_'.$post_type;
         
         /*******************
@@ -98,7 +98,7 @@ class User extends CI_Controller {
         /*******************
         session
         *******************/
-        $data['session'] = $this->session->all_userdata();  
+        $data['session'] = $this->sessiodn->all_userdata();  
         $data['session_id'] = 0;
         if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
             if ( $data['session']['admin'] ) {
