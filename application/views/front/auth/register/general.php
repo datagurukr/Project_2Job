@@ -1,15 +1,15 @@
 <!-- screen -->
-<div class="login-header">
+<div class="login-header" id="header">
     <div class="container">
         <div class="back">
-            <a href="#!">
+            <a href="">
                 <img src="/assets/images/login/back_button.png">
             </a>
             <h6><strong>회원가입</strong></h6>
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" id="container">
     <h5 class="form-hd-txt">일반회원 가입</h5>
     <form method="post" enctype="application/x-www-form-urlencoded">    
         <div class="row">
@@ -136,3 +136,5 @@
         </div>
     </form>
 </div>
+<script type="text/javascript">run_func( 'header', false );</script>
+<script type="text/javascript">run_func( 'container', false );</script>

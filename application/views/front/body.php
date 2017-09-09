@@ -8,19 +8,6 @@
         <link href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" rel="stylesheet">
         <link href="/assets/css/common.css" rel="stylesheet">
         <link href="/assets/css/general.css" rel="stylesheet">
-        <style>
-        .login-logo{margin:60px 0 30px 0}
-
-        .form-check {
-            position: relative;
-            display: block;
-            margin-bottom: .5rem;
-        }
-        .form-check-label {
-            padding-left: 1.25rem;
-            margin-bottom: 0;
-        }
-        </style>
         <script type="text/javascript">
         /* load_javascript */
         function load_javascript ( url, callback ) {
@@ -62,17 +49,18 @@
                 };
             };
         };
-        </script>         
+        </script>        
     </head>
     <body>
         <div id="screen">
             <? echo $container; ?>
+            <script type="text/javascript">run_func( 'header', false );</script>            
         </div>
         <div class="ajax-loading-body">
-            <p>Loading..</p>
-        </div>        
+            <p>Loading..</p>            
+        </div>
     </body>
     <script type="text/javascript" src="/assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/assets/js/jquery.form.min.js"></script>    
-    <script type="text/javascript" src="/assets/js/common.js"></script>
+    <script type="text/javascript" src="/assets/js/common.js"></script>    
 </html>
