@@ -10,6 +10,13 @@
     <link href="/assets/admin/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="/assets/admin/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>    
     <link href="/assets/admin/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="/assets/admin/js/materialize.js"></script>
+    <script src="/assets/admin/js/init.js"></script>
+    <script src="http://cdn.ckeditor.com/4.7.1/full-all/ckeditor.js"></script>    
+    
 </head>
 <body>
     
@@ -216,12 +223,5 @@
         <div class="container">© 2014-2017 Materialize, All rights reserved. <a class="grey-text text-lighten-4 right" href="https://github.com/Dogfalo/materialize/blob/master/LICENSE">MIT License</a> </div>
       </div>
     </footer>
-    
-    
-    
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="/assets/admin/js/materialize.js"></script>
-    <script src="/assets/admin/js/init.js"></script>
 </body>
 </html>

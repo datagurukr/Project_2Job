@@ -61,8 +61,8 @@ $route['admin/user/list/1'] = 'admin/user/index/1'; // 일반 회원관리
 $route['admin/user/list/2'] = 'admin/user/index/2';// 영업사원 회원관리
 $route['admin/user/list/3'] = 'admin/user/index/3'; // 가맹점 회원관리
 $route['admin/user/list/4'] = 'admin/user/index/4'; // 틸퇴 회원관리
-// user > detail
-$route['admin/user/(:num)'] = 'admin/user/detail/$1'; // 상세보기
+// user > edit
+$route['admin/user/(:num)'] = 'admin/user/edit/$1'; // 상세보기
 
 // shop > ㅣlist
 $route['admin/shop/list/1'] = 'admin/shop/index/1'; // 일반 가맹점 관리
@@ -72,8 +72,9 @@ $route['admin/post/list/1'] = 'admin/post/index/1'; // 공지사항
 $route['admin/post/list/2'] = 'admin/post/index/2'; // 이벤트 관리
 $route['admin/post/list/3'] = 'admin/post/index/3'; // 인기 검색어 관리
 $route['admin/post/list/4'] = 'admin/post/index/4'; // 고객센터
-// post > detail
-$route['admin/post/(:num)'] = 'admin/post/detail/$1'; // 상세보기
+// post > edit
+$route['admin/post/(:num)/(:num)'] = 'admin/post/edit/$1/$2'; // 상세보기
+$route['admin/post/detail/(:num)/(:num)'] = 'admin/post/detail/$1/$2'; // 상세보기
 
 /* Front */
 // auth

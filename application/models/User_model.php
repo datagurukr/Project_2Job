@@ -252,6 +252,28 @@ class User_model extends CI_Model{
             ".$limit."
             ";      
         } elseif ( $type == 'status' ) {
+            $where = '';
+            if ( strlen(trim($data['q'])) != 0 ) {
+                if ( $data['target'] == 'name' ) {
+                    $where = "and user.user_name like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'email' ) {
+                    $where = "and user.user_email like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'level' ) {                  
+                } elseif ( $data['target'] == 'status' ) {                                      
+                } elseif ( $data['target'] == 'name_or_representative' ) {                                      
+                    $where = "and ( user.user_business_entity_name like '%".$data['q']."%' or user.user_name like '%".$data['q']."%'";
+                    echo $where;
+                } elseif ( $data['target'] == 'business_entity_name' ) {
+                    $where = "and user.user_business_entity_name like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'business_license_number' ) {
+                    $where = "and user.user_business_license_number like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'business_representative' ) {
+                    $where = "and user.user_business_representative like '%".$data['q']."%'";                    
+                } else {
+                    $where = "and ( user.user_name like '%".$data['q']."%' or user.user_email like '%".$data['q']."%' )";
+                }
+            };
+            
             $sql = "
             select
                 ".$select."
@@ -261,9 +283,32 @@ class User_model extends CI_Model{
                 user.user_state = 1
                 and
                 user.user_status = '".$data['user_status']."'
+                ".$where."                
+            order by user.user_register_date ".$data['order']."                
             ".$limit."
             ";
         } elseif ( $type == 'dropout' ) {
+            $where = '';
+            if ( strlen(trim($data['q'])) != 0 ) {
+                if ( $data['target'] == 'name' ) {
+                    $where = "and user.user_name like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'email' ) {
+                    $where = "and user.user_email like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'level' ) {                  
+                } elseif ( $data['target'] == 'status' ) {                                      
+                } elseif ( $data['target'] == 'name_or_representative' ) {                                      
+                    $where = "and ( user.user_business_entity_name like '%".$data['q']."%' or user.user_name like '%".$data['q']."%' )";
+                } elseif ( $data['target'] == 'business_entity_name' ) {
+                    $where = "and user.user_business_entity_name like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'business_license_number' ) {
+                    $where = "and user.user_business_license_number like '%".$data['q']."%'";
+                } elseif ( $data['target'] == 'business_representative' ) {
+                    $where = "and user.user_business_representative like '%".$data['q']."%'";                    
+                } else {
+                    $where = "and ( user.user_name like '%".$data['q']."%' or user.user_email like '%".$data['q']."%' )";
+                }
+            };
+            
             $sql = "
             select
                 ".$select."
@@ -271,6 +316,8 @@ class User_model extends CI_Model{
                 user AS user
             WHERE
                 user.user_state = 9
+                ".$where."                
+            order by user.user_register_date ".$data['order']."                
             ".$limit."
             ";            
         } elseif ( $type == 'auth_code' ) {

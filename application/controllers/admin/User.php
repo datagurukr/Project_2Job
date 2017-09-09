@@ -146,22 +146,52 @@ class User extends CI_Controller {
         };        
         $data['target'] = $target;
         
+        if ( isset($_GET['yearmonth']) ) {
+            $yearmonth = $_GET['yearmonth'];
+            $pagination_url = $pagination_url.'&yearmonth='.$yearmonth;            
+        } else {
+            $yearmonth = '';
+        };
+        $data['yearmonth'] = $yearmonth;        
+            
+        if ( isset($_GET['order']) ) {
+            if ( $_GET['order'] == 'desc' || $_GET['order'] == 'asc' ) {
+                $order = $_GET['order'];
+            } else {
+                $order = 'desc';
+            };
+            $pagination_url = $pagination_url.'&order='.$order;
+        } else {
+            $order = 'desc';
+        };
+        $data['order'] = $order;
+        
+        if ( isset($_GET['order_target']) ) {
+            $order_target = $_GET['order_target'];
+            $pagination_url = $pagination_url.'&order_target='.$order_target;
+        } else {
+            $order_target = '';
+        };        
+        $data['order_target'] = $order_target;        
+        
         if ( $user_status == 4 ) {
             $result = $this->user_model->out('dropout',array(
                 'user_id' => $session_id,
                 'p' => $p,
                 'q' => $q,
-                'order' => 'desc',
+                'order' => $order,
                 'user_status' => $user_status,
-                'target' => $target
+                'target' => $target,
+                'order_target' =>$order_target
             ));
             $result_count = $this->user_model->out('dropout',array(
                 'user_id' => $session_id,
                 'p' => $p,
                 'q' => $q,
-                'order' => 'desc',            
+                'order' => $order,            
                 'user_status' => $user_status,            
                 'target' => $target,            
+                'order_target' =>$order_target,                
                 'count' => TRUE
             ));    
         } else {
@@ -169,17 +199,19 @@ class User extends CI_Controller {
                 'user_id' => $session_id,
                 'p' => $p,
                 'q' => $q,
-                'order' => 'desc',
+                'order' => $order,
                 'user_status' => $user_status,
-                'target' => $target
+                'target' => $target,
+                'order_target' =>$order_target
             ));
             $result_count = $this->user_model->out('status',array(
                 'user_id' => $session_id,
                 'p' => $p,
                 'q' => $q,
-                'order' => 'desc',            
+                'order' => $order,            
                 'user_status' => $user_status,            
-                'target' => $target,            
+                'target' => $target,
+                'order_target' =>$order_target,
                 'count' => TRUE
             ));    
         }

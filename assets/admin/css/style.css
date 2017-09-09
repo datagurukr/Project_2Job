@@ -12,3 +12,24 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.custom-detail .custom-label {
+    background-color: #eee;
+}
+
+.custom-detail .col {
+    border: 1px solid #eee;
+    margin: 7px 0;
+    text-align: center;
+    font-size: 13px;
+    padding: 0;    
+}
+
+.custom-detail .row {
+}
+
+.custom-detail .row .col {
+}
+
+.custom-detail .col p {
+}
