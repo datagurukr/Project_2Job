@@ -472,3 +472,25 @@ position: absolute;}
 .hamburgermenu{position: absolute;top:15px;right: 15px}
 .list-detail{padding: 15px}
 .list-detail p{margin:  0 0 10px 0}
+.event-nav:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.event-nav .tab{
+    float: left;
+    width: 50%;
+}
+.event-nav .tab-frt{
+    background: #DEDFE0;                
+}
+.event-nav .tab-scd{
+    background: #EDEEEF;
+}
+.event-nav .tab a{
+    display: block;
+    font-weight: 500;
+    padding: 8px;
+    color: black;
+}
+            
