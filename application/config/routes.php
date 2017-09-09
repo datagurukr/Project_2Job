@@ -76,12 +76,20 @@ $route['admin/post/list/4'] = 'admin/post/index/4'; // 고객센터
 $route['admin/post/(:num)'] = 'admin/post/detail/$1'; // 상세보기
 
 /* Front */
-$route['login'] = 'front/auth/login';
-$route['logout'] = 'front/auth/logout';
-$route['register'] = 'front/auth/register/0';
-$route['register/general'] = 'front/auth/register/1';
-$route['register/sales'] = 'front/auth/register/2';
-$route['register/shop'] = 'front/auth/register/3';
+// auth
+$route['login'] = 'auth/login';
+$route['logout'] = 'auth/logout';
+$route['register'] = 'auth/register/0';
+$route['register/general'] = 'auth/register/1';
+$route['register/sales'] = 'auth/register/2';
+$route['register/shop'] = 'auth/register/3';
+
+// post
+$route['notice'] = 'post/index/1';
+$route['event'] = 'post/index/2/open';
+$route['event/open'] = 'post/index/2/open';
+$route['event/close'] = 'post/index/2/close';
+$route['qna'] = 'post/index/3';
 
 /* API */
 $route['api/upload'] = "api/upload/ckupload";

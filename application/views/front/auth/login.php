@@ -1,15 +1,15 @@
 <!-- screen -->
-<div class="login-header">
+<div class="login-header" id="header">
     <div class="container">
         <div class="back">
-            <a href="#!">
+            <a href="">
                 <img src="/assets/images/login/back_button.png">
             </a>
             <h6><strong>로그인</strong></h6>
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" id="container">
     <div class="row login-logo">
         <div class="col s12 text-center">
             <img src="assets/images/login/logo_green.png">
@@ -65,3 +65,5 @@
         </div>
     </form>    
 </div>
+<script type="text/javascript">run_func( 'header', false );</script>
+<script type="text/javascript">run_func( 'container', false );</script>
