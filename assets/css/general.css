@@ -402,6 +402,8 @@ nav .main-nav a{
 }
 .btn{
     display: block;
+    width: 100%;
+    border:none;
     padding: 10px;
     border-radius: 3px;
 }
@@ -461,3 +463,12 @@ nav .main-nav a{
 .row-provision .form-check-label a{color:#9A9B9C;right: 0;
 position: absolute;}
 .form-hd-txt{font-size: 15px;font-weight: 600}
+.list-row{border-bottom: 1px solid #E3E4E4;padding: 15px}
+.list-row a{display: block;position: relative}
+.list-row h6{margin:0 0 5px 0;font-weight: 500}
+.list-row p{margin: 0}
+.list-row .link{position:absolute;top: 8px;right: 0}
+.list-row .banner{margin-top: 10px}
+.hamburgermenu{position: absolute;top:15px;right: 15px}
+.list-detail{padding: 15px}
+.list-detail p{margin:  0 0 10px 0}
