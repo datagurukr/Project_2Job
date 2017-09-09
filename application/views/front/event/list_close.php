@@ -13,7 +13,15 @@
         </div>
     </div>
 </div>
-<div class="list-wrap" id="container">
+<div class="list-wrap" id="container">    
+    <div class="event-nav">
+        <div class="tab tab">
+            <a href="/event/open" class="text-center">진행중인 이벤트</a>
+        </div>
+        <div class="tab tab-active">
+            <a href="/event/close" class="text-center disable">종료된 이벤트</a>
+        </div>        
+    </div>    
     <?
     if ( $response['status'] == 200 ) {
         if ( 0 < $response['data']['count'] ) {

@@ -17,6 +17,34 @@ class Post extends CI_Controller {
 		parent::__construct();
 	}
     
+    public function init_meta ($meta_data) {
+        $meta['description'] = '투잡다모아';
+        $meta['keyword'] = '투잡다모아';
+        $meta['title'] = '투잡다모아';
+        $meta['generator'] = '투잡다모아';
+        $meta['image'] = '/assets/images/default.png';
+        $meta['robots'] = 'index,follow';  
+        if ( @$meta_data['description'] ) {
+            $meta['description'] = $meta_data['description'];
+        };
+        if ( @$meta_data['keyword'] ) {
+            $meta['keyword'] = $meta_data['keyword'];
+        };
+        if ( @$meta_data['title'] ) {
+            $meta['title'] = $meta_data['title'];
+        };
+        if ( @$meta_data['generator'] ) {
+            $meta['generator'] = $meta_data['generator'];
+        };
+        if ( @$meta_data['image'] ) {
+            $meta['image'] = $meta_data['image'];
+        };
+        if ( @$meta_data['robots'] ) {
+            $meta['robots'] = $meta_data['robots'];
+        };
+        return $meta;
+    }     
+    
     function global_pagination ($count,$url,$query_url = false, $details = false) {
         /*******************
         library load
@@ -76,6 +104,21 @@ class Post extends CI_Controller {
         response
         *******************/
         $response = array();        
+        
+        /*******************
+        meta
+        *******************/
+        $meta = array();           
+        
+        /*******************
+        callback
+        *******************/
+        $callback = '';
+        
+        /*******************
+        redirect url
+        *******************/
+        $redirect_url = '';           
         
         /*******************
         page key
@@ -158,20 +201,54 @@ class Post extends CI_Controller {
             $response['status'] = 401;
         };                
         
+        /*******************
+        meta
+        *******************/
+        $data['meta'] = $this->init_meta($meta);                    
+        
         $data['response'] = $response;        
-        if ( $ajax ) {
-        } else {
-            if ( $post_status == 1 ) {
-                $data['container'] = $this->load->view('/front/notice/list', $data, TRUE);
-            } elseif ( $post_status == 2 ) {
-                if ( $open == 'open' ) {
-                    $data['container'] = $this->load->view('/front/event/list', $data, TRUE);
-                } else {
-                    $data['container'] = $this->load->view('/front/event/list', $data, TRUE);
-                };
-            } elseif ( $post_status == 3 ) {
-                $data['container'] = $this->load->view('/front/qna/list', $data, TRUE);
+        
+        if ( $post_status == 1 ) {
+            $data['container'] = $this->load->view('/front/notice/list', $data, TRUE);
+        } elseif ( $post_status == 2 ) {
+            if ( $open == 'open' ) {
+                $data['container'] = $this->load->view('/front/event/list_open', $data, TRUE);
+            } else {
+                $data['container'] = $this->load->view('/front/event/list_close', $data, TRUE);
             };
+        } elseif ( $post_status == 3 ) {
+            $data['container'] = $this->load->view('/front/qna/list', $data, TRUE);
+        };
+        
+        if ( $ajax ) {
+            $article = $data['container'];
+            $ajax_data['module'] = array (
+                'html' => $article,
+                'tree' => array (
+                    'router_attributes' => array('class' => ''),
+                    'inner_attributes' => array ('class' => '','id' => 'screen'),
+                    'header_attributes' => array ('class' => '','id' => ''),
+                    'article_attributes' => array ('class' => '','id' => ''),
+                    'footer_attributes' => array ('class' => '','id' => '')
+                ),
+                'page_info' => array (
+                    'meta' => $data['meta'],
+                    'title' => $data['meta']['title']
+                ),
+                'resource_response' => array (
+                    'session' => $data['session'],
+                    'data' => $data
+                ),
+                'callback' => $callback,
+                'redirect_url' => $redirect_url,
+                'complete' => 1,
+                'overlay' => FALSE,
+                'url_change' => TRUE
+            );
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output( json_encode($ajax_data) );             
+        } else {
             $this->load->view('/front/body', $data, FALSE);            
         };
     }

@@ -251,7 +251,29 @@ class User_model extends CI_Model{
                 user.user_email = '".$data['user_email']."'
             ".$limit."
             ";      
-        } elseif ( $type == 'auth_code' ) {            
+        } elseif ( $type == 'status' ) {
+            $sql = "
+            select
+                ".$select."
+            FROM
+                user AS user
+            WHERE
+                user.user_state = 1
+                and
+                user.user_status = '".$data['user_status']."'
+            ".$limit."
+            ";
+        } elseif ( $type == 'dropout' ) {
+            $sql = "
+            select
+                ".$select."
+            FROM
+                user AS user
+            WHERE
+                user.user_state = 9
+            ".$limit."
+            ";            
+        } elseif ( $type == 'auth_code' ) {
             $sql = "
             select
                 ".$select."
