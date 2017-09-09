@@ -481,14 +481,12 @@ position: absolute;}
     float: left;
     width: 50%;
 }
-.event-nav .tab-frt{
-    background: #DEDFE0;                
-}
-.event-nav .tab-scd{
-    background: #EDEEEF;
+.event-nav .tab-active a{
+    background: #EDEEEF !important;
 }
 .event-nav .tab a{
     display: block;
+    background: #DEDFE0;   
     font-weight: 500;
     padding: 8px;
     color: black;
