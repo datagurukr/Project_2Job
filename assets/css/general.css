@@ -533,3 +533,11 @@ position: absolute;}
 .navbar .top ul li a{display: block; padding: 10px;color:#fff}
 .navbar .list-wrap .list-row img{margin-right: 10px}
 .navbar .list-wrap .list-row h6{font-weight: 500}
+
+.recomend-hd .row{margin-bottom: 5px}
+.recomend-hd h6{font-size: 16px;font-weight: 500;color: #00C100}
+.recomend-hd .form-check{margin-top: .5rem}
+.aff-ele .row{margin-bottom: 0}
+.aff-ele .col-tltle img{display: block;width: 100%}
+.aff-ele h6{font-size: 16px}
+.aff-ele .intro{color: #B4B5B6;margin-bottom: 5px}
