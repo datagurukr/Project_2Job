@@ -10,51 +10,171 @@
         <link href="assets/css/general.css" rel="stylesheet">
     </head>
     <body>
-        <div class="login-header">
-            <div class="container">
-                <div class="back">
-                    <a href="#!">
-                        <img src="assets/images/back_button.png">
-                    </a>
-                    <h6><strong>공지사항</strong></h6>
+        <style>
+            .navbar{border-left: 1px solid #E3E4E4}
+            .navbar .top{background: #00C63C;color: #fff}
+            .navbar .top h6{margin: 0}
+            .navbar .top p{margin: 0 0 5px 0}
+            .navbar .top .btn{display: inline-block;width: auto;border: 1px solid #fff;padding: 5px 10px}
+            .navbar .top .row{margin-bottom: 10px}
+            .navbar .top .welcome{font-size: 20px;padding: 10px 0 5px 0}
+            .navbar .top .welcome small{font-size: 18px;color: #FEFC00}
+            .navbar .top ul{border-top:1px solid #fff}
+            .navbar .top ul li{display: inline-block}
+            .navbar .top ul li a{display: block; padding: 10px;color:#fff}
+            .navbar .list-wrap .list-row img{margin-right: 10px}
+            .navbar .list-wrap .list-row h6{font-weight: 500}
+        </style>
+        
+        <nav class="navbar navbar-default navbar-fixed-top navbar-slide" id="navbar-collapse-menu">
+            <div class="top">
+                <div class="container">
+                    <h6 class="text-center welcome">
+                        홍길동 님, 반갑습니다!<br>
+                        <small>LV . 12</small>
+                    </h6>
+                    <div class="row">
+                        <div class="col s8">
+                            <p><span><img src="assets/images/dot.png"></span>
+                            이용 가능한 직권 할인율</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>25%</span></p>
+                        </div>
+                        <div class="col s8">
+                            <p><span><img src="assets/images/dot.png"></span>
+                            이번 달 나의 월급</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>120,000원</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6 text-right">
+                            <button class="btn primary-btn">급여내역</button>
+                        </div>
+                        <div class="col s6 text-left">
+                            <button class="btn primary-btn">로그아웃</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="hamburgermenu">
+                <ul class="row text-center">
+                    <li class="col s3">
+                        <a href="#!">알림</a>
+                    </li>
+                    <li class="col s3">
+                        <a href="#!">설정</a>
+                    </li>
+                    <li class="col s6">
+                        <a href="#!">예약번호사용조회</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="list-wrap">
+                <div class="list-row">
                     <a href="#!">
-                        <img src="assets/images/menu.png">
+                        <h6><img src="assets/images/ham-bookmark.png">즐겨찾는 가맹점</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-alert.png">가맹점 직거래 신고하기</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-history.png">나의 활동 내역</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-notice.png">공지사항</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-event.png">이벤트</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-question.png">자주 묻는 질문</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-call.png">고객센터</h6>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="wrap" id="hideMenu">
+            <div class="login-header">
+                <div class="container">
+                    <div class="back">
+                        <a href="#!">
+                            <img src="assets/images/back_button.png">
+                        </a>
+                        <h6><strong>공지사항</strong></h6>
+                    </div>
+                    <div class="hamburgermenu">
+                        <a href="#!" id="showMenu">
+                            <img src="assets/images/menu.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="list-wrap">
+                <div class="event-nav">
+                    <div class="tab tab">
+                        <a href="#!" class="text-center">진행중인 이벤트</a>
+                    </div>
+                    <div class="tab tab-active">
+                        <a href="#!" class="text-center">종료된 이벤트</a>
+                    </div>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6>투잡다모아 오픈 안내</h6>
+                        <p><small>2017-5-5</small></p>
+                        <img class="link" src="assets/images/link.png">
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6>투잡다모아 오픈 안내</h6>
+                        <p><small>2017-5-5 ~ 2017-6-12</small></p>
+                        <img class="banner" src="assets/images/eventbannersample.png" width="100%">
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6>투잡다모아 오픈 안내</h6>
+                        <p><small>2017-05-05</small></p>
+                        <img class="link" src="assets/images/link.png">
                     </a>
                 </div>
             </div>
         </div>
-        <div class="list-wrap">
-            <div class="event-nav">
-                <div class="tab tab">
-                    <a href="#!" class="text-center">진행중인 이벤트</a>
-                </div>
-                <div class="tab tab-active">
-                    <a href="#!" class="text-center">종료된 이벤트</a>
-                </div>
-            </div>
-            <div class="list-row">
-                <a href="">
-                    <h6>투잡다모아 오픈 안내</h6>
-                    <p><small>2017-5-5</small></p>
-                    <img class="link" src="assets/images/link.png">
-                </a>
-            </div>
-            <div class="list-row">
-                <a href="">
-                    <h6>투잡다모아 오픈 안내</h6>
-                    <p><small>2017-5-5 ~ 2017-6-12</small></p>
-                    <img class="banner" src="assets/images/eventbannersample.png" width="100%">
-                </a>
-            </div>
-            <div class="list-row">
-                <a href="">
-                    <h6>투잡다모아 오픈 안내</h6>
-                    <p><small>2017-05-05</small></p>
-                    <img class="link" src="assets/images/link.png">
-                </a>
-            </div>
-        </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> 
+        <script>
+            $("#showMenu").on("click", function(){
+                var container = $("#navbar-collapse-menu");
+                container.show();
+                $("body").addClass("site-nav-transition");
+                if(event.stopPropagation) event.stopPropagation(); //MOZILLA
+            else event.cancelBubble = true; //IE
+            });
+            $("#hideMenu").on("click", function(){
+                var container = $("#navbar-collapse-menu");
+                container.hide();
+                $("#showMenu").show();
+                $("body").removeClass("site-nav-transition");
+                if(event.stopPropagation) event.stopPropagation(); //MOZILLA
+            else event.cancelBubble = true; //IE
+            });
+            $("#hideMenu").click();
+        </script>
     </body>
 </html>
