@@ -23,6 +23,14 @@ class User_model extends CI_Model{
         if ( !array_key_exists('user_name',$data) ) {
             $data['user_name'] = '';
         };        
+        
+        if ( !array_key_exists('user_email',$data) ) {
+            $data['user_email'] = '';
+        };                
+        
+        if ( !array_key_exists('user_pass',$data) ) {
+            $data['user_pass'] = '';
+        };                        
             
         if ( !array_key_exists('user_picture',$data) ) {
             $data['user_picture'] = '';
@@ -36,25 +44,45 @@ class User_model extends CI_Model{
             $data['user_state'] = 0;
         };
         
-        if ( !array_key_exists('user_gender',$data) ) {
-            $data['user_gender'] = 0; // 1 : 남, 2 : 여
-        };
-        
         if ( !array_key_exists('user_tel',$data) ) {
-            $data['user_tel'] = ''; // 미인증                
+            $data['user_tel'] = ''; //                 
         };
 
-        if ( !array_key_exists('user_birthday',$data) ) {
-            $data['user_birthday'] = '0000-00-00'; // 미인증                
+        if ( !array_key_exists('user_bank_name',$data) ) {
+            $data['user_bank_name'] = ''; //                 
         };
         
-        if ( !array_key_exists('user_ip_address',$data) ) {
-            $data['user_ip_address'] = $_SERVER['REMOTE_ADDR'];
+        if ( !array_key_exists('user_bank_number',$data) ) {
+            $data['user_bank_number'] = ''; //                 
         };
         
-        if ( !array_key_exists('user_facebook_id',$data) ) {
-            $data['user_facebook_id'] = '';
+        if ( !array_key_exists('user_recommender_name',$data) ) {
+            $data['user_recommender_name'] = ''; //                 
         };
+        
+        if ( !array_key_exists('user_employment_contract',$data) ) {
+            $data['user_employment_contract'] = ''; //                 
+        };
+        
+        if ( !array_key_exists('user_business_entity_name',$data) ) {
+            $data['user_business_entity_name'] = ''; //                 
+        };
+        
+        if ( !array_key_exists('user_business_license_number',$data) ) {
+            $data['user_business_license_number'] = ''; //                 
+        };    
+        
+        if ( !array_key_exists('user_business_representative',$data) ) {
+            $data['user_business_representative'] = ''; //                 
+        };           
+        
+        if ( !array_key_exists('user_business_industry',$data) ) {
+            $data['user_business_industry'] = ''; //                 
+        };           
+        
+        if ( !array_key_exists('user_authentication_number',$data) ) {
+            $data['user_authentication_number'] = ''; //                 
+        };           
         
         if ( !array_key_exists('user_ip_address',$data) ) {
             $data['user_ip_address'] = $_SERVER['REMOTE_ADDR'];
@@ -62,34 +90,43 @@ class User_model extends CI_Model{
                 
         if ( $type == 'create' ) {
             $sql = "
-                INSERT INTO  user (                
+                insert into  user (                
                     user_id,
                     user_status,
                     user_state,
                     user_name,
                     user_email,
                     user_pass,
-                    user_picture,
-                    user_gender,
                     user_tel,
-                    user_birthday,
-                    user_facebook_id,
+                    user_bank_name,
+                    user_bank_number,
+                    user_recommender_name,
+                    user_employment_contract,
+                    user_business_entity_name,
+                    user_business_license_number,
+                    user_business_representative,
+                    user_business_industry,
+                    user_authentication_number,
                     user_ip_address,
                     user_register_date,
                     user_update_date
-                )
-                VALUES (
+                ) values (
                     ".$data['user_id'].",
                     ".$data['user_status'].",                    
                     ".$data['user_state'].",                    
                     '".$this->db->escape_str($data['user_name'])."',
                     '".$data['user_email']."',
                     '".sha1($data['user_pass'])."',
-                    '".$data['user_picture']."',
-                    ".$data['user_gender'].",                    
                     '".$data['user_tel']."',
-                    '".$data['user_birthday']."',
-                    '".$data['user_facebook_id']."',
+                    '".$data['user_bank_name']."',
+                    '".$data['user_bank_number']."',
+                    '".$data['user_recommender_name']."',
+                    '".$data['user_employment_contract']."',
+                    '".$data['user_business_entity_name']."',
+                    '".$data['user_business_license_number']."',
+                    '".$data['user_business_representative']."',
+                    '".$data['user_business_industry']."',                    
+                    '".$data['user_authentication_number']."',                    
                     '".$data['user_ip_address']."',
                     now(),
                     now()
@@ -181,22 +218,26 @@ class User_model extends CI_Model{
             count(*) as cnt
             ";
         } else {
-            $select = "            
+            $select = "          
             user.user_id as user_id,
             user.user_status as user_status,
             user.user_state as user_state,
             user.user_name as user_name,
             user.user_email as user_email,
             user.user_pass as user_pass,
-            user.user_picture as user_picture,
-            user.user_gender as user_gender,
             user.user_tel as user_tel,
-            user.user_birthday as user_birthday,
-            user.user_introduction as user_introduction,
-            user.user_facebook_id as user_facebook_id,
+            user.user_bank_name as user_bank_name,
+            user.user_bank_number as user_bank_number,
+            user.user_recommender_name as user_recommender_name,
+            user.user_employment_contract as user_employment_contract,
+            user.user_business_entity_name as user_business_entity_name,
+            user.user_business_license_number as user_business_license_number,
+            user.user_business_representative as user_business_representative,
+            user.user_business_industry as user_business_industry,
+            user.user_authentication_number as user_authentication_number,
             user.user_ip_address as user_ip_address,
             user.user_register_date as user_register_date,
-            user.user_update_date as user_update_date
+            user.user_update_date as user_update_date            
             ";
         };        
         
@@ -311,6 +352,7 @@ class User_model extends CI_Model{
                     $temp_data = array();                    
                     foreach ( $user_data as $row ) {
                         
+                        /*
                         if ( array_key_exists('user_picture',$row) ) {
                             $filename = $row['user_picture'];
                             $ext = substr(strrchr($filename,"."),1);
@@ -331,6 +373,7 @@ class User_model extends CI_Model{
                                 $user_data[$i]['user_picture'] = '/api/load/file?file_name=user.jpg';
                             };
                         };
+                        */
                         
                         array_push($temp_data,$user_data[$i]);
                         $i++;                        
