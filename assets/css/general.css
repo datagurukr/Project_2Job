@@ -472,19 +472,19 @@ position: absolute;}
 .hamburgermenu{position: absolute;top:15px;right: 15px}
 .list-detail{padding: 15px}
 .list-detail p{margin:  0 0 10px 0}
-.event-nav:after{
+.list-tab:after{
     content: "";
     display: block;
     clear: both;
 }
-.event-nav .tab{
+.list-tab .tab{
     float: left;
     width: 50%;
 }
-.event-nav .tab-active a{
+.list-tab .tab-active a{
     background: #EDEEEF !important;
 }
-.event-nav .tab a{
+.list-tab .tab a{
     display: block;
     background: #DEDFE0;   
     font-weight: 500;
@@ -541,3 +541,8 @@ position: absolute;}
 .aff-ele .col-tltle img{display: block;width: 100%}
 .aff-ele h6{font-size: 16px}
 .aff-ele .intro{color: #B4B5B6;margin-bottom: 5px}
+.intro-wrap{position: relative}
+.intro-wrap h6{position: absolute;bottom: 5px;color: #fff;width: 100%;font-size: 18px}
+.aff-list{margin-bottom: 15px}
+.aff-grid p{margin: 0}
+.aff-foot{position: fixed;bottom: 0;width: 100%}
