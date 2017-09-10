@@ -11,13 +11,13 @@ if ( $response['data']['event_out'] ) {
 <div class="main-header">
     <div class="container">
         <div class="logo text-center">
-            <img src="assets/images/main/logo.png">
+            <img src="/assets/images/logo.png">
         </div>
         <div class="row" style="margin-bottom:10px">
             <div class="col s12 text-center main-searchbar">
                 <input class="form-element" type="search">
                 <button>
-                    <img src="assets/images/main/search.png">
+                    <img src="/assets/images/search.png">
                 </button>    
             </div>
         </div>
@@ -37,19 +37,19 @@ if ( $response['data']['event_out'] ) {
     <div class="row main-thirdmenu">
         <div class="col s4 text-center">
             <a href="">
-                <img src="assets/images/main/pin.png">
+                <img src="/assets/images/pin.png">
                 <div>지도에서<br>가맹점 찾기</div>
             </a>
         </div>
         <div class="col s4 text-center">
             <a href="">
-                <img src="assets/images/main/likeit.png">
+                <img src="/assets/images/likeit.png">
                 <div>일하기 편한<br>추천 가맹점</div>
             </a>
         </div>
         <div class="col s4 text-center">
             <a href="">
-                <img src="assets/images/main/find.png">
+                <img src="/assets/images/find.png">
                 <div>맞춤조건으로<br>가맹점 찾기</div>
             </a>
         </div>
@@ -66,7 +66,7 @@ if ( $response['data']['event_out'] ) {
         </div>
 
         <div class="col s8">
-            <span><img src="assets/images/main/dot.png"></span>
+            <span><img src="/assets/images/dot.png"></span>
             이용 가능한 직권 할인율
             <span class="text-lightblue">25%</span>
         </div>
@@ -76,7 +76,7 @@ if ( $response['data']['event_out'] ) {
             </a>
         </div>
         <div class="col s8">
-            <span><img src="assets/images/main/dot.png"></span>
+            <span><img src="/assets/images/dot.png"></span>
             이번 달 나의 월급
             <span class="text-lightblue">120,000원</span>
         </div>
@@ -98,20 +98,20 @@ if ( $response['data']['event_out'] ) {
         </div>
         <div class="col s2">
             <a href="" class="text-center">
-                <img src="assets/images/main/menu.png">
+                <img src="/assets/images/menu.png">
             </a>
         </div>
     </div> 
     <div class="row main-banner">
         <div class="col s12">
             <a href="">
-                <img src="/assets/images/main/banner.png" width="100%">
+                <img src="/assets/images/banner.png" width="100%">
             </a>
         </div>
     </div>
     <div class="row main-notice">
         <div class="col s12">
-            <h6><span><img src="/assets/images/main/blit.png"></span> 공지사항</h6>
+            <h6><span><img src="/assets/images/blit.png"></span> 공지사항</h6>
             <?
             if ( $notice_out ) {
                 foreach ( $notice_out as $row ) {
@@ -143,7 +143,7 @@ if ( $response['data']['event_out'] ) {
     </div>
     <div class="row main-notice">
         <div class="col s12">
-            <h6><span><img src="/assets/images/main/blit.png"></span> 이벤트</h6>
+            <h6><span><img src="/assets/images/blit.png"></span> 이벤트</h6>
             <?
             if ( $event_out ) {
                 foreach ( $event_out as $row ) {
