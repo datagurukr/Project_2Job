@@ -92,6 +92,16 @@ $route['event/open'] = 'post/index/2/open';
 $route['event/close'] = 'post/index/2/close';
 $route['qna'] = 'post/index/3';
 
+// shop
+$route['shop'] = 'shop/map';
+$route['shop/list'] = 'shop/index';
+$route['shop/(:num)'] = 'shop/id/$1/detail';
+$route['shop/(:num)/detail'] = 'shop/id/$1/detail';
+$route['shop/(:num)/product'] = 'shop/id/$1/product';
+
+// search
+$route['search'] = 'search/index';
+
 /* API */
 $route['api/upload'] = "api/upload/ckupload";
 
