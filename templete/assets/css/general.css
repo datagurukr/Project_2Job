@@ -546,3 +546,30 @@ position: absolute;}
 .aff-list{margin-bottom: 15px}
 .aff-grid p{margin: 0}
 .aff-foot{position: fixed;bottom: 0;width: 100%}
+.affdetail-info p{color: #ACADAE;margin: 0}
+.affdetail-info h6{font-size: 15px}
+.affdetail-info .intro-body{margin-bottom: 20px}
+
+.map-tab:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.map-tab{
+    text-align: center;
+    border: 1px solid #DCDDDD;
+}
+.map-tab .tab{
+    float: left;
+    width: 50%;
+}
+.map-tab .tab-frt{
+    border-right: 1px solid #DCDDDD;
+    margin-left: -1px;
+}
+.map-tab .tab a{
+    display: block;
+    font-weight: 500;
+    padding: 8px;
+    color: #AFB0B1;
+}
