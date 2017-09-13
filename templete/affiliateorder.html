@@ -21,81 +21,125 @@
                     </div>
                 </div>
             </div>
-            <div class="productname-wrap">
-                <img src="assets/images/productsample.png" width="100%">
-                <p class="text-center"><strong>자바칩 프라푸치노</strong></p>
-            </div>
+            <style>
+                .order-ele{border: 1px solid #ddd;margin-top: 15px}
+                .order-ele .order-ele-row{margin-bottom: 0}
+                .order-ele-img{margin: 5px}
+                .order-ele-img img{display: block}
+                .order-ele-hd{position: relative}
+                .order-ele-hd h6{margin: 0;padding-top:10px}
+                .order-ele-hd a{position: absolute;top: 10px;right: 10px}
+                .order-ele-custom{background:#F1F2F3;border:1px solid #E0E1E2;margin: 5px;padding-top: 5px}
+                .order-ele-custom:after{clear: both;content: "";display: block;}
+                .order-ele-custom .col{margin: 5px 0}
+                .order-ele-custom .opt-cg-btn{padding: 5px 10px;background:#CBCCCD}
+                .pay-info-wrap{background:#EFF0F1;border: 1px solid #C3C4C5;padding: 15px}
+                .pay-info{margin-top: 15px}
+                .pay-info-wrap .discount-price input{width: 30px}
+                .pay-info-wrap .discount-price span{color: #535455;font-size: 12px}
+            </style>
             <div class="container">
-                <div class="price-info">
-                    <div class="row row-price">
+                <div class="order-ele">
+                    <div class="row order-ele-row">
                         <div class="col s6">
-                            가격
+                            <div class="order-ele-img">
+                                <img src="assets/images/productsample.png" width="100%">
+                            </div>
                         </div>
-                        <div class="col s6 text-right">
-                            <span>6,500</span>원
-                        </div>
-                    </div>
-                    <div class="option-title">
-                        <h6>옵션</h6>
-                    </div>
-                    <div class="row row-option">
-                        <div class="col s4">자바칩</div>
-                        <div class="col s3">+600원</div>
-                        <div class="col s5 text-right">
-                            <ul class="qty-ctrl">
-                                <li><a class="btn-dec">-</a></li>
-                                <li><input type="number" class="cnt text-center" disabled width="500px" value="1"></li>
-                                <li><a class="btn-inc">+</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row row-option">
-                        <div class="col s4">자바칩</div>
-                        <div class="col s3">+600원</div>
-                        <div class="col s5 text-right">
-                            <ul class="qty-ctrl">
-                                <li><a class="btn-dec">-</a></li>
-                                <li><input type="number" class="cnt text-center" disabled width="500px" value="1"></li>
-                                <li><a class="btn-inc">+</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row row-option">
-                        <div class="col s4">자바칩</div>
-                        <div class="col s3">+600원</div>
-                        <div class="col s5 text-right">
-                            <ul class="qty-ctrl">
-                                <li><a class="btn-dec">-</a></li>
-                                <li><input type="number" class="cnt text-center" disabled width="500px" value="1"></li>
-                                <li><a class="btn-inc">+</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="row row-quantity">
                         <div class="col s6">
-                            수량
+                            <div class="order-ele-hd">
+                                <h6>자바칩 프라푸치노</h6>
+                                <a href="#!">
+                                    <img src="assets/images/X.png">
+                                </a>
+                            </div>
                         </div>
-                        <div class="col s6 text-right">
-                            <ul class="qty-ctrl">
-                                <li><a class="btn-dec">-</a></li>
-                                <li><input type="number" class="cnt text-center" disabled width="500px" value="1"></li>
-                                <li><a class="btn-inc">+</a></li>
-                            </ul>
+                        <div class="col s12">
+                            <div class="order-ele-custom">
+                                <div class="col s8">
+                                    [옵션] <span>에스프레소</span>
+                                </div>
+                                <div class="col s4 text-right">
+                                    <a href="#!" class="opt-cg-btn">변경</a>
+                                </div>
+                                <div class="col s8">
+                                    <ul class="qty-ctrl">
+                                        [수량]
+                                        <li><a class="btn-dec">-</a></li>
+                                        <li><input type="number" class="cnt text-center" disabled width="500px" value="1"></li>
+                                        <li><a class="btn-inc">+</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col s4 text-right">
+                                    +600원
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="tot-info">
+                </div>
+                <div class="order-ele">
+                    <div class="row order-ele-row">
+                        <div class="col s6">
+                            <div class="order-ele-img">
+                                <img src="assets/images/productsample.png" width="100%">
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="order-ele-hd">
+                                <h6>자바칩 프라푸치노</h6>
+                                <a href="#!">
+                                    <img src="assets/images/X.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="order-ele-custom">
+                                <div class="col s8">
+                                    [옵션] <span>에스프레소</span>
+                                </div>
+                                <div class="col s4 text-right">
+                                    <a href="#!" class="opt-cg-btn">변경</a>
+                                </div>
+                                <div class="col s8">
+                                    <ul class="qty-ctrl">
+                                        [수량]
+                                        <li><a class="btn-dec">-</a></li>
+                                        <li><input type="number" class="cnt text-center" disabled width="500px" value="1"></li>
+                                        <li><a class="btn-inc">+</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col s4 text-right">
+                                    +600원
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pay-info">
+                    <div class="pay-info-wrap">
                         <div class="row">
-                            <div class="col s12 lmt-date text-center">
-                                사용기한: ~2017-10-10
+                            <div class="col s3 text-right">
+                                총 액
+                            </div>
+                            <div class="col s9 text-right">
+                                14,000원
                             </div>
                         </div>
-                        <div class="row text-center">
-                            <div class="col s12">
-                                총 주문금액
+                        <div class="row">
+                            <div class="col s3 text-right">
+                                할인금액
                             </div>
-                            <div class="col s12 tot-price">
-                                7,600원
+                            <div class="col s9 text-right discount-price">
+                                <input type="number" class="text-center" disabled="" value="1"> 원
+                                <span>(최대 할인가능 금액 1,200원)</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>실 결제금액 15,000원</h5>
+                                <h6>판매 완료될 경우 받게 될 금액: 2,000원</h6>
                             </div>
                         </div>
                     </div>    
@@ -103,14 +147,9 @@
             </div>
             <div class="price-info-foot">
                 <div class="row">
-                    <div class="col s6">
-                        <a href="#!" class="btn black-btn text-center">
-                            장바구니 담기
-                        </a>
-                    </div>
-                    <div class="col s6">
+                    <div class="col s12">
                         <a href="#!" class="btn primary-btn text-center">
-                            주문하기
+                            에약번호 발급
                         </a>
                     </div>
                 </div>
