@@ -40,7 +40,7 @@
                             <td>
                                 <a href="/admin/post/detail/<? echo $row['post_id']; ?>/2">
                                 <?
-                                if ( isset($row['post_content_title']) ) {
+                                if ( isset($row['post_content_title']) && isset($row['post_content_title']) ) {
                                     echo $row['post_content_title'];
                                 } else {
                                     echo '-';
@@ -49,7 +49,13 @@
                                 </a>    
                             </td>
                             <td>
-                                2017-05-10~2017-06-10
+                                <?
+                                if ( isset($row['post_content_open_date']) && isset($row['post_content_close_date']) ) {
+                                    echo $row['post_content_open_date'].'~'.$row['post_content_close_date'];
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
                             </td>                            
                             <td>
                                 <?

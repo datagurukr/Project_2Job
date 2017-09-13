@@ -30,6 +30,40 @@ if ( $response['status'] == 200 ) {
                 </div>
             </div>
             <div class="row">
+                <div class="input-field col s6">
+                    <input type="text" class="datepicker" name="post_content_open_date" value="<? if ( isset($row['post_content_open_date']) ) { echo $row['post_content_open_date']; } else { echo set_value('post_content_open_date'); }; ?>">
+                    <label for="course">시작날짜</label>
+                    <p class="light red-text">
+                        <?
+                        // validation
+                        if ( isset($response) ) {
+                            if ( $response['status'] == 400 || $response['status'] == 200 || $response['status'] == 401 ) {
+                                if ( isset($response['error']['validation']['post_content_open_date']) ) {
+                                        echo $response['error']['validation']['post_content_open_date'];
+                                };
+                            };
+                        };
+                        ?>                     
+                    </p>                                        
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" class="datepicker" name="post_content_close_date" value="<? if ( isset($row['post_content_close_date']) ) { echo $row['post_content_close_date']; } else { echo set_value('post_content_close_date'); }; ?>">
+                    <label for="course">종료날짜</label>
+                    <p class="light red-text">
+                        <?
+                        // validation
+                        if ( isset($response) ) {
+                            if ( $response['status'] == 400 || $response['status'] == 200 || $response['status'] == 401 ) {
+                                if ( isset($response['error']['validation']['post_content_close_date']) ) {
+                                        echo $response['error']['validation']['post_content_close_date'];
+                                };
+                            };
+                        };
+                        ?>                     
+                    </p>                                        
+                </div>                
+            </div>            
+            <div class="row">
                 <div class="input-field col s12">
                     <h6>내용</h6>
                     <textarea id="editor1" name="post_content_article"><? if ( isset($row['post_content_article']) ) { echo $row['post_content_article']; } else { echo set_value('post_content_article'); }; ?></textarea>
@@ -70,11 +104,11 @@ if ( $response['status'] == 200 ) {
                             <?
                             if ( $post_id == 0 ) {
                                 ?>
-                            <p>공지사항을 등록하시겠습니까?</p>                            
+                            <p>이벤트를 등록하시겠습니까?</p>                            
                                 <?
                             } else {
                                 ?>
-                            <p>공지사항을 수정하시겠습니까?</p>                            
+                            <p>이벤트를 수정하시겠습니까?</p>                            
                                 <?                                
                             }
                             ?>

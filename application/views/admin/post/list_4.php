@@ -1,54 +1,151 @@
 <div class="section">
     <h5 class="header">이벤트 관리</h5>
-    <div class="row">
-        <div class="col s12">
-            <p>이벤트를 관리할 수 있습니다.</p>
-            <table class="striped">
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>이름</th>                        
-                        <th>이메일</th>
-                        <th>문의유형</th>                        
-                        <th>제목</th>
-                        <th>작성일</th>                        
-                        <th>답변여부</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?
-                    for ( $i = 0; $i < 20; $i++ ) {
-                        ?>
-                    <tr>
-                        <td><? echo $i; ?></td>
-                        <td>이름</td>                        
-                        <td>이메일</td>
-                        <td>문의유형</td>                        
-                        <td>제목</td>
-                        <td>작성일</td>                        
-                        <td>답변여부</td>
-                    </tr>
+    <form class="col s12" method="get" enctype="application/x-www-form-urlencoded">        
+        <div class="row">
+            <div class="col s12">
+                <p>이벤트를 관리할 수 있습니다.</p>
+                
+                <div class="col s12">
+                    <select class="browser-default col s6 offset-s6" name="open">
+                        <option value="" disabled selected>전체</option>
+                        <option value="1" <? if ( $reply == 1 ) { echo 'selected'; }; ?>>답변완료</option>
+                        <option value="2" <? if ( $reply == 2 ) { echo 'selected'; }; ?>>미 답변</option>
+                    </select>
+                </div>                
+                
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>이름</th>                        
+                            <th>이메일</th>   
+                            <th>문의유형</th> 
+                            <th>제목</th>
+                            <th>작성일</th>
+                            <th>답변여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?
-                    }
-                    /*
-                    foreach ( $out as $row ) {
+                        if ( $response['status'] == 200 ) {
+                            if ( 0 < $response['data']['count'] ) {
+                                $temp = ((($p * 2) * 10) - 20 ); 
+                                $num = $response['data']['out_cnt'] - $temp; 
+                                foreach ( $response['data']['out'] as $row ) {
+                                    ?>
+                        <tr>
+                            <td><? echo $num; $num--; ?></td>
+                            <td>
+                                <?
+                                if ( isset($row['user_name']) ) {
+                                    echo $row['user_name'];
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>   
+                            <td>
+                                <?
+                                if ( isset($row['user_email']) ) {
+                                    echo $row['user_email'];
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>  
+                            <td>
+                                <?
+                                if ( isset($row['post_type']) ) {
+                                    echo $row['post_type'];
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>                             
+                            <td>
+                                <a href="/admin/post/detail/<? echo $row['post_id']; ?>/2">
+                                <?
+                                if ( isset($row['post_content_title']) && isset($row['post_content_title']) ) {
+                                    echo $row['post_content_title'];
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                                </a>    
+                            </td>
+                            <td>
+                                <?
+                                if ( isset($row['post_register_date']) ) {
+                                    echo date("Y-m-d", strtotime($row['post_register_date']));
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>   
+                            <td>
+                                <?
+                                if ( isset($row['post_content_reply_title']) ) {
+                                    if ( strlen($row['post_content_reply_title']) == 0 ) {
+                                        echo '미 답변';
+                                    } else {
+                                        echo '답변완료';
+                                    }
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>                         
+                        </tr>                    
+                                    <?
+                                };
+                            };
+                        }
                         ?>
-                    <tr>
-                        <td><? echo $row['num']; ?></td>
-                        <td><? echo $row['user_name']; ?></td>
-                        <td><? echo $row['user_email']; ?></td>
-                        <td><? echo $row['user_tel']; ?></td>
-                        <td><? echo $row['user_birthday']; ?></td>
-                        <td><? echo $row['user_address']; ?></td>
-                        <td><? echo $row['user_level']; ?></td>
-                        <td><? echo $row['user_register_date']; ?></td>                        
-                    </tr>
-                        <?
-                    }
-                    */
-                    ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+        
+        <?
+        if ( strlen($q) != 0 ) {
+            if ( $response['status'] != 200 && ($p == 1 || $p == 0) ) {
+                ?>
+        <div class="row">
+            <p style="text-align: center;">검색하신 내역이 없습니다.</p>
+        </div>    
+                <?
+            };
+        };        
+        ?>    
+        
+        <div class="row">
+            <? echo $this->pagination->create_links(); ?>
+        </div>        
+        
+        <div class="row">        
+            <div class="col s12">
+                <a href="/admin/post/0/2" class="waves-effect waves-light btn col s6 offset-s6">
+                    <i class="material-icons left">edit</i>
+                    글쓰기
+                </a>
+            </div>    
+        </div>        
+        
+        <div class="row">
+            <div class="input-field col s2">
+                <select name="target">
+                    <option value="" <? if ( $target == '' ) { echo 'selected'; }; ?> disabled selected>전체</option>
+                    <option value="title" <? if ( $target == 'title' ) { echo 'selected'; }; ?>>제목</option>
+                    <option value="article" <? if ( $target == 'article' ) { echo 'selected'; }; ?>>내용</option>
+                </select>
+            </div>
+            <div class="input-field col s6">
+                <input id="" type="text" class="validate" name="q" value="<? echo $q; ?>">
+                <label for="keyword">검색어를 입력해 주세요.</label>
+            </div>
+            <div class="input-field col s4 right-align">
+                <button type="submit" class="waves-effect waves-light btn">검색</a>
+            </div>
+        </div>  
+    </form>    
 </div>

@@ -80,8 +80,8 @@ class Shop extends CI_Controller {
         /*******************
         page key
         *******************/
-        $data['key'] = 'shop';
-        $data['sub_key'] = $data['key'].'_'.$post_type;
+        $data['key'] = 'shop';        
+        $data['sub_key'] = $data['key'].'_1';
         
         /*******************
         response
@@ -116,7 +116,8 @@ class Shop extends CI_Controller {
         
         /*******************
         data query
-		$this->load->model('exam_model');                
+        *******************/
+		$this->load->model('user_model');
         
         if ( isset($_GET['p']) ) {
             $p = (int)$_GET['p'];
@@ -145,21 +146,54 @@ class Shop extends CI_Controller {
         };        
         $data['target'] = $target;
         
-        $result = $this->exam_model->out('all',array(
+        if ( isset($_GET['yearmonth']) ) {
+            $yearmonth = $_GET['yearmonth'];
+            $pagination_url = $pagination_url.'&yearmonth='.$yearmonth;            
+        } else {
+            $yearmonth = '';
+        };
+        $data['yearmonth'] = $yearmonth;        
+            
+        if ( isset($_GET['order']) ) {
+            if ( $_GET['order'] == 'desc' || $_GET['order'] == 'asc' ) {
+                $order = $_GET['order'];
+            } else {
+                $order = 'desc';
+            };
+            $pagination_url = $pagination_url.'&order='.$order;
+        } else {
+            $order = 'desc';
+        };
+        $data['order'] = $order;
+        
+        if ( isset($_GET['order_target']) ) {
+            $order_target = $_GET['order_target'];
+            $pagination_url = $pagination_url.'&order_target='.$order_target;
+        } else {
+            $order_target = '';
+        };        
+        $data['order_target'] = $order_target;        
+        
+        $result = $this->user_model->out('status',array(
             'user_id' => $session_id,
             'p' => $p,
             'q' => $q,
-            'order' => 'asc',
-            'target' => $target
+            'order' => $order,
+            'user_status' => 3,
+            'target' => $target,
+            'order_target' =>$order_target
         ));
-        $result_count = $this->exam_model->out('all',array(
+        $result_count = $this->user_model->out('status',array(
             'user_id' => $session_id,
             'p' => $p,
             'q' => $q,
-            'order' => 'asc',            
-            'target' => $target,            
+            'order' => $order,            
+            'user_status' => 3,            
+            'target' => $target,
+            'order_target' =>$order_target,
             'count' => TRUE
         ));    
+
         $pagination_count = 0;
         if ( $result_count ) {
             $pagination_count = $result_count[0]['cnt'];            
@@ -177,9 +211,7 @@ class Shop extends CI_Controller {
             $response['status'] = 401;
         };                 
         
-        $data['response'] = $response;        
-        *******************/
-        $data['response'] = $response;        
+        $data['response'] = $response;         
         if ( $ajax ) {
         } else {
             if ( $post_type == 1 ) {

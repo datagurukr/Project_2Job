@@ -241,9 +241,12 @@ class Post extends CI_Controller {
             if ( isset($_POST['post_content_article']) ) {
                 $this->form_validation->set_rules('post_content_article','post_content_article','trim|required');
             };
-            if ( isset($_POST['post_content_reply']) ) {
-                $this->form_validation->set_rules('post_content_reply','post_content_reply','trim|required');
-            };            
+            if ( isset($_POST['post_content_reply_title']) ) {
+                $this->form_validation->set_rules('post_content_reply_title','post_content_reply_title','trim|required');
+            }; 
+            if ( isset($_POST['post_content_reply_article']) ) {
+                $this->form_validation->set_rules('post_content_reply_article','post_content_reply_article','trim|required');
+            };             
             
             /*******************
             data query
@@ -253,7 +256,11 @@ class Post extends CI_Controller {
                 
                 $post_content_title = '';
                 $post_content_article = '';
-                $post_content_reply = '';
+                $post_content_open_date = '';
+                $post_content_close_date = '';
+                $post_content_reply_title = '';
+                $post_content_reply_article = '';
+                $post_type = 0;
                 
                 if ( isset($_POST['post_content_title']) ) {
                     $post_content_title= $this->input->post('post_content_title',TRUE);
@@ -261,9 +268,21 @@ class Post extends CI_Controller {
                 if ( isset($_POST['post_content_article']) ) {
                     $post_content_article = $this->input->post('post_content_article',TRUE);
                 };                
-                if ( isset($_POST['post_content_reply']) ) {
-                    $post_content_reply = $this->input->post('post_content_reply',TRUE);
-                };                                
+                if ( isset($_POST['post_content_open_date']) ) {
+                    $post_content_open_date = $this->input->post('post_content_open_date',TRUE);
+                };                         
+                if ( isset($_POST['post_content_close_date']) ) {
+                    $post_content_close_date = $this->input->post('post_content_close_date',TRUE);
+                };                                         
+                if ( isset($_POST['post_content_reply_title']) ) {
+                    $post_content_reply_title = $this->input->post('post_content_reply_title',TRUE);
+                };                         
+                if ( isset($_POST['post_content_reply_article']) ) {
+                    $post_content_reply_article = $this->input->post('post_content_reply_article',TRUE);
+                };                         
+                if ( isset($_POST['post_type']) ) {
+                    $post_type = $this->input->post('post_type',TRUE);
+                };                                         
                 
                 if ( $post_id == 0 ) {
                     $post_id = mt_rand();                    
@@ -272,9 +291,13 @@ class Post extends CI_Controller {
                         'post_id' => $post_id,
                         'post_content_title' => $post_content_title,
                         'post_content_article' => $post_content_article,
-                        'post_content_reply' => $post_content_reply,
+                        'post_content_open_date' => $post_content_open_date,
+                        'post_content_close_date' => $post_content_close_date,                        
+                        'post_content_reply_title' => $post_content_reply_title,
+                        'post_content_reply_article' => $post_content_reply_article,                        
                         'post_state' => 1,
-                        'post_status' => $post_status                            
+                        'post_status' => $post_status,
+                        'post_type' => $post_type
                     ));
                     if ( $result ) {
                         $response['update'] = TRUE;
@@ -317,10 +340,28 @@ class Post extends CI_Controller {
                         $validation['post_content_article'] = strip_tags(form_error('post_content_article'));
                     };
                 };
-
-                if ( isset($_POST['post_content_reply']) ) {
-                    if ( 0 < strlen(strip_tags(form_error('post_content_reply'))) ) {
-                        $validation['post_content_reply'] = strip_tags(form_error('post_content_reply'));
+                
+                if ( isset($_POST['post_content_open_date']) ) {
+                    if ( 0 < strlen(strip_tags(form_error('post_content_open_date'))) ) {
+                        $validation['post_content_open_date'] = strip_tags(form_error('post_content_open_date'));
+                    };
+                };
+                
+                if ( isset($_POST['post_content_close_date']) ) {
+                    if ( 0 < strlen(strip_tags(form_error('post_content_close_date'))) ) {
+                        $validation['post_content_close_date'] = strip_tags(form_error('post_content_close_date'));
+                    };
+                };                
+                
+                if ( isset($_POST['post_content_reply_title']) ) {
+                    if ( 0 < strlen(strip_tags(form_error('post_content_reply_title'))) ) {
+                        $validation['post_content_reply_title'] = strip_tags(form_error('post_content_reply_title'));
+                    };
+                };
+                
+                if ( isset($_POST['post_content_reply_article']) ) {
+                    if ( 0 < strlen(strip_tags(form_error('post_content_reply_article'))) ) {
+                        $validation['post_content_reply_article'] = strip_tags(form_error('post_content_reply_article'));
                     };
                 };
                 
@@ -335,10 +376,8 @@ class Post extends CI_Controller {
                         'message' => '재시도 해주세요.'
                     );
                 }            
-            };            
-            
+            };
         }
-
         
 		$this->load->model('post_model');
         $result = $this->post_model->out('id',array(
@@ -420,113 +459,163 @@ class Post extends CI_Controller {
         };
         $data['session_id'] = $session_id;
 
-        /*******************
-        data query
-        *******************/
-		$this->load->model('post_model');
-        
-        if ( isset($_GET['p']) ) {
-            $p = (int)$_GET['p'];
-            if ( $p <= 0 ) {
+        if ( $post_status == 3 ) {
+            $json = FALSE;
+            $filename = 'search_json.json';
+            if ( isset($_POST['keyword']) && isset($_POST['url']) ) {
+                $keyword = $this->input->post('keyword',TRUE);
+                $url = $this->input->post('url',TRUE);                
+                $search_json = array();
+                $i = 0;
+                foreach ( $keyword as $keyword_row ) {
+                    $temp = array(
+                        'keyword' => $keyword_row,
+                        'url' => $url[$i]
+                    );
+                    array_push($search_json,$temp);
+                    $i++;
+                }
+                
+                $json = json_encode($search_json);    
+                $json_file = fopen('./assets/json/'.$filename,'w');
+                fwrite($json_file,$json);
+                fclose($json_file);            
+            }
+            if( file_exists('./assets/json/'.$filename) ) {
+                $json = file_get_contents('./assets/json/'.$filename);
+                $json = json_decode($json,true);
+            };
+            
+            $result = $json;
+            if ( $result ) {
+                $response['status'] = 200;                    
+                $response['data'] = array(
+                    'out' => $result,
+                    'out_cnt' => count($result),               
+                    'count' => count($result)
+                );        
+            } else {
+                $response['status'] = 401;
+            };                             
+            
+        } else {
+            /*******************
+            data query
+            *******************/
+            $this->load->model('post_model');
+
+            if ( isset($_GET['p']) ) {
+                $p = (int)$_GET['p'];
+                if ( $p <= 0 ) {
+                    $p = 1;
+                };
+            } else {
                 $p = 1;
             };
-        } else {
-            $p = 1;
-        };
-        $data['p'] = $p;        
-        $p = (($p * 2) * 10) - 20;  
-        $pagination_url = '';        
-        if ( isset($_GET['q']) ) {
-            $q = $_GET['q'];
-            $pagination_url = $pagination_url.'&q='.$q;
-        } else {
-            $q = '';
-        };        
-        $data['q'] = $q;
-        
-        if ( isset($_GET['target']) ) {
-            $target = $_GET['target'];
-            $pagination_url = $pagination_url.'&target='.$target;            
-        } else {
-            $target = '';
-        };        
-        $data['target'] = $target;
-        
-        if ( isset($_GET['open']) ) {
-            $open = $_GET['open'];
-            $pagination_url = $pagination_url.'&open='.$open;            
-        } else {
-            $open = '';
-        };
-        $data['open'] = $open;        
-        
-        if ( isset($_GET['yearmonth']) ) {
-            $yearmonth = $_GET['yearmonth'];
-            $pagination_url = $pagination_url.'&yearmonth='.$yearmonth;            
-        } else {
-            $yearmonth = '';
-        };
-        $data['yearmonth'] = $yearmonth;        
-            
-        if ( isset($_GET['order']) ) {
-            if ( $_GET['order'] == 'desc' || $_GET['order'] == 'asc' ) {
-                $order = $_GET['order'];
+            $data['p'] = $p;        
+            $p = (($p * 2) * 10) - 20;  
+            $pagination_url = '';        
+            if ( isset($_GET['q']) ) {
+                $q = $_GET['q'];
+                $pagination_url = $pagination_url.'&q='.$q;
+            } else {
+                $q = '';
+            };        
+            $data['q'] = $q;
+
+            if ( isset($_GET['target']) ) {
+                $target = $_GET['target'];
+                $pagination_url = $pagination_url.'&target='.$target;            
+            } else {
+                $target = '';
+            };        
+            $data['target'] = $target;
+
+            if ( isset($_GET['open']) ) {
+                $open = $_GET['open'];
+                $pagination_url = $pagination_url.'&open='.$open;            
+            } else {
+                $open = '';
+            };
+            $data['open'] = $open;   
+
+            if ( isset($_GET['reply']) ) {
+                $reply = $_GET['reply'];
+                $pagination_url = $pagination_url.'&reply='.reply;            
+            } else {
+                $reply = '';
+            };
+            $data['reply'] = $reply;          
+
+            if ( isset($_GET['yearmonth']) ) {
+                $yearmonth = $_GET['yearmonth'];
+                $pagination_url = $pagination_url.'&yearmonth='.$yearmonth;            
+            } else {
+                $yearmonth = '';
+            };
+            $data['yearmonth'] = $yearmonth;        
+
+            if ( isset($_GET['order']) ) {
+                if ( $_GET['order'] == 'desc' || $_GET['order'] == 'asc' ) {
+                    $order = $_GET['order'];
+                } else {
+                    $order = 'desc';
+                };
+                $pagination_url = $pagination_url.'&order='.$order;
             } else {
                 $order = 'desc';
             };
-            $pagination_url = $pagination_url.'&order='.$order;
-        } else {
-            $order = 'desc';
-        };
-        $data['order'] = $order;
+            $data['order'] = $order;
+
+            if ( isset($_GET['order_target']) ) {
+                $order_target = $_GET['order_target'];
+                $pagination_url = $pagination_url.'&order_target='.$order_target;
+            } else {
+                $order_target = '';
+            };        
+            $data['order_target'] = $order_target;        
+
+            $result = $this->post_model->out('status',array(
+                'user_id' => $session_id,
+                'p' => $p,
+                'q' => $q,
+                'order' => $order,
+                'post_status' => $post_status,
+                'target' => $target,
+                'order_target' =>$order_target
+            ));
+            $result_count = $this->post_model->out('status',array(
+                'user_id' => $session_id,
+                'p' => $p,
+                'q' => $q,
+                'order' => $order,            
+                'post_status' => $post_status,            
+                'target' => $target,
+                'order_target' =>$order_target,
+                'count' => TRUE
+            ));    
+
+            $pagination_count = 0;
+            if ( $result_count ) {
+                $pagination_count = $result_count[0]['cnt'];            
+            };
+            $this->global_pagination($pagination_count,'/admin/exam/?',$pagination_url);                        
+
+            if ( $result ) {
+                $response['status'] = 200;                    
+                $response['data'] = array(
+                    'out' => $result,
+                    'out_cnt' => $pagination_count,               
+                    'count' => count($result)
+                );        
+            } else {
+                $response['status'] = 401;
+            };                 
+
+        }
         
-        if ( isset($_GET['order_target']) ) {
-            $order_target = $_GET['order_target'];
-            $pagination_url = $pagination_url.'&order_target='.$order_target;
-        } else {
-            $order_target = '';
-        };        
-        $data['order_target'] = $order_target;        
+        $data['response'] = $response;                
         
-        $result = $this->post_model->out('status',array(
-            'user_id' => $session_id,
-            'p' => $p,
-            'q' => $q,
-            'order' => $order,
-            'post_status' => $post_status,
-            'target' => $target,
-            'order_target' =>$order_target
-        ));
-        $result_count = $this->post_model->out('status',array(
-            'user_id' => $session_id,
-            'p' => $p,
-            'q' => $q,
-            'order' => $order,            
-            'post_status' => $post_status,            
-            'target' => $target,
-            'order_target' =>$order_target,
-            'count' => TRUE
-        ));    
-        
-        $pagination_count = 0;
-        if ( $result_count ) {
-            $pagination_count = $result_count[0]['cnt'];            
-        };
-        $this->global_pagination($pagination_count,'/admin/exam/?',$pagination_url);                        
-        
-        if ( $result ) {
-            $response['status'] = 200;                    
-            $response['data'] = array(
-                'out' => $result,
-                'out_cnt' => $pagination_count,               
-                'count' => count($result)
-            );        
-        } else {
-            $response['status'] = 401;
-        };                 
-        
-        $data['response'] = $response;            
-     
         if ( $ajax ) {
         } else {
             if ( $post_status == 1 ) {
