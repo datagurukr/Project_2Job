@@ -28,7 +28,7 @@
                         <tr>
                             <td><? echo $num; $num--; ?></td>
                             <td>
-                                <a href="/admin/user/<? echo $row['user_id']; ?>">
+                                <a href="/admin/shop/<? echo $row['user_id']; ?>">
                                 <?
                                 if ( isset($row['user_business_entity_name']) ) {
                                     echo $row['user_business_entity_name'];
@@ -48,7 +48,6 @@
                                 ?>
                             </td>
                             <td>
-                                <a href="/admin/user/<? echo $row['user_id']; ?>">
                                 <?
                                 if ( isset($row['user_business_representative']) ) {
                                     echo $row['user_business_representative'];
@@ -56,7 +55,6 @@
                                     echo '-';
                                 }
                                 ?>
-                                </a>    
                             </td>
                             <td>
                                 <?

@@ -64,7 +64,15 @@ if ( $response['status'] == 200 ) {
             </div>
             <div class="col s12 m6 l2">
                 <p>
-                    진행중                
+                    <?
+                    if ( isset($row['post_content_close_date']) && isset($row['post_content_open_date']) ) {
+                        if( strtotime(date('Y-m-d')) <= strtotime($row['post_content_close_date']) ){
+                            echo '진행중';
+                        } else {
+                            echo '정지';
+                        }                    
+                    }
+                    ?>
                 </p>
             </div>
             <div class="col s12 m6 l2 custom-label">
@@ -72,7 +80,11 @@ if ( $response['status'] == 200 ) {
             </div>        
             <div class="col s12 m6 l6">
                 <p>
-                    2017-05-12~2017-06-13              
+                    <?
+                    if ( isset($row['post_content_close_date']) && isset($row['post_content_open_date']) ) {
+                        echo $row['post_content_close_date'].'~'.$row['post_content_open_date'];
+                    };
+                    ?>
                 </p>
             </div>              
         </div>          

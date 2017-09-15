@@ -21,7 +21,9 @@
 <body>
     
     <header>
-        
+        <?
+        if ( !isset($shop_nav) ) {
+            ?>        
         <nav>
             <div class="nav-wrapper">
                 <div class="container">
@@ -68,7 +70,46 @@
                     </div>
                 </div>
             </div>    
+        </nav>   
+        <?
+        };
+        ?>
+        
+        <?
+        if ( isset($shop_nav) ) {
+            ?>
+        <nav>
+            <div class="nav-wrapper">
+                <div class="container">
+                    <div class="col s12">                
+                        <ul class="left hide-on-med-and-down">
+                            <li<? if ( $shop_key == 'info' ) { echo ' class="active"'; }; ?>>
+                                <a href="/admin/shop/<? echo $shop_id; ?>/info">정보관리</a>
+                            </li>
+                            <li<? if ( $shop_key == 'product' ) { echo ' class="active"'; }; ?>>
+                                <a href="/admin/shop/<? echo $shop_id; ?>/product">상품관리</a>
+                            </li>
+                            <li<? if ( $shop_key == 'sales' ) { echo ' class="active"'; }; ?>>
+                                <a href="/admin/shop/<? echo $shop_id; ?>/sales">매출관리</a>
+                            </li>
+                            <li<? if ( $shop_key == 'event' ) { echo ' class="active"'; }; ?>>
+                                <a href="/admin/shop/<? echo $shop_id; ?>/event">이벤트관리</a>
+                            </li>                            
+                            <!--
+                            <li class="active">
+                                <a href="collapsible.html">JavaScript</a>
+                            </li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </nav>        
+            <?
+        }
+        ?>
+        
+        
         <!--
         <nav class="top-nav">
             <div class="container">

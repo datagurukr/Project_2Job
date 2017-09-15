@@ -82,7 +82,7 @@
                             <td>
                                 <?
                                 if ( isset($row['user_birthday']) ) {
-                                    echo date("Y-m-d", strtotime($row['strtotime']));
+                                    echo date("Y-m-d", strtotime($row['user_birthday']));
                                 } else {
                                     echo '-';
                                 }
@@ -91,7 +91,11 @@
                             <td>
                                 <?
                                 if ( isset($row['user_address']) ) {
-                                    echo $row['user_address'];
+                                    
+                                    $user_address = explode('|',$row['user_address']);
+                                    if ( count($user_address) == 4 ) {
+                                        echo $user_address[0].' '.$user_address[1].' '.$user_address[2].' '.$user_address[3];
+                                    };
                                 } else {
                                     echo '-';
                                 }

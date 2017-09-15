@@ -82,7 +82,15 @@ class User_model extends CI_Model{
         
         if ( !array_key_exists('user_authentication_number',$data) ) {
             $data['user_authentication_number'] = ''; //                 
-        };           
+        };
+        
+        if ( !array_key_exists('user_birthday',$data) ) {
+            $data['user_birthday'] = '0000-00-00'; //                 
+        };
+
+        if ( !array_key_exists('user_address',$data) ) {
+            $data['user_address'] = ''; //                 
+        };
         
         if ( !array_key_exists('user_ip_address',$data) ) {
             $data['user_ip_address'] = $_SERVER['REMOTE_ADDR'];
@@ -107,6 +115,8 @@ class User_model extends CI_Model{
                     user_business_representative,
                     user_business_industry,
                     user_authentication_number,
+                    user_birthday,
+                    user_address,
                     user_ip_address,
                     user_register_date,
                     user_update_date
@@ -126,7 +136,9 @@ class User_model extends CI_Model{
                     '".$data['user_business_license_number']."',
                     '".$data['user_business_representative']."',
                     '".$data['user_business_industry']."',                    
-                    '".$data['user_authentication_number']."',                    
+                    '".$data['user_authentication_number']."',  
+                    '".$data['user_birthday']."',  
+                    '".$data['user_address']."',                      
                     '".$data['user_ip_address']."',
                     now(),
                     now()
@@ -235,7 +247,9 @@ class User_model extends CI_Model{
             user.user_business_representative as user_business_representative,
             user.user_business_industry as user_business_industry,
             user.user_authentication_number as user_authentication_number,
+            user.user_birthday as user_birthday,
             user.user_ip_address as user_ip_address,
+            user.user_address as user_address,
             user.user_register_date as user_register_date,
             user.user_update_date as user_update_date            
             ";

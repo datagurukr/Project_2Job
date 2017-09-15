@@ -106,7 +106,7 @@ if ( $response['data']['event_out'] ) {
         <div class="row main-banner">
             <div class="col s12">
                 <a href="">
-                    <img src="/assets/images/banner.png" width="100%">
+                    <img src="/assets/images/menu.png" width="100%">
                 </a>
             </div>
         </div>

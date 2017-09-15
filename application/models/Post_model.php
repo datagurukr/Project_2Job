@@ -186,6 +186,24 @@ class Post_model extends CI_Model{
                 post.post_id = ".$data['post_id']."
             ".$limit."
             ";  
+        } elseif ( $type == 'user_status' ) {            
+            $sql = "
+            select
+                ".$select."
+            FROM
+                post AS post
+                left outer join user as user
+                on
+                (post.user_id = user.user_id)                
+            where
+                post.user_id = ".$data['user_id']."
+                and
+                post.post_status = ".$data['post_status']."
+                and
+                post.post_state = 1                
+            order by post.post_register_date ".$data['order']."        
+            ".$limit."
+            ";              
         } elseif ( $type == 'status' ) {
             $sql = "
             select
