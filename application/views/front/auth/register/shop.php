@@ -82,7 +82,7 @@
                     <h6>대표자명:</h6>
                 </div>
                 <div class="col s8">
-                    <input class="form-element" type="number" placeholder="대표자명" name="user_business_representative" value="<? echo set_value('user_business_representative'); ?>"> 
+                    <input class="form-element" type="text" placeholder="대표자명" name="user_business_representative" value="<? echo set_value('user_business_representative'); ?>"> 
                 </div>
                 <?
                 // validation

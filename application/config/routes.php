@@ -66,6 +66,15 @@ $route['admin/user/(:num)'] = 'admin/user/edit/$1'; // 상세보기
 
 // shop > ㅣlist
 $route['admin/shop/list/1'] = 'admin/shop/index/1'; // 일반 가맹점 관리
+// shop > edit
+$route['admin/shop/(:num)'] = 'admin/shop/id/$1/info'; // 상세보기
+$route['admin/shop/(:num)/info'] = 'admin/shop/id/$1/info'; // 상세보기
+$route['admin/shop/(:num)/product'] = 'admin/shop/id/$1/product'; // 상세보기
+$route['admin/shop/(:num)/sales'] = 'admin/shop/id/$1/sales'; // 상세보기
+
+$route['admin/shop/(:num)/event'] = 'admin/shop_event/index/$1/2'; // 상세보기
+$route['admin/shop/(:num)/event/post/(:num)/2'] = 'admin/shop_event/edit/$1/$2/2'; // 상세보기
+$route['admin/shop/(:num)/event/post/detail/(:num)/(:num)'] = 'admin/shop_event/detail/$1/$2/2'; // 상세보기
 
 // post  > list
 $route['admin/post/list/1'] = 'admin/post/index/1'; // 공지사항
@@ -101,6 +110,10 @@ $route['shop/(:num)/product'] = 'shop/id/$1/product';
 
 // search
 $route['search'] = 'search/index';
+
+// user
+$route['user/notice'] = 'user/notice';
+$route['user/setting'] = 'user/setting';
 
 /* API */
 $route['api/upload'] = "api/upload/ckupload";
