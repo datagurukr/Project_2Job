@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>투잡다모아</title>
+        <link href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" rel="stylesheet">
+        <link href="assets/css/common.css" rel="stylesheet">
+        <link href="assets/css/general.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-default navbar-fixed-top navbar-slide" id="navbar-collapse-menu">
+            <div class="top">
+                <div class="container">
+                    <h6 class="text-center welcome">
+                        홍길동 님, 반갑습니다!<br>
+                        <small>LV . 12</small>
+                    </h6>
+                    <div class="row">
+                        <div class="col s8">
+                            <p><span><img src="assets/images/dot.png"></span>
+                            이용 가능한 직권 할인율</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>25%</span></p>
+                        </div>
+                        <div class="col s8">
+                            <p><span><img src="assets/images/dot.png"></span>
+                            이번 달 나의 월급</p>
+                        </div>
+                        <div class="col s4">
+                            <p><span>120,000원</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6 text-right">
+                            <button class="btn primary-btn">급여내역</button>
+                        </div>
+                        <div class="col s6 text-left">
+                            <button class="btn primary-btn">로그아웃</button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="row text-center">
+                    <li class="col s3">
+                        <a href="#!">알림</a>
+                    </li>
+                    <li class="col s3">
+                        <a href="#!">설정</a>
+                    </li>
+                    <li class="col s6">
+                        <a href="#!">예약번호사용조회</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="list-wrap">
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-bookmark.png">즐겨찾는 가맹점</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-alert.png">가맹점 직거래 신고하기</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-history.png">나의 활동 내역</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-notice.png">공지사항</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-event.png">이벤트</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-question.png">자주 묻는 질문</h6>
+                    </a>
+                </div>
+                <div class="list-row">
+                    <a href="#!">
+                        <h6><img src="assets/images/ham-call.png">고객센터</h6>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="wrap" id="hideMenu">
+            <div class="login-header">
+                <div class="container">
+                    <div class="back">
+                        <a href="#!">
+                            <img src="assets/images/back_button.png">
+                        </a>
+                        <h6><strong>알림</strong></h6>
+                    </div>
+                    <div class="hamburgermenu">
+                        <a href="#!" id="showMenu">
+                            <img src="assets/images/menu.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row setupnoti-row">
+                    <div class="col s10">
+                        <h6>예약정보 받기</h6>
+                    </div>
+                    <div class="col s2 text-right">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                          </label>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <span>투잡다모아에서 구매한 내역의 예약정보를 받아볼 수 있습니다.</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s10">
+                        <h6>이벤트 등록 시</h6>
+                    </div>
+                    <div class="col s2 text-right">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                          </label>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <span>투잡다모아의 이벤트 또는 가맹점들의 다양한 이벤트 정보를 받아볼 수 있습니다.</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s10">
+                        <h6>관리자 메시지</h6>
+                    </div>
+                    <div class="col s2 text-right">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                          </label>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <span>투잡다모아의 관리자 특별 공지를 받아볼 수 있습니다.</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s10">
+                        <h6>신규 가맹점 입점 시</h6>
+                    </div>
+                    <div class="col s12">
+                        <span>내 소재지 근처에 신규로 입점한 가맹점의 정보를 받아볼 수 있습니다.</span>
+                    </div>
+                </div>
+                
+                <div class="row setupnoti-row">
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>서울특별시</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>대구광역시</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>대전광역시</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>광주광역시</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>인천광역시</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>울산광역시</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>부산광역시</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>세종시</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>경기도</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>강원도</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>경상북도</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>경상남도</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>충청북도</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>충청남도</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>전라북도</span>
+                    </div>
+                </div>
+                <div class="row setupnoti-row">
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>전라남도</span>
+                    </div>
+                    <div class="col s4">
+                        <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox">
+                        </label>
+                        <span>제주도</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> 
+        <script>
+            $("#showMenu").on("click", function(){
+                var container = $("#navbar-collapse-menu");
+                container.show();
+                $("body").addClass("site-nav-transition");
+                if(event.stopPropagation) event.stopPropagation(); //MOZILLA
+            else event.cancelBubble = true; //IE
+            });
+            $("#hideMenu").on("click", function(){
+                var container = $("#navbar-collapse-menu");
+                container.hide();
+                $("#showMenu").show();
+                $("body").removeClass("site-nav-transition");
+                if(event.stopPropagation) event.stopPropagation(); //MOZILLA
+            else event.cancelBubble = true; //IE
+            });
+            $("#hideMenu").click();
+        </script>
+    </body>
+</html>

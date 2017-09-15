@@ -599,7 +599,7 @@ position: absolute;}
     background: #00C63C;
     color: #fff;
 }
-.price-info-foot .black-btn{
+ .black-btn{
     background: #000001;
     color: #fff;
 }
@@ -618,3 +618,5 @@ position: absolute;}
 .pay-info{margin-top: 15px}
 .pay-info-wrap .discount-price input{width: 30px}
 .pay-info-wrap .discount-price span{color: #535455;font-size: 12px}
+.setupnoti-row h6{font-size: 18px;}
+.setupnoti-row span{color: #9C9D9E}
