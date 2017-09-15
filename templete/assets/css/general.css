@@ -343,7 +343,7 @@ nav .main-nav a{
 .main-userinfo .col{
     margin-bottom: 5px
 }
-.main-userinfo .s4 .text-center{
+.main-userinfo .gray-btn{
     display: block;
     background: #7F7F7F;
     border: 1px solid #717171;
@@ -352,7 +352,8 @@ nav .main-nav a{
     font-size: 10px;
     padding: 4px;
 }
-.main-userinfo .s5 .text-center{
+.main-userinfo .sky-btn{
+    display: block;
     background: #7EA8DC;
     border: 1px solid #74A2DA;
     color: #fff;
