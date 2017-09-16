@@ -35,6 +35,7 @@
 
 a {
   text-decoration: none;
+    color:#515354;
 }
 html {
   font-size: 14px;
@@ -42,6 +43,7 @@ html {
   font-weight: normal;
   color: rgba(0, 0, 0, 0.87);
 }
+body{min-height:568px}
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   line-height: 1.1;
@@ -621,3 +623,47 @@ position: absolute;}
 .pay-info-wrap .discount-price span{color: #535455;font-size: 12px}
 .setupnoti-row h6{font-size: 18px;}
 .setupnoti-row span{color: #9C9D9E}
+.nonmember-guide{font-size: 11px;font-weight: 500}
+.search-header{border-bottom: 3px solid #13C740}
+.search-header .row-search{margin: 10px 0}
+.search-header .row-search a{display: block}
+.search-header .row-search .form-element{border: 0;padding: 0;height: auto;padding: 2px}
+
+.search-category .category-label{background: #F1F2F3;}
+.search-category .category-label p{margin: 0;padding: 10px}
+.search-category .category-label:after{clear: both;content: "";display: block}
+.search-category .category-label .label{float:left;width: 50%;border-left:1px solid #DEDFE0;border-bottom:1px solid #DEDFE0;margin: -1px}
+.search-category .category-label .label h6{font-size: 16px;margin: 0;padding: 10px;font-weight: 500}
+
+.search-category{}
+.search-category .category-element{
+    width: 100%;
+    position: fixed;
+    top: 84px;
+    bottom: 0;
+    left: 0;
+    display: block;
+}
+.search-category .category-element:after{clear: both;content: "";display: block}
+.search-category .category-element .element-col{float:left;width: 50%;height: 100%;border-left: 1px solid #DEDFE0;margin: -1px}
+.search-category .category-element .element-col .element{position: relative;padding: 10px}
+.search-category .category-element .element-col .element-all-delete{
+    position: fixed;
+    margin-left: -2px;
+    width: 50%;
+    bottom: 0;
+    border-top: 1px solid #DEDFE0;
+    border-right: 1px solid #DEDFE0;
+}
+.search-category .category-element .element-col .element-all-delete a{
+    display: block;
+    padding: 10px;
+    color: #BABBBC;
+    background:#F1F2F3;
+}
+.search-category .category-element .element-col .element .keyword-delete-a{
+    position: absolute;
+    right: 10px;
+}
+.search-category .category-element .element-col .element .top-keyword{color: #34D164}
+
