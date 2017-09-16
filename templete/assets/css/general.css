@@ -419,6 +419,11 @@ nav .main-nav a{
     font-weight: 500;
     color: black;
 }
+.blackgreen-btn{
+    background: #01992E;
+    color: #fff;
+    font-size: 10px
+}
 .login-logo{margin:60px 0 30px 0}
 .login-logo p{
     margin:0;
@@ -675,3 +680,20 @@ position: absolute;}
 .row-com-formarea .com-wrap{background: #F6F7F8;border: 1px solid #ECEDEE;margin:0}
 .row-com-formarea .com-wrap:after{clear: both;content: "";display: block}
 .row-com-formarea .com-wrap .com-guidance span{color: #00BF00;text-decoration: underline}
+
+.mypage-list-wrap .list-tab .tab{
+    float: left;
+    width: 25%;
+}
+.mypage-foot{width: 100%;position: fixed;background: #00C63C;bottom: 0}
+.mypage-foot p{color: #fff}
+.mypage-list-wrap .ele-pt{position: absolute;top:8px;right: 0}
+
+.mypage-list-wrap .row-mypage-pay{margin-top: 20px}
+.mypage-foot .row-mypage-pay{padding-top: 10px;margin-bottom: 0}
+.mypage-foot .mypage-foot-pay{color: #fff;font-size:15px;}
+.mypage-foot .mypage-foot-pay small{font-size: 8px}
+
+.mypage-list-wrap .row-mypage-res{background:#F3F4F5;padding: 10px;margin: 15px 0;border-bottom: 1px solid #000}
+.mypage-list-wrap .list-res-row .ele-pt{color: #FC0000}
+.mypage-list-wrap .list-res-row span{color: #9C9D9E}
