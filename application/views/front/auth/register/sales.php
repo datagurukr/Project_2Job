@@ -189,7 +189,7 @@
                     <h6>추천인:</h6>
                 </div>
                 <div class="col s8">
-                    <input class="form-element" type="number" placeholder="추천인의 회원가입명을 입력해 주세요." name="user_recommender_name" value="<? echo set_value('user_recommender_name'); ?>"> 
+                    <input class="form-element" type="text" placeholder="추천인의 회원가입명을 입력해 주세요." name="user_recommender_name" value="<? echo set_value('user_recommender_name'); ?>"> 
                 </div>
                 <?
                 // validation

@@ -16,7 +16,7 @@ status 500 : 서버에 오류가 발생하여 요청을 수행할 수 없다.
 ************************************/
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Shop_event extends CI_Controller {    
+class Event extends CI_Controller {    
     
     function __construct() {
 		parent::__construct();
@@ -149,11 +149,13 @@ class Shop_event extends CI_Controller {
             if ( $post_status == 1 ) {
                 $data['container'] = $this->load->view('/admin/post/detail_1', $data, TRUE);
             } elseif ( $post_status == 2 ) {
-                $data['container'] = $this->load->view('/admin/shop/event/detail', $data, TRUE);
+                $data['container'] = $this->load->view('/admin/post/detail_2', $data, TRUE);
             } elseif ( $post_status == 3 ) {
                 $data['container'] = $this->load->view('/admin/post/detail_3', $data, TRUE);
             } elseif ( $post_status == 4 ) {
                 $data['container'] = $this->load->view('/admin/post/detail_4', $data, TRUE);
+            } elseif ( $post_status == 5 ) {                
+                $data['container'] = $this->load->view('/admin/shop/event/detail', $data, TRUE);                
             } else {
                 show_404();                
             }; 
@@ -402,11 +404,13 @@ class Shop_event extends CI_Controller {
             if ( $post_status == 1 ) {
                 $data['container'] = $this->load->view('/admin/post/edit_1', $data, TRUE);
             } elseif ( $post_status == 2 ) {
-                $data['container'] = $this->load->view('/admin/shop/event/edit', $data, TRUE);
+                $data['container'] = $this->load->view('/admin/post/edit_2', $data, TRUE);
             } elseif ( $post_status == 3 ) {
                 $data['container'] = $this->load->view('/admin/post/edit_3', $data, TRUE);
             } elseif ( $post_status == 4 ) {
                 $data['container'] = $this->load->view('/admin/post/edit_4', $data, TRUE);
+            } elseif ( $post_status == 5 ) {
+                $data['container'] = $this->load->view('/admin/shop/event/edit', $data, TRUE);
             } else {
                 show_404();                
             };            
@@ -623,11 +627,13 @@ class Shop_event extends CI_Controller {
             if ( $post_status == 1 ) {
                 $data['container'] = $this->load->view('/admin/post/list_1', $data, TRUE);
             } elseif ( $post_status == 2 ) {
-                $data['container'] = $this->load->view('/admin/shop/event/list', $data, TRUE);
+                $data['container'] = $this->load->view('/admin/post/list_2', $data, TRUE);
             } elseif ( $post_status == 3 ) {
                 $data['container'] = $this->load->view('/admin/post/list_3', $data, TRUE);
             } elseif ( $post_status == 4 ) {
                 $data['container'] = $this->load->view('/admin/post/list_4', $data, TRUE);
+            } elseif ( $post_status == 5 ) {
+                $data['container'] = $this->load->view('/admin/shop/event/list', $data, TRUE);
             } else {
                 show_404();                
             };

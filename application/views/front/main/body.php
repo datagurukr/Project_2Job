@@ -51,7 +51,7 @@
         };
         </script> 
     </head>
-    <body>
+    <body style="background:#F4F5FB">
         <div id="screen" style="background:#F4F5FB">
             <? echo $container; ?>
             <script type="text/javascript">run_func( 'header', false );</script>            

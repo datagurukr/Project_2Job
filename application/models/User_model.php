@@ -92,6 +92,46 @@ class User_model extends CI_Model{
             $data['user_address'] = ''; //                 
         };
         
+        if ( !array_key_exists('user_kakaoid',$data) ) {
+            $data['user_kakaoid'] = ''; //                 
+        };
+        
+        if ( !array_key_exists('user_short_introduction',$data) ) {
+            $data['user_short_introduction'] = ''; //                 
+        };
+        
+        if ( !array_key_exists('user_introduction',$data) ) {
+            $data['user_introduction'] = ''; //                 
+        };
+        
+        if ( !array_key_exists('user_shop_daily_open_state',$data) ) {
+            $data['user_shop_daily_open_state'] = 0; //                 
+        };                
+        
+        if ( !array_key_exists('user_shop_daily_open_time',$data) ) {
+            $data['user_shop_daily_open_time'] = ''; //                 
+        };
+        
+        if ( !array_key_exists('user_shop_daily_close_time',$data) ) {
+            $data['user_shop_daily_close_time'] = ''; //                 
+        };
+        
+        if ( !array_key_exists('user_shop_holiday_open_state',$data) ) {
+            $data['user_shop_holiday_open_state'] = 0; //                 
+        };                
+            
+        if ( !array_key_exists('user_shop_holiday_open_time',$data) ) {
+            $data['user_shop_holiday_open_time'] = ''; //                 
+        };        
+        
+        if ( !array_key_exists('user_shop_holiday_close_time',$data) ) {
+            $data['user_shop_holiday_close_time'] = ''; //                 
+        };
+
+        if ( !array_key_exists('user_shop_pictrue',$data) ) {
+            $data['user_shop_pictrue'] = ''; //                 
+        };
+        
         if ( !array_key_exists('user_ip_address',$data) ) {
             $data['user_ip_address'] = $_SERVER['REMOTE_ADDR'];
         };
@@ -117,6 +157,16 @@ class User_model extends CI_Model{
                     user_authentication_number,
                     user_birthday,
                     user_address,
+                    user_kakaoid,
+                    user_short_introduction,
+                    user_introduction,
+                    user_shop_daily_open_state,
+                    user_shop_daily_open_time,
+                    user_shop_daily_close_time,
+                    user_shop_holiday_open_state,
+                    user_shop_holiday_open_time,
+                    user_shop_holiday_close_time,   
+                    user_shop_pictrue,
                     user_ip_address,
                     user_register_date,
                     user_update_date
@@ -138,7 +188,17 @@ class User_model extends CI_Model{
                     '".$data['user_business_industry']."',                    
                     '".$data['user_authentication_number']."',  
                     '".$data['user_birthday']."',  
-                    '".$data['user_address']."',                      
+                    '".$data['user_address']."',
+                    '".$data['user_kakaoid']."',
+                    '".$data['user_short_introduction']."',
+                    '".$data['user_introduction']."',
+                    ".$data['user_shop_daily_open_state'].",                    
+                    '".$data['user_shop_daily_open_time']."',
+                    '".$data['user_shop_daily_close_time']."',
+                    ".$data['user_shop_holiday_open_state'].", 
+                    '".$data['user_shop_holiday_open_time']."',
+                    '".$data['user_shop_holiday_close_time']."',
+                    '".$data['user_shop_pictrue']."',                    
                     '".$data['user_ip_address']."',
                     now(),
                     now()
@@ -231,6 +291,10 @@ class User_model extends CI_Model{
             ";
         } else {
             $select = "          
+            0 as shop_booking_number_count,
+            0 as shop_sale_booking_number_count,
+            0 as shop_bookmark_count,
+            
             user.user_id as user_id,
             user.user_status as user_status,
             user.user_state as user_state,
@@ -250,10 +314,33 @@ class User_model extends CI_Model{
             user.user_birthday as user_birthday,
             user.user_ip_address as user_ip_address,
             user.user_address as user_address,
+            user.user_kakaoid as user_kakaoid,
+            user.user_short_introduction as user_short_introduction,
+            user.user_introduction as user_introduction,
+            user.user_incentive as user_incentive,
+            ( select sum(saving_exp) from saving where user_id = user.user_id ) as user_exp,
+            /*user.user_exp as user_exp,*/
+            user.user_shop_daily_open_state as user_shop_daily_open_state,
+            user.user_shop_daily_open_time as user_shop_daily_open_time,
+            user.user_shop_daily_close_time as user_shop_daily_close_time,
+            user.user_shop_holiday_open_state as user_shop_holiday_open_state,
+            user.user_shop_holiday_open_time as user_shop_holiday_open_time,
+            user.user_shop_holiday_close_time as user_shop_holiday_close_time,                                
+            user.user_shop_pictrue as user_shop_pictrue,                        
+            user.user_notice_reservation_status as user_notice_reservation_status,
+            user.user_auto_login as user_auto_login,
+            user.user_notice_event_status as user_notice_event_status,
+            user.user_notice_admin_status as user_notice_admin_status,
+            user.user_notice_shop_status as user_notice_shop_status,
+            user.user_lat as user_lat,
+            user.user_lng as user_lng,
             user.user_register_date as user_register_date,
             user.user_update_date as user_update_date            
             ";
         };        
+        // shop_booking_number
+        // shop_sale_booking_number
+        // shop_bookmark_count
         
         if ( $type == 'email' ) {            
             $sql = "
@@ -265,6 +352,47 @@ class User_model extends CI_Model{
                 user.user_email = '".$data['user_email']."'
             ".$limit."
             ";      
+        } elseif ( $type == 'shop_recommend' ) {            
+            $sql = "
+            select
+                ".$select."
+            FROM
+                user AS user
+            WHERE
+                user.user_state = 1
+                and
+                user.user_status = 3
+            order by user.user_register_date ".$data['order']."                
+            ".$limit."
+            ";               
+        } elseif ( $type == 'shop_gps_order' ) {            
+            // round(( 6371 * acos( cos( radians(".$data['lat'].") ) * cos( radians( stamp.stamp_lat ) ) * cos( radians( stamp.stamp_lng ) - radians(".$data['lng'].") ) + sin( radians(".$data['lat'].") ) * sin( radians( stamp.stamp_lat ) ) ) ),1) as stamp_distance,
+            $sql = "
+            select
+                ".$select."
+            FROM
+                user AS user
+            WHERE
+                user.user_state = 1
+                and
+                user.user_status = 3
+            order by user.user_register_date ".$data['order']."
+            limit 1000
+            ";
+        } elseif ( $type == 'shop_gps' ) {            
+            // round(( 6371 * acos( cos( radians(".$data['lat'].") ) * cos( radians( stamp.stamp_lat ) ) * cos( radians( stamp.stamp_lng ) - radians(".$data['lng'].") ) + sin( radians(".$data['lat'].") ) * sin( radians( stamp.stamp_lat ) ) ) ),1) as stamp_distance,
+            $sql = "
+            select
+                ".$select."
+            FROM
+                user AS user
+            WHERE
+                user.user_state = 1
+                and
+                user.user_status = 3
+            order by round(( 6371 * acos( cos( radians(".$data['lat'].") ) * cos( radians( user.user_lat ) ) * cos( radians( user.user_lng ) - radians(".$data['lng'].") ) + sin( radians(".$data['lat'].") ) * sin( radians( user.user_lat ) ) ) ),1) ".$data['order']."    
+            limit 1000
+            ";
         } elseif ( $type == 'status' ) {
             $where = '';
             if ( strlen(trim($data['q'])) != 0 ) {
@@ -434,6 +562,10 @@ class User_model extends CI_Model{
                     $user_data = $query->result_array();
                     $temp_data = array();                    
                     foreach ( $user_data as $row ) {
+                        
+                        $user_data[$i]['user_level'] = 1;
+                        $user_data[$i]['user_discount'] = 1;
+                        $user_data[$i]['user_salary'] = 1000000;
                         
                         /*
                         if ( array_key_exists('user_picture',$row) ) {

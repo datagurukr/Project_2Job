@@ -16,7 +16,7 @@ status 500 : 서버에 오류가 발생하여 요청을 수행할 수 없다.
 ************************************/
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Shop extends CI_Controller {    
+class Main extends CI_Controller {    
     
     function __construct() {
 		parent::__construct();

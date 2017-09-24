@@ -149,58 +149,32 @@ class Shop extends CI_Controller {
         /*******************
         data query
         *******************/             
-		$this->load->model('post_model');                
-        
-        if ( isset($_GET['p']) ) {
-            $p = (int)$_GET['p'];
-            if ( $p <= 0 ) {
-                $p = 1;
-            };
-        } else {
-            $p = 1;
-        };
-        $data['p'] = $p;        
-        $p = (($p * 2) * 10) - 20;  
-        $pagination_url = '';        
-        if ( isset($_GET['q']) ) {
-            $q = $_GET['q'];
-            $pagination_url = $pagination_url.'&q='.$q;
-        } else {
-            $q = '';
-        };        
-        $data['q'] = $q;
-        
-        $result = $this->post_model->out('all',array(
-            'user_id' => $session_id,
-            'p' => $p,
-            'order' => 'desc'
-        ));
-        $result_count = $this->post_model->out('all',array(
-            'user_id' => $session_id,
-            'p' => $p,
-            'order' => 'desc',
-            'count' => TRUE
-        ));    
-        $pagination_count = 0;
-        if ( $result_count ) {
-            $pagination_count = $result_count[0]['cnt'];            
-        };
-        if ( strlen($q) == 0 ) {
-            $this->global_pagination($pagination_count,'/search/?',$pagination_url);
-        } else {
-            $this->global_pagination($pagination_count,'/search/?',$pagination_url);            
-        };
+		$this->load->model('user_model');
+		$this->load->model('product_model');   
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));        
+        $result = $this->user_model->out('id',array(
+            'user_id' => $shop_id
+        ));        
+        $product_result = $this->product_model->out('user_id',array(
+            'user_id' => $shop_id
+        ));        
         
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
                 'out' => $result,
-                'out_cnt' => $pagination_count,               
+                'session_out' => $session_out,                                
+                'product_out' =>$product_result,
                 'count' => count($result)
             );        
         } else {
             $response['status'] = 401;
-        };                
+            $response['data'] = array(
+                'session_out' => $session_out
+            );                                
+        };   
         
         /*******************
         meta
@@ -301,7 +275,7 @@ class Shop extends CI_Controller {
         /*******************
         data query
         *******************/             
-		$this->load->model('post_model');                
+		$this->load->model('user_model');                
         
         if ( isset($_GET['p']) ) {
             $p = (int)$_GET['p'];
@@ -322,12 +296,16 @@ class Shop extends CI_Controller {
         };        
         $data['q'] = $q;
         
-        $result = $this->post_model->out('all',array(
+        $this->load->model('user_model');            
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));                
+        $result = $this->user_model->out('all',array(
             'user_id' => $session_id,
             'p' => $p,
             'order' => 'desc'
         ));
-        $result_count = $this->post_model->out('all',array(
+        $result_count = $this->user_model->out('all',array(
             'user_id' => $session_id,
             'p' => $p,
             'order' => 'desc',
@@ -346,12 +324,16 @@ class Shop extends CI_Controller {
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
+                'session_out' => $session_out,                                
                 'out' => $result,
                 'out_cnt' => $pagination_count,               
                 'count' => count($result)
             );        
         } else {
             $response['status'] = 401;
+            $response['data'] = array(
+                'session_out' => $session_out
+            );                                
         };                
         
         /*******************
@@ -449,7 +431,7 @@ class Shop extends CI_Controller {
         /*******************
         data query
         *******************/             
-		$this->load->model('post_model');                
+		$this->load->model('user_model');                
         
         if ( isset($_GET['p']) ) {
             $p = (int)$_GET['p'];
@@ -470,14 +452,40 @@ class Shop extends CI_Controller {
         };        
         $data['q'] = $q;
         
-        $result = $this->post_model->out('all',array(
+        $this->load->model('user_model');    
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));       
+        
+        if ( isset($_GET['lat']) && isset($_GET['lng']) ) {
+            $lat = $_GET['lat'];            
+            $lng = $_GET['lng'];            
+        } else {
+            $lat = 37.562296;            
+            $lng = 126.990228;            
+        }
+        
+        if ( isset($_GET['p']) ) {
+            $p = (int)$_GET['p'];
+            if ( $p <= 0 ) {
+                $p = 1;
+            };
+        } else {
+            $p = 1;
+        };        
+        
+        $result = $this->user_model->out('shop_gps_order',array(
             'user_id' => $session_id,
             'p' => $p,
+            'lat' => $lat,
+            'lng' => $lng,
             'order' => 'desc'
         ));
-        $result_count = $this->post_model->out('all',array(
+        $result_count = $this->user_model->out('shop_gps_order',array(
             'user_id' => $session_id,
             'p' => $p,
+            'lat' => $lat,
+            'lng' => $lng,            
             'order' => 'desc',
             'count' => TRUE
         ));    
@@ -494,12 +502,16 @@ class Shop extends CI_Controller {
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
+                'session_out' => $session_out, 
                 'out' => $result,
                 'out_cnt' => $pagination_count,               
                 'count' => count($result)
             );        
         } else {
             $response['status'] = 401;
+            $response['data'] = array(
+                'session_out' => $session_out
+            );                                
         };                
         
         /*******************
@@ -597,7 +609,15 @@ class Shop extends CI_Controller {
         /*******************
         data query
         *******************/             
-		$this->load->model('post_model');                
+		$this->load->model('user_model');
+        
+        if ( isset($_GET['lat']) && isset($_GET['lng']) ) {
+            $lat = $_GET['lat'];            
+            $lng = $_GET['lng'];            
+        } else {
+            $lat = 37.562296;            
+            $lng = 126.990228;            
+        };
         
         if ( isset($_GET['p']) ) {
             $p = (int)$_GET['p'];
@@ -618,17 +638,32 @@ class Shop extends CI_Controller {
         };        
         $data['q'] = $q;
         
-        $result = $this->post_model->out('all',array(
+        $this->load->model('user_model');    
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));                
+        $shop_recommend_out = $this->user_model->out('shop_recommend',array(
             'user_id' => $session_id,
             'p' => $p,
+            'lat' => $lat,
+            'lng' => $lng,
+            'order' => 'desc'
+        ));        
+        $result = $this->user_model->out('shop_gps_order',array(
+            'user_id' => $session_id,
+            'p' => $p,
+            'lat' => $lat,
+            'lng' => $lng,
             'order' => 'desc'
         ));
-        $result_count = $this->post_model->out('all',array(
+        $result_count = $this->user_model->out('shop_gps_order',array(
             'user_id' => $session_id,
             'p' => $p,
+            'lat' => $lat,
+            'lng' => $lng,            
             'order' => 'desc',
             'count' => TRUE
-        ));    
+        ));   
         $pagination_count = 0;
         if ( $result_count ) {
             $pagination_count = $result_count[0]['cnt'];            
@@ -642,12 +677,18 @@ class Shop extends CI_Controller {
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
+                'session_out' => $session_out, 
+                'shop_recommend_out' => $shop_recommend_out,
                 'out' => $result,
                 'out_cnt' => $pagination_count,               
                 'count' => count($result)
             );        
         } else {
             $response['status'] = 401;
+            $response['data'] = array(
+                'session_out' => $session_out,
+                'shop_recommend_out' => $shop_recommend_out,                
+            );                                
         };                
         
         /*******************

@@ -168,14 +168,31 @@ class Search extends CI_Controller {
         };        
         $data['q'] = $q;
         
-        $result = $this->post_model->out('all',array(
+        $this->load->model('user_model');    
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));    
+
+        // 인기 검색어
+        $json = FALSE;
+        $filename = 'search_json.json';
+        if( file_exists('./assets/json/'.$filename) ) {
+            $json = file_get_contents('./assets/json/'.$filename);
+            $json = json_decode($json,true);
+        };
+        $popularity_keyword_out = $json;
+        $latest_keyword_out = $json; //FALSE;
+        
+        $result = $this->post_model->out('all_search',array(
             'user_id' => $session_id,
             'p' => $p,
+            'q' => $q,
             'order' => 'desc'
         ));
-        $result_count = $this->post_model->out('all',array(
+        $result_count = $this->post_model->out('all_search',array(
             'user_id' => $session_id,
             'p' => $p,
+            'q' => $q,            
             'order' => 'desc',
             'count' => TRUE
         ));    
@@ -188,16 +205,23 @@ class Search extends CI_Controller {
         } else {
             $this->global_pagination($pagination_count,'/search/?',$pagination_url);            
         };
-        
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
+                'session_out' => $session_out,                                
+                'popularity_keyword_out' => $popularity_keyword_out,
+                'latest_keyword_out' => $latest_keyword_out,
                 'out' => $result,
                 'out_cnt' => $pagination_count,               
                 'count' => count($result)
             );        
         } else {
             $response['status'] = 401;
+            $response['data'] = array(
+                'session_out' => $session_out,
+                'popularity_keyword_out' => $popularity_keyword_out,
+                'latest_keyword_out' => $latest_keyword_out                
+            );                    
         };                
         
         /*******************

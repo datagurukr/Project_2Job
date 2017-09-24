@@ -220,6 +220,28 @@ class Post_model extends CI_Model{
             order by post.post_register_date ".$data['order']."        
             ".$limit."
             ";  
+        } elseif ( $type == 'all_search' ) {
+            $sql = "
+            select
+                ".$select."
+            FROM
+                post AS post
+                left outer join user as user
+                on
+                (post.user_id = user.user_id)  
+            where
+                0 <= post.post_state
+                and
+                ( post.post_status = 1 or post.post_status = 2 ) 
+                and
+                (
+                    post.post_content_title like '%".$data['q']."%'
+                    or
+                    post.post_content_article like '%".$data['q']."%'
+                )                
+            order by post.post_register_date ".$data['order']."        
+            ".$limit."
+            ";         
         } elseif ( $type == 'all' ) {            
             $where = '';
             if ( strlen(trim($data['q'])) != 0 ) {

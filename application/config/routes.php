@@ -65,16 +65,17 @@ $route['admin/user/list/4'] = 'admin/user/index/4'; // 틸퇴 회원관리
 $route['admin/user/(:num)'] = 'admin/user/edit/$1'; // 상세보기
 
 // shop > ㅣlist
-$route['admin/shop/list/1'] = 'admin/shop/index/1'; // 일반 가맹점 관리
+$route['admin/shop/list/1'] = 'admin/shop/main/index/1'; // 일반 가맹점 관리
 // shop > edit
-$route['admin/shop/(:num)'] = 'admin/shop/id/$1/info'; // 상세보기
-$route['admin/shop/(:num)/info'] = 'admin/shop/id/$1/info'; // 상세보기
-$route['admin/shop/(:num)/product'] = 'admin/shop/id/$1/product'; // 상세보기
-$route['admin/shop/(:num)/sales'] = 'admin/shop/id/$1/sales'; // 상세보기
+$route['admin/shop/(:num)'] = 'admin/shop/info/index/$1'; // 상세보기
+$route['admin/shop/(:num)/info'] = 'admin/shop/info/index/$1'; // 상세보기
+$route['admin/shop/(:num)/product'] = 'admin/shop/product/index/$1'; // 상세보기
+$route['admin/shop/(:num)/product/(:num)'] = 'admin/shop/product/edit/$1/$2'; // 상세보기
+$route['admin/shop/(:num)/sales'] = 'admin/shop/sales/index/$1'; // 상세보기
 
-$route['admin/shop/(:num)/event'] = 'admin/shop_event/index/$1/2'; // 상세보기
-$route['admin/shop/(:num)/event/post/(:num)/2'] = 'admin/shop_event/edit/$1/$2/2'; // 상세보기
-$route['admin/shop/(:num)/event/post/detail/(:num)/(:num)'] = 'admin/shop_event/detail/$1/$2/2'; // 상세보기
+$route['admin/shop/(:num)/event'] = 'admin/shop/event/index/$1/5'; // 상세보기
+$route['admin/shop/(:num)/event/post/(:num)/5'] = 'admin/shop/event/edit/$1/$2/5'; // 상세보기
+$route['admin/shop/(:num)/event/post/detail/(:num)/(:num)'] = 'admin/shop/event/detail/$1/$2/5'; // 상세보기
 
 // post  > list
 $route['admin/post/list/1'] = 'admin/post/index/1'; // 공지사항
@@ -96,10 +97,19 @@ $route['register/shop'] = 'auth/register/3';
 
 // post
 $route['notice'] = 'post/index/1';
+$route['notice/(:num)'] = 'post/detail/$1/1';
 $route['event'] = 'post/index/2/open';
 $route['event/open'] = 'post/index/2/open';
 $route['event/close'] = 'post/index/2/close';
+$route['event/(:num)'] = 'post/detail/$1/2';
 $route['qna'] = 'post/index/3';
+$route['qna/(:num)'] = 'post/detail/$1/3';
+
+// report
+$route['report'] = '';
+
+// customer
+$route['customer'] = '';
 
 // shop
 $route['shop'] = 'shop/map';
@@ -108,14 +118,31 @@ $route['shop/(:num)'] = 'shop/id/$1/detail';
 $route['shop/(:num)/detail'] = 'shop/id/$1/detail';
 $route['shop/(:num)/product'] = 'shop/id/$1/product';
 
+// product
+$route['product/(:num)'] = 'product/id/$1';
+
+// order
+$route['booking'] = 'booking/id/0';
+$route['booking/(:num)'] = 'booking/id/$1';
+
+// basket
+$route['basket'] = 'basket/index';
+
 // search
 $route['search'] = 'search/index';
 
 // user
 $route['user/notice'] = 'user/notice';
 $route['user/setting'] = 'user/setting';
+$route['user/bookmark'] = 'user/bookmark';
+$route['user/active'] = 'user/active';
+$route['user/active/all'] = 'user/active/0';
+$route['user/active/booking'] = 'user/active/1';
+$route['user/active/recommender'] = 'user/active/2';
+$route['user/active/salary'] = 'user/active/3';
 
 /* API */
+$route['api/shop/out/gps'] = "api/shop_out/shop_gps";
 $route['api/upload'] = "api/upload/ckupload";
 
 /* api/1.0 

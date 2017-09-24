@@ -104,7 +104,7 @@
         
         <div class="row">        
             <div class="col s12">
-                <a href="/admin/shop/<? echo $shop_id; ?>/event/post/0/2" class="waves-effect waves-light btn col s6 offset-s6">
+                <a href="/admin/shop/<? echo $shop_id; ?>/event/post/0/5" class="waves-effect waves-light btn col s6 offset-s6">
                     <i class="material-icons left">edit</i>
                     글쓰기
                 </a>

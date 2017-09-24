@@ -155,23 +155,28 @@ class Main extends CI_Controller {
         *******************/
         
         $this->load->model('post_model');                
+        $this->load->model('user_model');    
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));                
         $notice_out = $this->post_model->out('status',array(
             'user_id' => $session_id,
             'p' => 0,
-            'limit' => 5,
+            'limit' => 1,
             'post_status' => 1,
             'order' => 'desc'
         ));        
         $event_out = $this->post_model->out('status',array(
             'user_id' => $session_id,
             'p' => 0,
-            'limit' => 5,
+            'limit' => 1,
             'post_status' => 2,
             'order' => 'desc'
         ));        
         
         $response['status'] = 200;                    
         $response['data'] = array(
+            'session_out' => $session_out,
             'notice_out' => $notice_out,
             'event_out' => $event_out            
         );        

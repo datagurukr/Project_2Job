@@ -152,8 +152,8 @@ class User extends CI_Controller {
         } else {
             $yearmonth = '';
         };
-        $data['yearmonth'] = $yearmonth;        
-            
+        $data['yearmonth'] = $yearmonth;  
+        
         if ( isset($_GET['order']) ) {
             if ( $_GET['order'] == 'desc' || $_GET['order'] == 'asc' ) {
                 $order = $_GET['order'];

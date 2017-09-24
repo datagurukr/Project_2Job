@@ -50,6 +50,530 @@ class User extends CI_Controller {
         return $meta;
     }    
     
+    function global_pagination ($count,$url,$query_url = false, $details = false) {
+        /*******************
+        library load
+        *******************/
+        $this->load->library('pagination');
+        $config['base_url'] = $url.$query_url;
+        $config['total_rows'] = $count;
+        if ( $details ) {
+            $config['uri_segment'] = 5;
+        } elseif ( $query_url ) {
+            $config['uri_segment'] = 6;
+        } else {
+            $config['uri_segment'] = 4;
+        };
+        $config['per_page'] = 20;
+        $config['num_links'] = 5;
+        $config['use_page_numbers'] = TRUE; /*페이지개수 x 인덱스로 지정*/ 
+        $config['page_query_string'] = TRUE; /*페이지개수 x 인덱스로 지정*/         
+        $config['query_string_segment'] = 'p';
+        /*pagination Customizing*/
+        /*pagination ul tag*/
+        $config['full_tag_open'] = '<ul class="pagination center">';
+        $config['full_tag_close'] = '</ul>';
+        /*처음으로
+        $config['first_tag_open'] = '<li class="disabled">';
+        $config['first_tag_close'] = '</li>';
+        */
+        /*끝으로
+        $config['last_tag_open'] = '<li class="nation-list last">';
+        $config['last_tag_close'] = '</li>';
+        */
+        /*다음*/
+        $config['next_link'] = '<i class="material-icons">chevron_right</i>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        /*이전*/
+        
+        $config['prev_link'] = '<i class="material-icons">chevron_left</i>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';		
+        /*현제페이지*/
+        $config['cur_tag_open'] = '<li class="active"><a>';
+        $config['cur_tag_close'] = '</a></li>';		
+        /*다음링크번호*/
+        $config['num_tag_open'] = '<li class="waves-effect">';
+        $config['num_tag_close'] = '</li>';    
+        $this->pagination->initialize($config);
+    }     
+    
+    function notice () {    
+        /*******************
+        data
+        *******************/
+        $data = array();         
+        
+        /*******************
+        page key
+        *******************/
+        $data['key'] = 'auth';        
+        $data['sub_key'] = $data['key'].'_login';
+        
+        /*******************
+        response
+        *******************/
+        $response = array();      
+        
+        /*******************
+        meta
+        *******************/
+        $meta = array();           
+        
+        /*******************
+        callback
+        *******************/
+        $callback = '';
+        
+        /*******************
+        redirect url
+        *******************/
+        $redirect_url = '';        
+        
+        /*******************
+        ajax 통신 체크
+        *******************/
+        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+                || 
+                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        
+        /*******************
+        session
+        *******************/
+        $data['session'] = $this->session->all_userdata();  
+        $data['session_id'] = 0;
+        if ( isset($data['session']['logged_in']) ) {
+            $session_id = $data['session']['users_id'];
+        } else {
+            $session_id = 0;
+        };
+        $data['session_id'] = $session_id;
+        if ( $session_id == 0 ) {
+            $this->load->helper('url');
+            redirect('/login', 'refresh');
+        }        
+
+		$this->load->model('user_model');
+        $result = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));
+        if ( !$result ) {
+            exit();
+        }
+        
+        /*******************
+        library
+        *******************/        
+        $this->load->library('form_validation');        
+        
+        if ( isset($_POST['user_name']) ) {
+            $this->form_validation->set_rules('user_name','user_name','trim|required');
+        };        
+        
+        /*******************
+        data query
+        *******************/     
+        if ($this->form_validation->run() == TRUE ) {
+            $set_data = array ();            
+            $set_data['user_id'] = $session_id;        
+            
+            if ( isset($_POST['user_notice_reservation_status']) ) {
+                $set_data['user_notice_reservation_status'] = array (
+                    'key' => 'user_notice_reservation_status',
+                    'type' => 'int',
+                    'value' => 1
+                );
+            } else {
+                $set_data['user_notice_reservation_status'] = array (
+                    'key' => 'user_notice_reservation_status',
+                    'type' => 'int',
+                    'value' => 0
+                );
+            };
+            
+            if ( isset($_POST['user_notice_event_status']) ) {
+                $set_data['user_notice_event_status'] = array (
+                    'key' => 'user_notice_event_status',
+                    'type' => 'int',
+                    'value' => 1
+                );
+            } else {
+                $set_data['user_notice_event_status'] = array (
+                    'key' => 'user_notice_event_status',
+                    'type' => 'int',
+                    'value' => 0
+                );
+            };    
+            
+            if ( isset($_POST['user_notice_admin_status']) ) {
+                $set_data['user_notice_admin_status'] = array (
+                    'key' => 'user_notice_admin_status',
+                    'type' => 'int',
+                    'value' => 1
+                );
+            } else {
+                $set_data['user_notice_admin_status'] = array (
+                    'key' => 'user_notice_admin_status',
+                    'type' => 'int',
+                    'value' => 0
+                );
+            };               
+            
+            if ( isset($_POST['user_notice_shop_status']) ) {
+                $temp = $this->input->post('user_notice_shop_status',TRUE);
+                $user_notice_shop_status = '';
+                $i = 0;
+                foreach ( $temp as $temp_row ) {
+                    if ( $i == 0 ) {
+                        $user_notice_shop_status = $user_notice_shop_status.''.$temp_row;
+                    } else {
+                        $user_notice_shop_status = $user_notice_shop_status.'|'.$temp_row;
+                    };
+                    $i++;
+                };
+                $set_data['user_notice_shop_status'] = array (
+                    'key' => 'user_notice_shop_status',
+                    'type' => 'string',
+                    'value' => $user_notice_shop_status
+                );                                
+            } else {
+                $set_data['user_notice_shop_status'] = array (
+                    'key' => 'user_notice_shop_status',
+                    'type' => 'string',
+                    'value' => 0
+                );                
+            };
+            
+            
+            $this->load->model('user_model');                    
+            if ( $this->user_model->update('update',$set_data) ) {
+                $response['update'] = TRUE;
+            } else {
+                $response['update'] = FALSE;
+            };
+            
+        } else {
+            /*******************
+            validation
+            *******************/
+            $validation = array();
+            if ( isset($_POST['user_name']) ) {
+                if ( 0 < strlen(strip_tags(form_error('user_name'))) ) {
+                    $validation['user_name'] = strip_tags(form_error('user_name'));
+                };
+            };
+            
+            if ( count($validation) ) {
+                $response['status'] = 400;
+                $response['error'] = array (
+                    'validation' => $validation
+                );
+            } else {
+                $response['status'] = 500;
+                $response['error'] = array (
+                    'message' => '재시도 해주세요.'
+                );
+            }            
+        };
+        
+		$this->load->model('user_model');
+        $result = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));        
+        
+        if ( $result ) {
+            $response['status'] = 200;                    
+            $response['data'] = array(
+                'session_out' => $result,
+                'out' => $result,
+                'count' => count($result)
+            );        
+        } else {
+            $response['status'] = 401;
+        };           
+        
+        /*******************
+        meta
+        *******************/
+        $data['meta'] = $this->init_meta($meta);        
+        
+        $data['response'] = $response;        
+        
+        $data['container'] = $this->load->view('/front/user/notice', $data, TRUE);
+        
+        if ( $ajax ) {
+            $article = $data['container'];
+            $ajax_data['module'] = array (
+                'html' => $article,
+                'tree' => array (
+                    'router_attributes' => array('class' => ''),
+                    'inner_attributes' => array ('class' => '','id' => 'screen'),
+                    'header_attributes' => array ('class' => '','id' => ''),
+                    'article_attributes' => array ('class' => '','id' => ''),
+                    'footer_attributes' => array ('class' => '','id' => '')
+                ),
+                'page_info' => array (
+                    'meta' => $data['meta'],
+                    'title' => $data['meta']['title']
+                ),
+                'resource_response' => array (
+                    'session' => $data['session'],
+                    'data' => $data
+                ),
+                'callback' => $callback,
+                'redirect_url' => $redirect_url,
+                'complete' => 1,
+                'overlay' => FALSE,
+                'url_change' => TRUE
+            );
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output( json_encode($ajax_data) );                
+        } else {
+            $this->load->view('/front/auth/body', $data, FALSE);            
+        };
+    }    
+    
+    function active ( $saving_status = 0 ) {    
+        /*******************
+        data
+        *******************/
+        $data = array();         
+        
+        /*******************
+        page key
+        *******************/
+        $data['key'] = 'auth';        
+        $data['sub_key'] = $data['key'].'_login';
+        
+        /*******************
+        response
+        *******************/
+        $response = array();      
+        
+        /*******************
+        meta
+        *******************/
+        $meta = array();           
+        
+        /*******************
+        callback
+        *******************/
+        $callback = '';
+        
+        /*******************
+        redirect url
+        *******************/
+        $redirect_url = '';        
+        
+        /*******************
+        ajax 통신 체크
+        *******************/
+        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+                || 
+                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        
+        /*******************
+        session
+        *******************/
+        $data['session'] = $this->session->all_userdata();  
+        $data['session_id'] = 0;
+        if ( isset($data['session']['logged_in']) ) {
+            $session_id = $data['session']['users_id'];
+        } else {
+            $session_id = 0;
+        };
+        $data['session_id'] = $session_id;
+        if ( $session_id == 0 ) {
+            $this->load->helper('url');
+            redirect('/login', 'refresh');
+        }        
+
+		$this->load->model('user_model');
+        $result = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));
+        if ( !$result ) {
+            exit();
+        }
+
+        /*******************
+        data query
+        *******************/     
+        
+        if ( isset($_GET['p']) ) {
+            $p = (int)$_GET['p'];
+            if ( $p <= 0 ) {
+                $p = 1;
+            };
+        } else {
+            $p = 1;
+        };
+        $data['p'] = $p;        
+        $p = (($p * 2) * 10) - 20;  
+        $pagination_url = '';        
+
+        if ( isset($_GET['state']) ) {
+            $state = $_GET['state'];
+            $pagination_url = $pagination_url.'&state='.$state;            
+        } else {
+            $state = 0;
+        };        
+        $data['state'] = $state;
+        
+        if ( isset($_GET['yearmonth']) ) {
+            $yearmonth = $_GET['yearmonth'];
+            $pagination_url = $pagination_url.'&yearmonth='.$yearmonth;            
+        } else {
+            $yearmonth = '';
+        };
+        $data['yearmonth'] = $yearmonth;        
+        
+        $this->load->model('user_model');    
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));        
+        $this->load->model('saving_model');       
+        
+        if ( $saving_status == 0 ) {
+            $result = $this->saving_model->out('user_all',array(
+                'user_id' => $session_id,
+                'p' => $p,
+                'order' => 'desc'
+            ));
+            $result_count = $this->saving_model->out('user_all',array(
+                'user_id' => $session_id,
+                'p' => $p,
+                'order' => 'desc',            
+                'count' => TRUE
+            ));    
+        } elseif ( $saving_status == 1 ) {
+            $this->load->model('booking_model');         
+            
+            if ( $state == 0 ) {
+                $result = $this->booking_model->out('user_id',array(
+                    'user_id' => $session_id,
+                    'p' => $p,
+                    'order' => 'desc'
+                ));     
+                $result_count = $this->booking_model->out('user_id',array(
+                    'user_id' => $session_id,
+                    'p' => $p,
+                    'order' => 'desc',
+                    'count' => TRUE
+                ));             
+            } else {
+                $result = $this->booking_model->out('state_user_id',array(
+                    'user_id' => $session_id,
+                    'p' => $p,
+                    'booking_state' => $state,
+                    'order' => 'desc'
+                ));     
+                $result_count = $this->booking_model->out('state_user_id',array(
+                    'user_id' => $session_id,
+                    'p' => $p,
+                    'booking_state' => $state,                    
+                    'order' => 'desc',
+                    'count' => TRUE
+                ));             
+            }
+            
+        } else {
+            $result = $this->saving_model->out('user_status',array(
+                'user_id' => $session_id,
+                'p' => $p,
+                'order' => 'desc',
+                'saving_status' => $saving_status
+            ));
+            $result_count = $this->saving_model->out('user_status',array(
+                'user_id' => $session_id,
+                'p' => $p,
+                'order' => 'desc',            
+                'saving_status' => $saving_status,
+                'count' => TRUE
+            ));    
+        }
+        
+        $pagination_count = 0;
+        if ( $result_count ) {
+            $pagination_count = $result_count[0]['cnt'];            
+        };      
+        if ( $saving_status == 0 ) {
+            $this->global_pagination($pagination_count,'/user/active/all/?',$pagination_url);            
+        } elseif ( $saving_status == 1 ) {
+            $this->global_pagination($pagination_count,'/user/active/booking/?',$pagination_url);                        
+        } elseif ( $saving_status == 2 ) {
+            $this->global_pagination($pagination_count,'/user/active/recommender/?',$pagination_url);                        
+        } elseif ( $saving_status == 3 ) {            
+            $this->global_pagination($pagination_count,'/user/active/salary/?',$pagination_url);                        
+        }
+        
+        if ( $result ) {
+            $response['status'] = 200;                    
+            $response['data'] = array(
+                'session_out' => $session_out,                
+                'out' => $result,
+                'out_cnt' => $pagination_count,                               
+                'count' => count($result)
+            );        
+        } else {
+            $response['status'] = 401;
+            $response['data'] = array(
+                'session_out' => $session_out
+            );               
+        };           
+        
+        /*******************
+        meta
+        *******************/
+        $data['meta'] = $this->init_meta($meta);        
+        
+        $data['response'] = $response;        
+        
+        if ( $saving_status == 0 ) {
+            $data['container'] = $this->load->view('/front/user/active/all', $data, TRUE);            
+        } elseif ( $saving_status == 1 ) {
+            $data['container'] = $this->load->view('/front/user/active/booking', $data, TRUE);                        
+        } elseif ( $saving_status == 2 ) {
+            $data['container'] = $this->load->view('/front/user/active/recommender', $data, TRUE);                        
+        } elseif ( $saving_status == 3 ) {            
+            $data['container'] = $this->load->view('/front/user/active/salary', $data, TRUE);                        
+        }
+        
+        if ( $ajax ) {
+            $article = $data['container'];
+            $ajax_data['module'] = array (
+                'html' => $article,
+                'tree' => array (
+                    'router_attributes' => array('class' => ''),
+                    'inner_attributes' => array ('class' => '','id' => 'screen'),
+                    'header_attributes' => array ('class' => '','id' => ''),
+                    'article_attributes' => array ('class' => '','id' => ''),
+                    'footer_attributes' => array ('class' => '','id' => '')
+                ),
+                'page_info' => array (
+                    'meta' => $data['meta'],
+                    'title' => $data['meta']['title']
+                ),
+                'resource_response' => array (
+                    'session' => $data['session'],
+                    'data' => $data
+                ),
+                'callback' => $callback,
+                'redirect_url' => $redirect_url,
+                'complete' => 1,
+                'overlay' => FALSE,
+                'url_change' => TRUE
+            );
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output( json_encode($ajax_data) );                
+        } else {
+            $this->load->view('/front/auth/body', $data, FALSE);            
+        };
+    }    
+    
     function setting () {    
         /*******************
         data
@@ -173,6 +697,20 @@ class User extends CI_Controller {
         if ($this->form_validation->run() == TRUE ) {
             $set_data = array ();            
             $set_data['user_id'] = $session_id;        
+            
+            if ( isset($_POST['user_auto_login']) ) {
+                $set_data['user_auto_login'] = array (
+                    'key' => 'user_auto_login',
+                    'type' => 'int',
+                    'value' => 1
+                );
+            } else {
+                $set_data['user_auto_login'] = array (
+                    'key' => 'user_auto_login',
+                    'type' => 'int',
+                    'value' => 0
+                );
+            };               
             
             if ( isset($_POST['user_name']) ) {
                 $set_data['user_name'] = array (
@@ -387,6 +925,7 @@ class User extends CI_Controller {
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
+                'session_out' => $result,                
                 'out' => $result,
                 'count' => count($result)
             );        

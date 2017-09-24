@@ -94,6 +94,145 @@ class Post extends CI_Controller {
         $this->pagination->initialize($config);
     }     
     
+    function detail ( $post_id, $post_status = 0 ) {        
+        /*******************
+        data
+        *******************/
+        $data = array();         
+        
+        /*******************
+        response
+        *******************/
+        $response = array();        
+        
+        /*******************
+        meta
+        *******************/
+        $meta = array();           
+        
+        /*******************
+        callback
+        *******************/
+        $callback = '';
+        
+        /*******************
+        redirect url
+        *******************/
+        $redirect_url = '';           
+        
+        /*******************
+        page key
+        *******************/
+        $data['key'] = 'home';
+        
+        /*******************
+        ajax 통신 체크
+        *******************/
+        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+                || 
+                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        
+        /*******************
+        session
+        *******************/
+        $data['session'] = $this->session->all_userdata();  
+        $data['session_id'] = 0;
+        if ( isset($data['session']['logged_in']) ) {
+            $session_id = $data['session']['users_id'];
+        } else {
+            $session_id = 0;
+        };
+        $data['session_id'] = $session_id;
+        
+        /*******************
+        data query
+        *******************/             
+		$this->load->model('post_model');                
+        
+        if ( isset($_GET['p']) ) {
+            $p = (int)$_GET['p'];
+            if ( $p <= 0 ) {
+                $p = 1;
+            };
+        } else {
+            $p = 1;
+        };
+        $data['p'] = $p;        
+        $p = (($p * 2) * 10) - 20;  
+
+        $this->load->model('user_model');    
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));        
+        $result = $this->post_model->out('id',array(
+            'post_id' => $post_id,
+            'p' => $p,
+            'order' => 'desc'
+        ));
+        
+        if ( $result ) {
+            $response['status'] = 200;                    
+            $response['data'] = array(
+                'session_out' => $session_out,
+                'out' => $result,               
+                'count' => count($result)
+            );        
+        } else {
+            $response['status'] = 401;
+            $response['data'] = array(
+                'session_out' => $session_out
+            );        
+            
+        };                
+        
+        /*******************
+        meta
+        *******************/
+        $data['meta'] = $this->init_meta($meta);                    
+        
+        $data['response'] = $response;        
+        
+        if ( $post_status == 1 ) {
+            $data['container'] = $this->load->view('/front/notice/detail', $data, TRUE);
+        } elseif ( $post_status == 2 ) {
+            $data['container'] = $this->load->view('/front/event/detail', $data, TRUE);
+        } elseif ( $post_status == 3 ) {
+            $data['container'] = $this->load->view('/front/qna/detail', $data, TRUE);
+        };
+        
+        if ( $ajax ) {
+            $article = $data['container'];
+            $ajax_data['module'] = array (
+                'html' => $article,
+                'tree' => array (
+                    'router_attributes' => array('class' => ''),
+                    'inner_attributes' => array ('class' => '','id' => 'screen'),
+                    'header_attributes' => array ('class' => '','id' => ''),
+                    'article_attributes' => array ('class' => '','id' => ''),
+                    'footer_attributes' => array ('class' => '','id' => '')
+                ),
+                'page_info' => array (
+                    'meta' => $data['meta'],
+                    'title' => $data['meta']['title']
+                ),
+                'resource_response' => array (
+                    'session' => $data['session'],
+                    'data' => $data
+                ),
+                'callback' => $callback,
+                'redirect_url' => $redirect_url,
+                'complete' => 1,
+                'overlay' => FALSE,
+                'url_change' => TRUE
+            );
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output( json_encode($ajax_data) );             
+        } else {
+            $this->load->view('/front/body', $data, FALSE);            
+        };
+    }    
+    
     function index ( $post_status = 0, $open = 'open' ) {        
         /*******************
         data
@@ -161,6 +300,10 @@ class Post extends CI_Controller {
         $p = (($p * 2) * 10) - 20;  
         $pagination_url = '';
         
+        $this->load->model('user_model');    
+        $session_out = $this->user_model->out('id',array(
+            'user_id' => $session_id
+        ));        
         $result = $this->post_model->out('status',array(
             'user_id' => $session_id,
             'p' => $p,
@@ -193,12 +336,16 @@ class Post extends CI_Controller {
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
+                'session_out' => $session_out,                
                 'out' => $result,
                 'out_cnt' => $pagination_count,               
                 'count' => count($result)
             );        
         } else {
             $response['status'] = 401;
+            $response['data'] = array(
+                'session_out' => $session_out
+            );                    
         };                
         
         /*******************
