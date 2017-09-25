@@ -307,7 +307,12 @@ if ( $response['data']['session_out'] ) {
 
                         <?
                     };
+                } else {
+                    ?>
+                <p>등록된 공지사항이 없습니다.</p>
+                    <?
                 };
+
                 ?>                
             </div>
         </div>
@@ -338,6 +343,10 @@ if ( $response['data']['session_out'] ) {
                 </div>    
                         <?
                     };
+                } else {
+                    ?>
+                <p>등록된 이벤트가 없습니다.</p>
+                    <?
                 };
                 ?>                
             </div>
