@@ -148,6 +148,7 @@ class Search extends CI_Controller {
         data query
         *******************/             
 		$this->load->model('post_model');                
+		$this->load->model('search_model');                        
         
         if ( isset($_GET['p']) ) {
             $p = (int)$_GET['p'];
@@ -167,6 +168,14 @@ class Search extends CI_Controller {
             $q = '';
         };        
         $data['q'] = $q;
+        
+        // 검색어 업데이트
+        if ( strlen($q) != 0 && $p == 0 ) {
+            $result = $this->search_model->update('create',array(
+                'search_id' => mt_rand(),
+                'search_name' => $q
+            ));
+        }
         
         $this->load->model('user_model');    
         $session_out = $this->user_model->out('id',array(

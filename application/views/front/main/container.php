@@ -2,11 +2,15 @@
 $session_out = FALSE;
 $notice_out = FALSE;
 $event_out = FALSE;
+$search_out = FALSE;
 if ( $response['data']['notice_out'] ) {
     $notice_out = $response['data']['notice_out'];
 };
 if ( $response['data']['event_out'] ) {
     $event_out = $response['data']['event_out'];
+};
+if ( $response['data']['search_out'] ) {
+    $search_out = $response['data']['search_out'];
 };
 if ( $response['data']['session_out'] ) {
     $session_out = $response['data']['session_out'][0];
@@ -137,10 +141,21 @@ if ( $response['data']['session_out'] ) {
             <nav>
                 <div class="main-nav clear-float">
                     <div class="row text-center">
+                        <?
+                        if ( $search_out ) {
+                            foreach ( $search_out as $row ) {
+                                ?>
+                        <div class="col s3"><a href="/search?q=<? echo $row['search_name']; ?>"><? echo $row['search_name']; ?></a></div>                        
+                                <?
+                            };
+                        };
+                        ?>
+                        <!--
                         <div class="col s3"><a href="/search?q=영업사원">영업사원</a></div>
                         <div class="col s3"><a href="/search?q=투잡하기">투잡하기</a></div>
                         <div class="col s3"><a href="/search?q=가맹점제휴">가맹점제휴</a></div>
                         <div class="col s3"><a href="/search?q=입점비용">입점비용</a></div>
+                        -->
                     </div>
                 </div>
             </nav>
@@ -259,7 +274,7 @@ if ( $response['data']['session_out'] ) {
         ?>
         <div class="row main-banner">
             <div class="col s12">
-                <a href="">
+                <a href="http://naver.comd">
                     <img src="/assets/images/banner.jpg" width="100%">
                 </a>
             </div>

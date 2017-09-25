@@ -155,9 +155,17 @@ class Main extends CI_Controller {
         *******************/
         
         $this->load->model('post_model');                
+        $this->load->model('search_model');                        
         $this->load->model('user_model');    
         $session_out = $this->user_model->out('id',array(
             'user_id' => $session_id
+        ));        
+        $search_out = $this->search_model->out('rank',array(
+            'user_id' => $session_id,
+            'p' => 0,
+            'limit' => 4,
+            'post_status' => 1,
+            'order' => 'desc'
         ));                
         $notice_out = $this->post_model->out('status',array(
             'user_id' => $session_id,
@@ -178,7 +186,8 @@ class Main extends CI_Controller {
         $response['data'] = array(
             'session_out' => $session_out,
             'notice_out' => $notice_out,
-            'event_out' => $event_out            
+            'event_out' => $event_out,
+            'search_out' => $search_out
         );        
         
         /*******************
