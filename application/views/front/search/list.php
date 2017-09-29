@@ -159,29 +159,54 @@ if ( $response['data']['session_out'] ) {
                     $num = $response['data']['out_cnt'] - $temp; 
                     foreach ( $response['data']['out'] as $row ) {
                         // $num; $num--;
-                        if ( $row['post_status'] == 1 ) {
-                            // 공지
-                            ?>
+                        if ( isset($row['post_status']) ) {
+                            if ( $row['post_status'] == 1 ) {
+                                // 공지
+                                ?>
             <div class="list-row">    
                 <a href="/notice/<? echo $row['post_id']; ?>">
                     <h6><? if ( 0 < strlen(trim($row['post_content_title'])) ) { echo $row['post_content_title']; } else { echo '-'; }; ?></h6>
                     <p><small><? echo date("Y-m-d", strtotime($row['post_register_date'])); ?></small></p>
                 </a>    
             </div>    
-                            <?
-                        } elseif ( $row['post_status'] == 2 ) {
-                            // 이벤트
-                            ?>
+                                <?
+                            } elseif ( $row['post_status'] == 2 ) {
+                                // 이벤트
+                                ?>
             <div class="list-row">    
                 <a href="/event/<? echo $row['post_id']; ?>">
                     <h6><? if ( 0 < strlen(trim($row['post_content_title'])) ) { echo $row['post_content_title']; } else { echo '-'; }; ?></h6>
                     <p><small><? echo date("Y-m-d", strtotime($row['post_register_date'])); ?></small></p>
                 </a>    
             </div>    
+                                <?
+                            };
+                        } else {
+                            ?>
+            <div class="list-row aff-ele">
+                <a href="/shop/<? echo $row['user_id']; ?>">
+                    <div class="row">
+                        <div class="col s5 col-tltle">
+                            <img src="<? if ( isset($row['user_shop_pictrue']) ) { echo $row['user_shop_pictrue']; }; ?>">
+                        </div>
+                        <div class="col s7">
+                            <h6 class="truncate">
+                                <? if ( isset($row['user_business_entity_name']) ) { echo $row['user_business_entity_name']; }; ?>
+                                <img class="bookmark-on" src="assets/images/on.png">
+                            </h6>
+                            <p class="intro">
+                                <? if ( isset($row['user_short_introduction']) ) { echo $row['user_short_introduction']; }; ?>
+                            </p>
+                            <p class="info">
+                                <? if ( isset($row['user_incentive']) ) { echo '판매인센티브: '.$row['user_incentive'].'%'; } else { echo ''; }; ?> <br>
+                                즐겨 찾는 가맹점(인기)수:  <? if ( isset($row['shop_bookmark_count']) ) { echo number_format($row['shop_bookmark_count']); } else { echo '0'; }; ?>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>            
                             <?
-                        }
-                        ?>       
-                        <?
+                        };
                     };
                 };
             }

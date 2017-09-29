@@ -352,6 +352,21 @@ class User_model extends CI_Model{
                 user.user_email = '".$data['user_email']."'
             ".$limit."
             ";      
+        } elseif ( $type == 'all_search' ) {       
+            $sql = "
+            select
+                ".$select."
+            FROM
+                user AS user
+            WHERE
+                user.user_state = 1
+                and
+                user.user_status = 3
+                and
+                user.user_business_entity_name like '%".$data['q']."%'                
+            order by user.user_register_date ".$data['order']."                
+            ".$limit."
+            ";
         } elseif ( $type == 'shop_recommend' ) {            
             $sql = "
             select

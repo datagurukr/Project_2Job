@@ -146,9 +146,15 @@ if ( isset($response['data']['session_out']) ) {
             <div class="tab tab">
                 <a href="/user/active/recommender" class="text-center">추천인</a>
             </div>
+            <?
+            if ( $session_out['user_status'] != 1 ) {
+                ?>            
             <div class="tab tab-active">
                 <a href="/user/active/salary" class="text-center">급여내역</a>
             </div>
+                <?
+            };
+            ?>            
         </div>
         <div class="container">
             <?

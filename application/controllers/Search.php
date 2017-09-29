@@ -146,9 +146,11 @@ class Search extends CI_Controller {
         
         /*******************
         data query
-        *******************/             
+        *******************/            
+        $this->load->helper('cookie');
 		$this->load->model('post_model');                
-		$this->load->model('search_model');                        
+		$this->load->model('user_model');                
+        $this->load->model('search_model');                        
         
         if ( isset($_GET['p']) ) {
             $p = (int)$_GET['p'];
@@ -177,6 +179,10 @@ class Search extends CI_Controller {
             ));
         }
         
+        // 최근 검색어 업데이트
+        if ( strlen($q) != 0 && $p == 0 ) {
+        }
+        
         $this->load->model('user_model');    
         $session_out = $this->user_model->out('id',array(
             'user_id' => $session_id
@@ -192,19 +198,19 @@ class Search extends CI_Controller {
         $popularity_keyword_out = $json;
         $latest_keyword_out = $json; //FALSE;
         
-        $result = $this->post_model->out('all_search',array(
+        $result = $this->user_model->out('all_search',array(
             'user_id' => $session_id,
             'p' => $p,
             'q' => $q,
             'order' => 'desc'
         ));
-        $result_count = $this->post_model->out('all_search',array(
+        $result_count = $this->user_model->out('all_search',array(
             'user_id' => $session_id,
             'p' => $p,
             'q' => $q,            
             'order' => 'desc',
             'count' => TRUE
-        ));    
+        ));   
         $pagination_count = 0;
         if ( $result_count ) {
             $pagination_count = $result_count[0]['cnt'];            

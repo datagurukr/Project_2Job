@@ -239,7 +239,7 @@ class Post_model extends CI_Model{
                     or
                     post.post_content_article like '%".$data['q']."%'
                 )                
-            order by post.post_register_date ".$data['order']."        
+            order by post.post_register_date ".$data['order']."
             ".$limit."
             ";         
         } elseif ( $type == 'all' ) {            
