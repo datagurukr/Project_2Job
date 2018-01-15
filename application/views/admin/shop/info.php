@@ -10,7 +10,7 @@ if ( $response['status'] == 200 ) {
 <div class="section">
     <h5 class="header">정보관리</h5>    
     <div class="row">
-        <form class="col s12" method="post" enctype="application/x-www-form-urlencoded">
+        <form class="col s12" method="post" enctype="multipart/form-data">
             <p>가맹점의 기본 정보를 수정할 수 있습니다.</p>
             
             <div class="row">
@@ -127,7 +127,6 @@ if ( $response['status'] == 200 ) {
                     </p>                                        
                 </div>                
             </div>  
-            -->
             <div class="row">
                 <div class="input-field col s12">
                     <input type="text" class="text" name="user_tel" value="<? if ( isset($row['user_tel']) ) { echo $row['user_tel']; }; ?>">
@@ -248,12 +247,23 @@ if ( $response['status'] == 200 ) {
                 <div class="file-field input-field">
                     <div class="btn">
                         <span>File</span>
-                        <input type="file" multiple>
+                        <input type="file" name="user_shop_pictrue">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text" placeholder="이미지">
                     </div>
                 </div>
+                
+                <?
+                if ( isset($row['user_shop_pictrue']) ) {
+                    if ( 0 < strlen($row['user_shop_pictrue']) ) {
+                        ?>
+                <img src="/upload/<? echo $row['user_shop_pictrue']; ?>" class="responsive-img">
+                        <?
+                    }
+                }
+                ?>
+                
             </div>              
             
             <div class="row">

@@ -9,7 +9,7 @@ if ( $response['status'] == 200 ) {
 <div class="section">
     <h5 class="header">상품관리 관리</h5>    
     <div class="row">
-        <form class="col s12" method="post" enctype="application/x-www-form-urlencoded">
+        <form class="col s12" method="post" enctype="multipart/form-data">
             <p>신규상품 및 등록상품을 관리할 수 있습니다.</p>
             <?
             $product_state = 0;
@@ -123,6 +123,16 @@ if ( $response['status'] == 200 ) {
                     <input type="checkbox" id="checkbox1" name="product_pictrue_remove" value="1"/>
                     <label for="checkbox1">이미지 삭제</label>
                 </div>                    
+                
+                <?
+                if ( isset($row['product_pictrue']) ) {
+                    if ( 0 < strlen($row['product_pictrue']) ) {
+                        ?>
+                <img src="/upload/<? echo $row['product_pictrue']; ?>" class="responsive-img">
+                        <?
+                    }
+                }
+                ?>                
             </div>  
             
             <div class="row">
@@ -161,7 +171,7 @@ if ( $response['status'] == 200 ) {
                         $referer = $_GET['referer'];
                     };
                     ?>
-                    <button type="button" class="waves-effect waves-light btn left" onclick="location.replace('<? echo $referer; ?>');">취소</button>
+                    <button type="button" class="waves-effect waves-light btn left" onclick="history.back()">취소</button>
                     
                 </div>
             </div>

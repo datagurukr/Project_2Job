@@ -130,9 +130,12 @@ class Shop extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -151,6 +154,7 @@ class Shop extends CI_Controller {
         *******************/             
 		$this->load->model('user_model');
 		$this->load->model('product_model');   
+		$this->load->model('post_model');           
         $session_out = $this->user_model->out('id',array(
             'user_id' => $session_id
         ));        
@@ -161,12 +165,18 @@ class Shop extends CI_Controller {
             'user_id' => $shop_id
         ));        
         
+        $event_result = $this->post_model->out('user_status',array(
+            'user_id' => $shop_id,
+            'post_status' => 5
+        ));        
+        
         if ( $result ) {
             $response['status'] = 200;                    
             $response['data'] = array(
                 'out' => $result,
                 'session_out' => $session_out,                                
                 'product_out' =>$product_result,
+                'event_out' => $event_result,
                 'count' => count($result)
             );        
         } else {
@@ -256,9 +266,12 @@ class Shop extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -412,9 +425,12 @@ class Shop extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -473,7 +489,7 @@ class Shop extends CI_Controller {
         } else {
             $p = 1;
         };        
-        
+
         $result = $this->user_model->out('shop_gps_order',array(
             'user_id' => $session_id,
             'p' => $p,
@@ -590,9 +606,12 @@ class Shop extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -649,14 +668,14 @@ class Shop extends CI_Controller {
             'lng' => $lng,
             'order' => 'desc'
         ));        
-        $result = $this->user_model->out('shop_gps_order',array(
+        $result = $this->user_model->out('shop_general',array(
             'user_id' => $session_id,
             'p' => $p,
             'lat' => $lat,
             'lng' => $lng,
             'order' => 'desc'
         ));
-        $result_count = $this->user_model->out('shop_gps_order',array(
+        $result_count = $this->user_model->out('shop_general',array(
             'user_id' => $session_id,
             'p' => $p,
             'lat' => $lat,

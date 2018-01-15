@@ -98,9 +98,15 @@
             <div class="login-header">
                 <div class="container">
                     <div class="back">
-                        <a href="#!">
-                            <img src="assets/images/back_button.png">
-                        </a>
+                    <?
+                    $referer = @$_SERVER['HTTP_REFERER'];
+                    if ( isset($_GET['referer']) ) {
+                        $referer = $_GET['referer'];
+                    };
+                    ?>
+                    <button onclick="history.back()">
+                        <img src="/assets/images/login/back_button.png">
+                    </button>
                         <h6><strong>지역 목록 (1,230개)</strong></h6>
                     </div>
                     <div class="hamburgermenu">
@@ -129,7 +135,7 @@
                     </div>
                 </div>    
                 <div class="list-row aff-ele">
-                    <a href="#!">
+                    <a href="affiliatedetail.html">
                         <div class="row">
                             <div class="col s5 col-tltle">
                                 <img src="assets/images/aff-sample.png">
@@ -148,7 +154,7 @@
                     </a>
                 </div>
                 <div class="list-row aff-ele">
-                    <a href="#!">
+                    <a href="affiliatedetail.html">
                         <div class="row">
                             <div class="col s5 col-tltle">
                                 <img src="assets/images/aff-sample.png">
@@ -184,7 +190,7 @@
                     </div>
                 </div>
                 <div class="list-row aff-ele">
-                    <a href="#!">
+                    <a href="affiliatedetail.html">
                         <div class="row">
                             <div class="col s5 col-tltle">
                                 <img src="assets/images/aff-sample.png">
@@ -203,7 +209,7 @@
                     </a>
                 </div>
                 <div class="list-row aff-ele">
-                    <a href="#!">
+                    <a href="affiliatedetail.html">
                         <div class="row">
                             <div class="col s5 col-tltle">
                                 <img src="assets/images/aff-sample.png">

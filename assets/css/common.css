@@ -23,3 +23,13 @@
     margin: 0;
     font-weight: bold;
 }
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: " ";
+}
+
+.clearfix:after {
+  clear: both;  
+}

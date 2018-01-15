@@ -329,7 +329,11 @@ nav .main-nav a{
 .main-searchbar button{
     position: absolute;
     top: 3px;
-    right:5px;   
+    right: 5px;
+    border: 0;
+    background: no-repeat;
+    background: none;
+    border: none;    
 }
 .main-thirdmenu a{
     display: block;
@@ -365,6 +369,8 @@ nav .main-nav a{
 }
 .main-userinfo .s2 .text-center{
     padding: 4px;
+    background: none;
+    border: none;    
 }
 .progress{
     margin-top: 3px;
@@ -392,10 +398,14 @@ nav .main-nav a{
 .login-header .back{
     padding: 5px 0;
 }
-.login-header .back a{
+.login-header .back a,
+.login-header .back button {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 5px;    
+    border: none;
+    background: none;
 }
+
 .login-header .back h6{
     font-size: 15px;
     display: inline-block;
@@ -666,4 +676,10 @@ position: absolute;}
     right: 10px;
 }
 .search-category .category-element .element-col .element .top-keyword{color: #34D164}
+
+.alert-msg {
+    margin: 0;
+    color: #f00;
+    padding-bottom: 30px;    
+}
 

@@ -33,3 +33,7 @@
 
 .custom-detail .col p {
 }
+
+img {
+    max-width: 100%;
+}

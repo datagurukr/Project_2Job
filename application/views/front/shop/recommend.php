@@ -121,9 +121,15 @@ if ( $response['status'] == 200 ) {
     <div class="login-header" id="header">
         <div class="container">
             <div class="back">
-                <a href="">
-                    <img src="/assets/images/back_button.png">
-                </a>
+                <?
+                $referer = @$_SERVER['HTTP_REFERER'];
+                if ( isset($_GET['referer']) ) {
+                    $referer = $_GET['referer'];
+                };
+                ?>
+                <button onclick="history.back()">
+                    <img src="/assets/images/login/back_button.png">
+                </button>
                 <h6><strong>(일하기 편한) 추천 가맹점</strong></h6>
             </div>
             <div class="hamburgermenu">

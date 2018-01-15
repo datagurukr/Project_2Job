@@ -3,9 +3,15 @@
     <div class="login-header" id="header">
         <div class="container">
             <div class="back">
-                <a href="">
+                <?
+                $referer = @$_SERVER['HTTP_REFERER'];
+                if ( isset($_GET['referer']) ) {
+                    $referer = $_GET['referer'];
+                };
+                ?>
+                <button onclick="history.back()">
                     <img src="/assets/images/login/back_button.png">
-                </a>
+                </button>
                 <h6><strong>회원가입</strong></h6>
             </div>
         </div>

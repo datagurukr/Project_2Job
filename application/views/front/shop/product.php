@@ -10,9 +10,13 @@ if ( $response['status'] == 200 ) {
 ?>
 <?
 $session_out = FALSE;
+$event_out = FALSE;
 $row = FALSE;
 if ( $response['data']['session_out'] ) {
     $session_out = $response['data']['session_out'][0];
+};
+if ( $response['data']['event_out'] ) {
+    $event_out = $response['data']['event_out'][0];
 };
 if ( $response['status'] == 200 ) {
     if ( 0 < $response['data']['count'] ) {
@@ -131,9 +135,15 @@ if ( $response['status'] == 200 ) {
     <div class="login-header" id="header">
         <div class="container">
             <div class="back">
-                <a href="">
-                    <img src="/assets/images/back_button.png">
-                </a>
+                <?
+                $referer = @$_SERVER['HTTP_REFERER'];
+                if ( isset($_GET['referer']) ) {
+                    $referer = $_GET['referer'];
+                };
+                ?>
+                <button onclick="history.back()">
+                    <img src="/assets/images/login/back_button.png">
+                </button>
                 <h6><strong><? if ( isset($row['user_business_entity_name']) ) { echo $row['user_business_entity_name']; }; ?></strong></h6>
             </div>
             <div class="hamburgermenu">
@@ -196,8 +206,8 @@ if ( $response['status'] == 200 ) {
             </div>
         </div>
         <div class="aff-foot">
-            <a href="#!" class="btn primary-btn text-center">
-                장바구니 20
+            <a href="/basket" class="btn primary-btn text-center">
+                장바구니 <? echo number_format($session_out['user_basket_count']) ?>
             </a>
         </div>        
     </div>

@@ -71,6 +71,430 @@ class User extends CI_Controller {
         $this->pagination->initialize($config);
     }      
     
+    function detail ( $user_id = 0, $user_status = 0 ) {
+        
+        /*******************
+        data
+        *******************/
+        $data = array();         
+        
+        /*******************
+        page key
+        *******************/
+        $data['key'] = 'user';        
+        
+        /*******************
+        response
+        *******************/
+        $response = array();        
+        
+        /*******************
+        ajax 통신 체크
+        *******************/
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
+        
+        /*******************
+        session
+        *******************/
+        $data['session'] = $this->session->all_userdata();  
+        $data['session_id'] = 0;
+        if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
+            if ( $data['session']['admin'] ) {
+                if ( 8 <= $data['session']['user_status'] ) {
+                    $session_id = $data['session']['users_id'];
+                };
+            } else {
+                $session_id = 0;
+            };
+        } else {
+            $session_id = 0;
+        };
+        if ( $session_id == 0 ) {
+            show_404();
+        };
+        $data['session_id'] = $session_id;
+        
+        /*******************
+        data query
+        *******************/
+		$this->load->model('user_model');
+        
+
+        /* 업데이트 */
+        $set_data = array ();
+        $set_data['user_id'] = $user_id;     
+        if ( isset($_POST['user_state']) ) {
+            $set_data['user_state'] = array (
+                'key' => 'user_state',
+                'type' => 'int',
+                'value' => $this->input->post('user_state',TRUE)
+            );
+        };    
+        if ( isset($_POST['user_approval']) ) {
+            $set_data['user_approval'] = array (
+                'key' => 'user_approval',
+                'type' => 'int',
+                'value' => $this->input->post('user_approval',TRUE)
+            );
+        };    
+        
+        if ( $this->user_model->update('update',$set_data) ) {
+            $response['update'] = TRUE;
+        } else {
+            $response['update'] = FALSE;
+        };
+        
+        
+        $result = $this->user_model->out('id',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'q' => "",
+            'order' => 'desc'
+        ));   
+        
+        if ( $result ) {
+            $user_status = $result[0]['user_status'];
+            $out = $result;
+            
+            /*******************
+            page key
+            *******************/
+            $data['sub_key'] = $data['key'].'_'.$user_status;
+        } else {
+            show_404();                            
+        }
+
+        if ( isset($_GET['p']) ) {
+            $p = (int)$_GET['p'];
+            if ( $p <= 0 ) {
+                $p = 1;
+            };
+        } else {
+            $p = 1;
+        };
+        $data['p'] = $p;        
+        $p = (($p * 2) * 10) - 20;  
+        $pagination_url = '';        
+        if ( isset($_GET['q']) ) {
+            $q = $_GET['q'];
+            $pagination_url = $pagination_url.'&q='.$q;
+        } else {
+            $q = '';
+        };        
+        $data['q'] = $q;
+        
+        if ( isset($_GET['target']) ) {
+            $target = $_GET['target'];
+            $pagination_url = $pagination_url.'&target='.$target;            
+        } else {
+            $target = '';
+        };        
+        $data['target'] = $target;
+        
+        if ( isset($_GET['yearmonth']) ) {
+            $yearmonth = $_GET['yearmonth'];
+            $pagination_url = $pagination_url.'&yearmonth='.$yearmonth;            
+        } else {
+            $yearmonth = '';
+        };
+        $data['yearmonth'] = $yearmonth;  
+        
+        if ( isset($_GET['order']) ) {
+            if ( $_GET['order'] == 'desc' || $_GET['order'] == 'asc' ) {
+                $order = $_GET['order'];
+            } else {
+                $order = 'desc';
+            };
+            $pagination_url = $pagination_url.'&order='.$order;
+        } else {
+            $order = 'desc';
+        };
+        $data['order'] = $order;
+        
+        if ( isset($_GET['order_target']) ) {
+            $order_target = $_GET['order_target'];
+            $pagination_url = $pagination_url.'&order_target='.$order_target;
+        } else {
+            $order_target = '';
+        };        
+        $data['order_target'] = $order_target;        
+        
+        $this->load->model('saving_model');         
+        $this->load->model('booking_model');                 
+        $active_result = $this->saving_model->out('user_all',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc'
+        ));        
+        $booking_result = $this->booking_model->out('user_id',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc'
+        ));        
+        $sale_result = $this->booking_model->out('user_id',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc'
+        ));                
+        $recommender_result = $this->saving_model->out('user_status',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc',
+            'saving_status' => 2
+        ));        
+        
+        if ( $result ) {
+            $response['status'] = 200;                    
+            $response['data'] = array(
+                'out' => $out,
+                'sale_out' => $sale_result,
+                'active_out' => $active_result,
+                'booking_out' => $booking_result,
+                'recommender_out' => $recommender_result
+            );        
+        } else {
+            $response['status'] = 401;
+        };                 
+        
+        $data['response'] = $response;      
+        
+        if ( $ajax ) {
+        } else {
+            if ( $user_status == 1 ) {
+                $data['container'] = $this->load->view('/admin/user/detail_1', $data, TRUE);
+            } elseif ( $user_status == 2 ) {
+                $data['container'] = $this->load->view('/admin/user/detail_2', $data, TRUE);
+            } elseif ( $user_status == 3 ) {
+                $data['container'] = $this->load->view('/admin/user/detail_3', $data, TRUE);
+            } elseif ( $user_status == 8 ) {
+                $data['container'] = $this->load->view('/admin/user/detail_8', $data, TRUE);                
+            } elseif ( $user_status == 9 ) {
+                $data['container'] = $this->load->view('/admin/user/detail_9', $data, TRUE);
+            } else {
+                show_404();                
+            };
+            $this->load->view('/admin/body', $data, FALSE);            
+        };        
+        
+    }
+
+    function edit ( $user_id = 0, $user_status = 0 ) {
+        
+        /*******************
+        data
+        *******************/
+        $data = array();         
+        
+        /*******************
+        page key
+        *******************/
+        $data['key'] = 'user';        
+        
+        /*******************
+        response
+        *******************/
+        $response = array();        
+        
+        /*******************
+        ajax 통신 체크
+        *******************/
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
+        
+        /*******************
+        session
+        *******************/
+        $data['session'] = $this->session->all_userdata();  
+        $data['session_id'] = 0;
+        if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
+            if ( $data['session']['admin'] ) {
+                if ( 8 <= $data['session']['user_status'] ) {
+                    $session_id = $data['session']['users_id'];
+                };
+            } else {
+                $session_id = 0;
+            };
+        } else {
+            $session_id = 0;
+        };
+        if ( $session_id == 0 ) {
+            show_404();
+        };
+        $data['session_id'] = $session_id;
+        
+        /*******************
+        data query
+        *******************/
+		$this->load->model('user_model');
+        
+
+        /* 업데이트 */
+        $set_data = array ();
+        $set_data['user_id'] = $user_id;     
+        if ( isset($_POST['user_state']) ) {
+            $set_data['user_state'] = array (
+                'key' => 'user_state',
+                'type' => 'int',
+                'value' => $this->input->post('user_state',TRUE)
+            );
+        };    
+        if ( isset($_POST['user_approval']) ) {
+            $set_data['user_approval'] = array (
+                'key' => 'user_approval',
+                'type' => 'int',
+                'value' => $this->input->post('user_approval',TRUE)
+            );
+        };    
+        
+        if ( $this->user_model->update('update',$set_data) ) {
+            $response['update'] = TRUE;
+        } else {
+            $response['update'] = FALSE;
+        };
+        
+        
+        $result = $this->user_model->out('id',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'q' => "",
+            'order' => 'desc'
+        ));   
+        
+        if ( $result ) {
+            $user_status = $result[0]['user_status'];
+            $out = $result;
+            
+            /*******************
+            page key
+            *******************/
+            $data['sub_key'] = $data['key'].'_'.$user_status;
+        } else {
+            show_404();                            
+        }
+
+        if ( isset($_GET['p']) ) {
+            $p = (int)$_GET['p'];
+            if ( $p <= 0 ) {
+                $p = 1;
+            };
+        } else {
+            $p = 1;
+        };
+        $data['p'] = $p;        
+        $p = (($p * 2) * 10) - 20;  
+        $pagination_url = '';        
+        if ( isset($_GET['q']) ) {
+            $q = $_GET['q'];
+            $pagination_url = $pagination_url.'&q='.$q;
+        } else {
+            $q = '';
+        };        
+        $data['q'] = $q;
+        
+        if ( isset($_GET['target']) ) {
+            $target = $_GET['target'];
+            $pagination_url = $pagination_url.'&target='.$target;            
+        } else {
+            $target = '';
+        };        
+        $data['target'] = $target;
+        
+        if ( isset($_GET['yearmonth']) ) {
+            $yearmonth = $_GET['yearmonth'];
+            $pagination_url = $pagination_url.'&yearmonth='.$yearmonth;            
+        } else {
+            $yearmonth = '';
+        };
+        $data['yearmonth'] = $yearmonth;  
+        
+        if ( isset($_GET['order']) ) {
+            if ( $_GET['order'] == 'desc' || $_GET['order'] == 'asc' ) {
+                $order = $_GET['order'];
+            } else {
+                $order = 'desc';
+            };
+            $pagination_url = $pagination_url.'&order='.$order;
+        } else {
+            $order = 'desc';
+        };
+        $data['order'] = $order;
+        
+        if ( isset($_GET['order_target']) ) {
+            $order_target = $_GET['order_target'];
+            $pagination_url = $pagination_url.'&order_target='.$order_target;
+        } else {
+            $order_target = '';
+        };        
+        $data['order_target'] = $order_target;        
+        
+        $this->load->model('saving_model');         
+        $this->load->model('booking_model');                 
+        $active_result = $this->saving_model->out('user_all',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc'
+        ));        
+        $booking_result = $this->booking_model->out('user_id',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc'
+        ));        
+        $sale_result = $this->booking_model->out('user_id',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc'
+        ));                
+        $recommender_result = $this->saving_model->out('user_status',array(
+            'user_id' => $user_id,
+            'p' => 0,
+            'order' => 'desc',
+            'saving_status' => 2
+        ));        
+        
+        if ( $result ) {
+            $response['status'] = 200;                    
+            $response['data'] = array(
+                'out' => $out,
+                'sale_out' => $sale_result,
+                'active_out' => $active_result,
+                'booking_out' => $booking_result,
+                'recommender_out' => $recommender_result
+            );        
+        } else {
+            $response['status'] = 401;
+        };                 
+        
+        $data['response'] = $response;      
+        
+        if ( $ajax ) {
+        } else {
+            if ( $user_status == 1 ) {
+                $data['container'] = $this->load->view('/admin/user/edit_1', $data, TRUE);
+            } elseif ( $user_status == 2 ) {
+                $data['container'] = $this->load->view('/admin/user/edit_2', $data, TRUE);
+            } elseif ( $user_status == 3 ) {
+                $data['container'] = $this->load->view('/admin/user/edit_3', $data, TRUE);
+            } elseif ( $user_status == 8 ) {
+                $data['container'] = $this->load->view('/admin/user/edit_8', $data, TRUE);                
+            } elseif ( $user_status == 9 ) {
+                $data['container'] = $this->load->view('/admin/user/edit_9', $data, TRUE);
+            } else {
+                show_404();                
+            };
+            $this->load->view('/admin/body', $data, FALSE);            
+        };        
+        
+    }    
+    
     function index ( $user_status = 0 ) {    
         /*******************
         data
@@ -91,9 +515,12 @@ class User extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -102,7 +529,9 @@ class User extends CI_Controller {
         $data['session_id'] = 0;
         if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
             if ( $data['session']['admin'] ) {
-                $session_id = $data['session']['users_id'];                
+                if ( 8 <= $data['session']['user_status'] ) {
+                    $session_id = $data['session']['users_id'];
+                };
             } else {
                 $session_id = 0;
             };
@@ -110,7 +539,7 @@ class User extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
+            show_404();
         };
         $data['session_id'] = $session_id;
         

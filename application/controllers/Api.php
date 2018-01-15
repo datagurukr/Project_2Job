@@ -23,6 +23,56 @@ class Api extends CI_Controller {
 		parent::__construct();
 	}
     
+	public function ckupload () {
+		ini_set('memory_limit','-1');        
+		ini_set("post_max_size", "300M");
+		ini_set("upload_max_filesize", "300M");          
+        
+		/*******************************************
+		타입:          funciton
+		이름:          ckupload
+		용도:          포스트 이미지 업로드
+		작성자:        전병훈
+		생성일자:      2013.08.15 02:01:10
+		업데이트일자:   
+		
+		********************************************/
+
+		// 사용자가 업로드 한 파일을 /static/user/ 디렉토리에 저장한다.
+		$config['upload_path'] = './upload';
+		// git,jpg,png 파일만 업로드를 허용한다.
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|JPG|JPEG';
+		// 허용되는 파일의 최대 사이즈
+		$config['max_size'] = '20000';
+		// 이미지인 경우 허용되는 최대 폭
+		$config['max_width']  = '0';
+		// 이미지인 경우 허용되는 최대 높이
+		$config['max_height']  = '0';
+		// 파일이름 암호화
+		$config['encrypt_name']  = TRUE;
+		
+		$field_name = "upload";
+		
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload($field_name))
+        {
+            echo "<script>alert('업로드에 실패 했습니다. ".$this->upload->display_errors('','')."')</script>";
+        }   
+        else
+        {
+            $CKEditorFuncNum = $this->input->get('CKEditorFuncNum');
+
+            $data = $this->upload->data();            
+            $filename = $data['file_name'];
+            
+            $url = '/upload/'.$filename;
+
+            echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('".$CKEditorFuncNum."', '".$url."', '전송에 성공 했습니다')</script>";
+			         
+        }
+	}
+    
     function shop_out ( $type = 'all' ) {
         /*******************
         data

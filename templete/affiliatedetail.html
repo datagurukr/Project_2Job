@@ -98,9 +98,15 @@
             <div class="login-header">
                 <div class="container">
                     <div class="back">
-                        <a href="#!">
-                            <img src="assets/images/back_button.png">
-                        </a>
+                        <?
+                        $referer = @$_SERVER['HTTP_REFERER'];
+                        if ( isset($_GET['referer']) ) {
+                            $referer = $_GET['referer'];
+                        };
+                        ?>
+                        <button onclick="history.back()">
+                            <img src="/assets/images/login/back_button.png">
+                        </button>
                         <h6><strong>스타벅스 여의도지점</strong></h6>
                     </div>
                     <div class="hamburgermenu">
@@ -118,10 +124,10 @@
             <div class="list-wrap aff-list">
                 <div class="list-tab">
                     <div class="tab">
-                        <a href="#!" class="text-center">판매상품</a>
+                        <a href="affiliateproduct.html" class="text-center">판매상품</a>
                     </div>
                     <div class="tab tab-active">
-                        <a href="#!" class="text-center">업체정보</a>
+                        <a href="affiliatedetail.html" class="text-center">업체정보</a>
                     </div>
                 </div>
             </div>

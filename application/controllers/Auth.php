@@ -127,9 +127,12 @@ class Auth extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -289,9 +292,12 @@ class Auth extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -315,46 +321,46 @@ class Auth extends CI_Controller {
         $this->load->library('form_validation');        
         
         if ( isset($_POST['user_name']) ) {
-            $this->form_validation->set_rules('user_name','user_name','trim|required');
+            $this->form_validation->set_rules('user_name','가입자명','trim|required');
         };        
         if ( isset($_POST['user_email']) ) {
-            $this->form_validation->set_rules('user_email','user_email','trim|required|valid_email|callback_user_email_overlap_check');            
+            $this->form_validation->set_rules('user_email','이메일','trim|required|valid_email|callback_user_email_overlap_check');            
         };
         if ( isset($_POST['user_pass']) ) {
-            $this->form_validation->set_rules('user_pass','user_pass','trim|required');        
+            $this->form_validation->set_rules('user_pass','비밀번호','trim|required');        
         };
         if ( isset($_POST['user_pass_re']) ) {
-            $this->form_validation->set_rules('user_pass_re', 'user_pass_re', 'required|matches[user_pass]');        
+            $this->form_validation->set_rules('user_pass_re', '비밀번호 확인', 'required|matches[user_pass]');        
         };
         if ( isset($_POST['user_tel']) ) {
-            $this->form_validation->set_rules('user_tel', 'user_tel', 'required');        
+            $this->form_validation->set_rules('user_tel', '전화번호', 'required');        
         };
         if ( isset($_POST['user_authentication_number']) ) {
-            $this->form_validation->set_rules('user_authentication_number', 'user_authentication_number', 'required');        
+            $this->form_validation->set_rules('user_authentication_number', '인증번호', 'required');        
         };        
         if ( isset($_POST['user_bank_name']) ) {
-            $this->form_validation->set_rules('user_bank_name', 'user_bank_name', 'required');        
+            $this->form_validation->set_rules('user_bank_name', '은행명', 'required');        
         };        
         if ( isset($_POST['user_bank_number']) ) {
-            $this->form_validation->set_rules('user_bank_number', 'user_bank_number', 'required');        
+            $this->form_validation->set_rules('user_bank_number', '계좌번호', 'required');        
         };        
         if ( isset($_POST['user_employment_contract']) ) {
-            $this->form_validation->set_rules('user_employment_contract', 'user_employment_contract', 'required');        
+            $this->form_validation->set_rules('user_employment_contract', '근로계약서', 'required');        
         };        
         if ( isset($_POST['user_recommender_name']) ) {
-            //$this->form_validation->set_rules('user_recommender_name', 'user_recommender_name', 'required');        
+            //$this->form_validation->set_rules('user_recommender_name', '추천인', 'required');        
         };                
         if ( isset($_POST['user_business_entity_name']) ) {
-            $this->form_validation->set_rules('user_business_entity_name', 'user_business_entity_name', 'required');        
+            $this->form_validation->set_rules('user_business_entity_name', '상호', 'required');        
         };
         if ( isset($_POST['user_business_license_number']) ) {
-            $this->form_validation->set_rules('user_business_license_number', 'user_business_license_number', 'required');        
+            $this->form_validation->set_rules('user_business_license_number', '사업자번호', 'required');        
         };
         if ( isset($_POST['user_business_representative']) ) {
-            $this->form_validation->set_rules('user_business_representative', 'user_business_representative', 'required');        
+            $this->form_validation->set_rules('user_business_representative', '대표자명', 'required');        
         };
         if ( isset($_POST['user_business_industry']) ) {
-            $this->form_validation->set_rules('user_business_industry', 'user_business_industry', 'required');        
+            $this->form_validation->set_rules('user_business_industry', '업종', 'required');        
         };
         
         /*******************
@@ -375,6 +381,8 @@ class Auth extends CI_Controller {
             $user_business_license_number = '';
             $user_business_representative = '';
             $user_business_industry = '';
+            $user_state = 1;
+            $user_approval = 1;
             
             if ( isset($_POST['user_name']) ) {
                 $user_name = $this->input->post('user_name',TRUE);
@@ -414,7 +422,11 @@ class Auth extends CI_Controller {
             };            
             if ( isset($_POST['user_business_industry']) ) {
                 $user_business_industry = $this->input->post('user_business_industry',TRUE);
-            };                        
+            };    
+            
+            if ( $user_status == 3 ) {
+                $user_approval = 0;
+            }
             
             $this->load->model('user_model');        
             $row = $this->user_model->update('create',array(
@@ -433,7 +445,8 @@ class Auth extends CI_Controller {
                 'user_business_representative' => $user_business_representative,     
                 'user_business_industry' => $user_business_industry,
                 'user_status' => $user_status,               
-                'user_state' => 1
+                'user_state' => $user_state,
+                'user_approval' => $user_approval
             ));
             
             if ( $row ) {
@@ -448,7 +461,10 @@ class Auth extends CI_Controller {
             *******************/
             
             if ( $row ) {
-                $this->loggedin($row[0]['user_id'],$row[0]['user_status']);
+                //$this->loggedin($row[0]['user_id'],$row[0]['user_status']);
+                $this->load->helper('url');
+                redirect('/', 'refresh');
+                
                 $response['status'] = 200;
                 $response['data'] = array(
                     'out' => $row,

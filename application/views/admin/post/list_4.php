@@ -63,7 +63,7 @@
                                 ?>
                             </td>                             
                             <td>
-                                <a href="/admin/post/detail/<? echo $row['post_id']; ?>/2">
+                                <a href="/admin/post/detail/<? echo $row['post_id']; ?>/4">
                                 <?
                                 if ( isset($row['post_content_title']) && isset($row['post_content_title']) ) {
                                     echo $row['post_content_title'];
@@ -85,15 +85,15 @@
                             <td>
                                 <?
                                 if ( isset($row['post_content_reply_title']) ) {
-                                    if ( strlen($row['post_content_reply_title']) == 0 ) {
-                                        echo '미 답변';
+                                    if ( 0 < strlen($row['post_content_reply_title']) or 0 < strlen($row['post_content_reply_article']) ) {
+                                        echo '답변';
                                     } else {
-                                        echo '답변완료';
+                                        echo '미 답변';
                                     }
                                 } else {
                                     echo '-';
                                 }
-                                ?>
+                                ?>                                        
                             </td>                         
                         </tr>                    
                                     <?
@@ -124,7 +124,7 @@
         
         <div class="row">        
             <div class="col s12">
-                <a href="/admin/post/0/2" class="waves-effect waves-light btn col s6 offset-s6">
+                <a href="/admin/post/0/4" class="waves-effect waves-light btn col s6 offset-s6">
                     <i class="material-icons left">edit</i>
                     글쓰기
                 </a>

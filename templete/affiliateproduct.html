@@ -98,9 +98,15 @@
             <div class="login-header">
                 <div class="container">
                     <div class="back">
-                        <a href="#!">
-                            <img src="assets/images/back_button.png">
-                        </a>
+                        <?
+                        $referer = @$_SERVER['HTTP_REFERER'];
+                        if ( isset($_GET['referer']) ) {
+                            $referer = $_GET['referer'];
+                        };
+                        ?>
+                        <button onclick="history.back()">
+                            <img src="/assets/images/login/back_button.png">
+                        </button>
                         <h6><strong>스타벅스 여의도지점</strong></h6>
                     </div>
                     <div class="hamburgermenu">
@@ -117,36 +123,44 @@
             <div class="list-wrap aff-list">
                 <div class="list-tab">
                     <div class="tab tab">
-                        <a href="#!" class="text-center">판매상품</a>
+                        <a href="affiliateproduct.html" class="text-center">판매상품</a>
                     </div>
                     <div class="tab tab-active">
-                        <a href="#!" class="text-center">업체정보</a>
+                        <a href="affiliatedetail.html" class="text-center">업체정보</a>
                     </div>
                 </div>
             </div>
             <div class="container aff-grid">
                 <div class="row">
                     <div class="col s6">
-                        <img src="assets/images/productsample1.png" width="100%">
-                        <p class="text-center truncate"><strong>나이트로 콜드브루</strong></p>
+                        <a href="affiliateorder.html">
+                            <img src="assets/images/productsample1.png" width="100%">
+                            <p class="text-center truncate"><strong>나이트로 콜드브루</strong></p>
+                        </a>    
                     </div>
                     <div class="col s6">
-                        <img src="assets/images/productsample2.png" width="100%">
-                        <p class="text-center truncate"><strong>체리블라썸 화이트 초콜릿</strong></p>
+                        <a href="affiliateorder.html">                        
+                            <img src="assets/images/productsample2.png" width="100%">
+                            <p class="text-center truncate"><strong>체리블라썸 화이트 초콜릿</strong></p>
+                        </a>    
                     </div>
                     <div class="col s6">
-                        <img src="assets/images/productsample1.png" width="100%">
-                        <p class="text-center truncate"><strong>나이트로 콜드브루</strong></p>
+                        <a href="affiliateorder.html">                        
+                            <img src="assets/images/productsample1.png" width="100%">
+                            <p class="text-center truncate"><strong>나이트로 콜드브루</strong></p>
+                        </a>    
                     </div>
                     <div class="col s6">
-                        <img src="assets/images/productsample2.png" width="100%">
-                        <p class="text-center truncate"><strong>체리블라썸 화이트 초콜릿</strong></p>
+                        <a href="affiliateorder.html">                                                
+                            <img src="assets/images/productsample2.png" width="100%">
+                            <p class="text-center truncate"><strong>체리블라썸 화이트 초콜릿</strong></p>
+                        </a>    
                     </div>
                 </div>
             </div>
         </div>
         <div class="aff-foot">
-            <a href="#!" class="btn primary-btn text-center">
+            <a href="recerbationcomplete.html" class="btn primary-btn text-center">
                 장바구니 20
             </a>
         </div>

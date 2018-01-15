@@ -87,11 +87,11 @@
                             </td>  
                             <td>
                                 <?
-                                if ( isset($row['user_state']) ) {
-                                    if ( $row['user_state'] == 1 ) {
-                                        echo '승인';
+                                if ( isset($row['user_approval']) ) {
+                                    if ( $row['user_approval'] == 1 ) {
+                                        echo '승인완료';
                                     } else {
-                                        echo '승인안함';
+                                        echo '승인대기';
                                     }
                                 } else {
                                     echo '알수없음';

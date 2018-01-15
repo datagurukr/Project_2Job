@@ -14,7 +14,7 @@
                             <th>이메일</th>
                             <th>전화번호</th>
                             <th>가입일</th>
-                            <th>가맹점종류</th>                        
+                            <th colspan="2">가맹점종류</th>                        
                         </tr>
                     </thead>
                     <tbody>
@@ -84,8 +84,28 @@
                                 ?>
                             </td>  
                             <td>
-                                
+                                <select>
+                                    <option value="" selected disabled selected>선택</option>
+                                    <option value="1" >일하기 편한 추천 가맹점</option>
+                                    <option value="1" >추천 가맹점</option>
+                                    <option value="1" >일반 가맹점</option>                                    
+                                </select>                                
                             </td>                         
+                            <td>
+                                <select>
+                                    <option value="" selected disabled selected>선택</option>
+                                    <option value="1" >1</option>
+                                    <option value="2" >2</option>
+                                    <option value="3" >3</option>                                    
+                                    <option value="4" >4</option>                                    
+                                    <option value="5" >5</option>                                    
+                                    <option value="6" >6</option>                                    
+                                    <option value="7" >7</option>                                    
+                                    <option value="8" >8</option>                                    
+                                    <option value="9" >9</option> 
+                                    <option value="10" >10</option> 
+                                </select>                                
+                            </td>                                                     
                         </tr>                    
                                     <?
                                 };
@@ -108,6 +128,16 @@
             };
         };        
         ?>
+        
+        <div class="row">
+            <div class="input-field col s2">
+            </div>
+            <div class="input-field col s6">
+            </div>
+            <div class="input-field col s4 right-align">
+                <button type="submit" class="waves-effect waves-light btn">적용</a>                
+            </div>
+        </div>         
         
         <div class="row">
             <? echo $this->pagination->create_links(); ?>

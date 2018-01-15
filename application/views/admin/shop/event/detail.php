@@ -125,7 +125,7 @@ if ( $response['status'] == 200 ) {
                 $referer = $_GET['referer'];
             };
             ?>            
-            <button type="button" class="waves-effect waves-light btn left" onclick="location.replace('<? echo $referer; ?>');">목록</button>
+            <button type="button" class="waves-effect waves-light btn left" onclick="history.back()">목록</button>
         </div>          
     </div>       
 </div>

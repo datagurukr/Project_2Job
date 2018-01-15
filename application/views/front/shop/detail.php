@@ -8,9 +8,13 @@ if ( $response['status'] == 200 ) {
 ?>
 <?
 $session_out = FALSE;
+$event_out = FALSE;
 $row = FALSE;
 if ( $response['data']['session_out'] ) {
     $session_out = $response['data']['session_out'][0];
+};
+if ( $response['data']['event_out'] ) {
+    $event_out = $response['data']['event_out'];
 };
 if ( $response['status'] == 200 ) {
     if ( 0 < $response['data']['count'] ) {
@@ -129,9 +133,15 @@ if ( $response['status'] == 200 ) {
     <div class="login-header" id="header">
         <div class="container">
             <div class="back">
-                <a href="">
-                    <img src="/assets/images/back_button.png">
-                </a>
+                <?
+                $referer = @$_SERVER['HTTP_REFERER'];
+                if ( isset($_GET['referer']) ) {
+                    $referer = $_GET['referer'];
+                };
+                ?>
+                <button onclick="history.back()">
+                    <img src="/assets/images/login/back_button.png">
+                </button>
                 <h6><strong><? if ( isset($row['user_business_entity_name']) ) { echo $row['user_business_entity_name']; }; ?></strong></h6>
             </div>
             <div class="hamburgermenu">
@@ -176,12 +186,25 @@ if ( $response['status'] == 200 ) {
                 </div>
                 <h6>이벤트</h6>
                 <div class="row">
-                    <div class="col s9">
-                        <p class="truncate">스타벅스 여의도지점 블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라</p>
-                    </div>
-                    <div class="col s3">
-                        <p>170505</p>
-                    </div>
+                    <?
+                    if ( $event_out ) {
+                        foreach ( $event_out as $event_row ) {
+                        ?>
+                    <a href="/event/<? echo $event_row['post_id']; ?>">
+                        <div class="col s9">
+                            <p class="truncate"><? if ( 0 < strlen(trim($event_row['post_content_title'])) ) { echo $event_row['post_content_title']; } else { echo '-'; }; ?></p>
+                        </div>
+                        <div class="col s3">
+                            <p><? echo date("Ymd", strtotime($event_row['post_register_date'])); ?></p>
+                        </div>
+                    </a>
+                        <?
+                        };
+                    } else {
+                        ?>
+                        <?
+                    }
+                    ?>
                 </div>
                 <h6>영업정보</h6>
                 <div class="row">
@@ -253,13 +276,17 @@ if ( $response['status'] == 200 ) {
                     <div class="map">
                         <div id="map" data-user-business-entity-name="<? echo $row['user_business_entity_name']; ?>" data-lat="<? echo $row['user_lat']; ?>" data-lng="<? echo $row['user_lng']; ?>" style="width: 100%;height: 146px;display: block;">
                         </div>
+                        
+                        
+                        <div id="pano"></div>
+                        
                     </div>
                     <div class="map-tab">
                         <div class="tab tab-frt">
-                            <a href="/shop/<? echo $row['user_id']; ?>/product" class="text-center">판매상품</a>
+                            <a href="https://www.google.co.kr/maps/@<? echo $row['user_lat']; ?>,<? echo $row['user_lng']; ?>,14z" class="text-center">크게보기</a>
                         </div>
                         <div class="tab">
-                            <a href="/shop/<? echo $row['user_id']; ?>/detail" class="text-center">업체정보</a>
+                            <button id="btn-loadview" class="text-center" data-user-business-entity-name="<? echo $row['user_business_entity_name']; ?>" data-lat="<? echo $row['user_lat']; ?>" data-lng="<? echo $row['user_lng']; ?>">길찾기</button>
                         </div>
                     </div>
                 </div>
@@ -280,8 +307,8 @@ if ( $response['status'] == 200 ) {
 
         </div>  
         <div class="aff-foot">
-            <a href="#!" class="btn primary-btn text-center">
-                장바구니 20
+            <a href="/basket" class="btn primary-btn text-center">
+                장바구니 <? echo number_format($session_out['user_basket_count']) ?>
             </a>
         </div>        
     </div>
@@ -290,3 +317,4 @@ if ( $response['status'] == 200 ) {
 <script type="text/javascript">run_func( 'header', false );</script>
 <script type="text/javascript">run_func( 'container', false );</script>
 <script type="text/javascript">run_func( 'slideNav', false );</script>
+<script type="text/javascript">run_func( 'shopDetail', false );</script>

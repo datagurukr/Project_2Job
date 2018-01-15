@@ -203,7 +203,7 @@ class Post_model extends CI_Model{
                 post.post_state = 1                
             order by post.post_register_date ".$data['order']."        
             ".$limit."
-            ";              
+            ";       
         } elseif ( $type == 'status' ) {
             $sql = "
             select

@@ -99,9 +99,12 @@ class Event extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -118,10 +121,7 @@ class Event extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
-            if ( isset($data['session']['logged_in']) ) {
-                $session_id = $data['session']['users_id'];
-            }
+            show_404();
         };
         $data['session_id'] = $session_id;
         
@@ -192,9 +192,12 @@ class Event extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -211,10 +214,7 @@ class Event extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
-            if ( isset($data['session']['logged_in']) ) {
-                $session_id = $data['session']['users_id'];
-            }
+            show_404();
         };
         $data['session_id'] = $session_id;
         
@@ -440,9 +440,12 @@ class Event extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -459,7 +462,7 @@ class Event extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
+            show_404();
         };
         $data['session_id'] = $session_id;
 

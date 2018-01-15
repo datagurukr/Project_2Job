@@ -93,9 +93,12 @@ class Sales extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -112,7 +115,7 @@ class Sales extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
+            show_404();
         };
         $data['session_id'] = $session_id;
         

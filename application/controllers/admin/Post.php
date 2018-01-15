@@ -101,9 +101,12 @@ class Post extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -112,7 +115,9 @@ class Post extends CI_Controller {
         $data['session_id'] = 0;
         if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
             if ( $data['session']['admin'] ) {
-                $session_id = $data['session']['users_id'];                
+                if ( 8 <= $data['session']['user_status'] ) {
+                    $session_id = $data['session']['users_id'];
+                };
             } else {
                 $session_id = 0;
             };
@@ -120,10 +125,7 @@ class Post extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
-            if ( isset($data['session']['logged_in']) ) {
-                $session_id = $data['session']['users_id'];
-            }
+            show_404();
         };
         $data['session_id'] = $session_id;
         
@@ -162,6 +164,7 @@ class Post extends CI_Controller {
     }      
     
     function edit ( $post_id = 0, $post_status = 0, $action = '' ) {        
+
         /*******************
         data
         *******************/
@@ -191,9 +194,12 @@ class Post extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -202,7 +208,9 @@ class Post extends CI_Controller {
         $data['session_id'] = 0;
         if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
             if ( $data['session']['admin'] ) {
-                $session_id = $data['session']['users_id'];                
+                if ( 8 <= $data['session']['user_status'] ) {
+                    $session_id = $data['session']['users_id'];
+                };
             } else {
                 $session_id = 0;
             };
@@ -210,10 +218,7 @@ class Post extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
-            if ( isset($data['session']['logged_in']) ) {
-                $session_id = $data['session']['users_id'];
-            }
+            show_404();
         };
         $data['session_id'] = $session_id;
         
@@ -283,7 +288,6 @@ class Post extends CI_Controller {
                 if ( isset($_POST['post_type']) ) {
                     $post_type = $this->input->post('post_type',TRUE);
                 };                                         
-                
                 if ( $post_id == 0 ) {
                     $post_id = mt_rand();                    
                     $result = $this->post_model->update('create',array(
@@ -302,20 +306,62 @@ class Post extends CI_Controller {
                     if ( $result ) {
                         $response['update'] = TRUE;
                         $this->load->helper('url');
-                        redirect('/admin/post/'.$post_status.'/'.$post_id, 'refresh');                        
+                        redirect('/admin/post/detail/'.$post_id.'/'.$post_status, 'refresh');                        
                     } else {
                         $response['update'] = FALSE;
                     }
                 } else {
                     $set_data = array ();
-                    $set_data['post_id'] = $post_id;        
-                    if ( isset($_POST['post_content_reply']) ) {
-                        $set_data['post_content_reply'] = array (
-                            'key' => 'post_content_reply',
-                            'type' => 'string',
-                            'value' => $this->input->post('post_content_reply',TRUE)
+                    $set_data['post_id'] = $post_id;     
+                    if ( isset($_POST['post_type']) ) {
+                        $set_data['post_type'] = array (
+                            'key' => 'post_type',
+                            'type' => 'int',
+                            'value' => $this->input->post('post_type',TRUE)
                         );
                     };                
+                    if ( isset($_POST['post_content_title']) ) {
+                        $set_data['post_content_title'] = array (
+                            'key' => 'post_content_title',
+                            'type' => 'string',
+                            'value' => $this->input->post('post_content_title',TRUE)
+                        );
+                    };                
+                    if ( isset($_POST['post_content_article']) ) {
+                        $set_data['post_content_article'] = array (
+                            'key' => 'post_content_article',
+                            'type' => 'string',
+                            'value' => $this->input->post('post_content_article',TRUE)
+                        );
+                    };                
+                    if ( isset($_POST['post_content_open_date']) ) {
+                        $set_data['post_content_open_date'] = array (
+                            'key' => 'post_content_open_date',
+                            'type' => 'string',
+                            'value' => $this->input->post('post_content_open_date',TRUE)
+                        );
+                    };                
+                    if ( isset($_POST['post_content_close_date']) ) {
+                        $set_data['post_content_close_date'] = array (
+                            'key' => 'post_content_close_date',
+                            'type' => 'string',
+                            'value' => $this->input->post('post_content_close_date',TRUE)
+                        );
+                    };                                    
+                    if ( isset($_POST['post_content_reply_title']) ) {
+                        $set_data['post_content_reply_title'] = array (
+                            'key' => 'post_content_reply_title',
+                            'type' => 'string',
+                            'value' => $this->input->post('post_content_reply_title',TRUE)
+                        );
+                    };                                    
+                    if ( isset($_POST['post_content_reply_article']) ) {
+                        $set_data['post_content_reply_article'] = array (
+                            'key' => 'post_content_reply_article',
+                            'type' => 'string',
+                            'value' => $this->input->post('post_content_reply_article',TRUE)
+                        );
+                    };                                                        
                     if ( $this->post_model->update('update',$set_data) ) {
                         $response['update'] = TRUE;
                     } else {
@@ -328,6 +374,12 @@ class Post extends CI_Controller {
                 validation
                 *******************/
                 $validation = array();
+                
+                if ( isset($_POST['post_type']) ) {
+                    if ( 0 < strlen(strip_tags(form_error('post_type'))) ) {
+                        $validation['post_type'] = strip_tags(form_error('post_type'));
+                    };
+                };                
                 
                 if ( isset($_POST['post_content_title']) ) {
                     if ( 0 < strlen(strip_tags(form_error('post_content_title'))) ) {
@@ -436,9 +488,12 @@ class Post extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -447,7 +502,9 @@ class Post extends CI_Controller {
         $data['session_id'] = 0;
         if ( isset($data['session']['logged_in']) && isset($data['session']['admin']) ) {
             if ( $data['session']['admin'] ) {
-                $session_id = $data['session']['users_id'];                
+                if ( 8 <= $data['session']['user_status'] ) {
+                    $session_id = $data['session']['users_id'];
+                };
             } else {
                 $session_id = 0;
             };
@@ -455,7 +512,7 @@ class Post extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
+            show_404();
         };
         $data['session_id'] = $session_id;
 

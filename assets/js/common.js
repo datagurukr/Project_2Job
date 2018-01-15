@@ -173,6 +173,12 @@ $(window).bind("popstate", function(event) {
 function header () {
     doc = $(doc);
     var header = doc.find('#header');
+    
+    header.find('.back a').on('click', function ( event ) {
+        history.back()
+        //history.back();
+        return;
+    });    
     /*
     header.find('.back a').on('click', function ( event ) {
         event.preventDefault();
@@ -180,7 +186,7 @@ function header () {
     });
     header.find('a').on('click', function ( event ) {
         return router( this.href, true );
-    });    
+    });
     */
 };
 
@@ -214,6 +220,31 @@ function slideNav () {
     else event.cancelBubble = true; //IE
     });
     $("#hideMenu").click();    
+}
+
+function shopDetail () {
+    $('#btn-loadview').on('click', function() {
+        var lat = parseFloat($('#map').attr('data-lat'));
+        var lng = parseFloat($('#map').attr('data-lng'));
+        var name = $('#map').attr('data-user-business-entity-name');
+        $('#pano').height($('#map').height());
+        var fenway = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: fenway,
+            zoom: 14
+        });
+        var panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('pano'), {
+                position: fenway,
+                pov: {
+                    heading: 34,
+                    pitch: 10
+                }
+            }
+        );
+        map.setStreetView(panorama);        
+        
+    });
 }
 
 function product () {

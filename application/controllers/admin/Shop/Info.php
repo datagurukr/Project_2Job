@@ -97,9 +97,12 @@ class Info extends CI_Controller {
         /*******************
         ajax 통신 체크
         *******************/
-        $ajax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                || 
-                (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET');
+        $ajax = FALSE;
+        if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            ||
+            (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['REQUEST_METHOD'] == 'GET')) {
+            $ajax = TRUE;
+        };
         
         /*******************
         session
@@ -116,7 +119,7 @@ class Info extends CI_Controller {
             $session_id = 0;
         };
         if ( $session_id == 0 ) {
-            //show_404();
+            show_404();
         };
         $data['session_id'] = $session_id;
         
@@ -130,12 +133,7 @@ class Info extends CI_Controller {
         };        
         if ( isset($_POST['user_email']) ) {
             if ( $result[0]['user_email'] != $this->input->post('user_email',TRUE) ) {
-                $this->form_validation->set_rules('user_email','user_email','trim|required|valid_email|callback_user_email_overlap_check');                
-            }
-        };
-        if ( isset($_POST['user_pass']) ) {
-            if ( strlen($this->input->post('user_pass',TRUE)) != 0 ) {
-                $this->form_validation->set_rules('user_pass','user_pass','trim|required');                        
+                $this->form_validation->set_rules('user_cass','user_pass','trim|required');                        
             }
         };
         if ( isset($_POST['user_pass_re']) ) {
@@ -173,7 +171,46 @@ class Info extends CI_Controller {
         if ( isset($_POST['user_business_industry']) ) {
             $this->form_validation->set_rules('user_business_industry', 'user_business_industry', 'required');        
         };
-                
+        // user_shop_pictrue
+        
+        $user_shop_pictrue = '';
+        if(isset($_FILES['user_shop_pictrue'])) {
+
+            /*
+            ini_set('memory_limit','-1');        
+            ini_set("post_max_size", "300M");
+            ini_set("upload_max_filesize", "300M");          
+
+            // 사용자가 업로드 한 파일을 /static/user/ 디렉토리에 저장한다.
+            $config['upload_path'] = './upload';
+            // git,jpg,png 파일만 업로드를 허용한다.
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|JPG|JPEG';
+            // 허용되는 파일의 최대 사이즈
+            $config['max_size'] = '20000';
+            // 이미지인 경우 허용되는 최대 폭
+            $config['max_width']  = '0';
+            // 이미지인 경우 허용되는 최대 높이
+            $config['max_height']  = '0';
+            // 파일이름 암호화
+            $config['encrypt_name']  = TRUE;
+
+            $field_name = "user_shop_pictrue";
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload($field_name))
+            {
+                echo "<script>alert('업로드에 실패 했습니다. ".$this->upload->display_errors('','')."')</script>";
+            }   
+            else
+            {
+                $data = $this->upload->data();  
+                $user_shop_pictrue = $data['file_name'];
+            }            
+            */
+
+        }        
+        
         /*******************
         data query
         *******************/     
@@ -379,6 +416,14 @@ class Info extends CI_Controller {
                 );
             };
             
+            if ( 0 < strlen($user_shop_pictrue) ) {
+                $set_data['user_shop_pictrue'] = array (
+                    'key' => 'user_shop_pictrue',
+                    'type' => 'string',
+                    'value' => $user_shop_pictrue
+                );
+            };
+            
             $this->load->model('user_model');                    
             if ( $this->user_model->update('update',$set_data) ) {
                 $response['update'] = TRUE;
@@ -386,6 +431,10 @@ class Info extends CI_Controller {
                 $response['update'] = FALSE;
             };
             
+            if ( 0 < strlen($user_shop_pictrue) ) {
+                $this->load->helper('url');
+                redirect('/admin/shop/'.$user_id, 'refresh');
+            }
         } else {
             /*******************
             validation

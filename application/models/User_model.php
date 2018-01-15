@@ -142,6 +142,7 @@ class User_model extends CI_Model{
                     user_id,
                     user_status,
                     user_state,
+                    user_approval,
                     user_name,
                     user_email,
                     user_pass,
@@ -173,7 +174,8 @@ class User_model extends CI_Model{
                 ) values (
                     ".$data['user_id'].",
                     ".$data['user_status'].",                    
-                    ".$data['user_state'].",                    
+                    ".$data['user_state'].", 
+                    ".$data['user_approval'].", 
                     '".$this->db->escape_str($data['user_name'])."',
                     '".$data['user_email']."',
                     '".sha1($data['user_pass'])."',
@@ -298,6 +300,7 @@ class User_model extends CI_Model{
             user.user_id as user_id,
             user.user_status as user_status,
             user.user_state as user_state,
+            user.user_approval as user_approval,
             user.user_name as user_name,
             user.user_email as user_email,
             user.user_pass as user_pass,
@@ -319,6 +322,7 @@ class User_model extends CI_Model{
             user.user_introduction as user_introduction,
             user.user_incentive as user_incentive,
             ( select sum(saving_exp) from saving where user_id = user.user_id ) as user_exp,
+            ( select count(*) from basket where user_id = user.user_id and basket_status = 1 ) as user_basket_count,
             /*user.user_exp as user_exp,*/
             user.user_shop_daily_open_state as user_shop_daily_open_state,
             user.user_shop_daily_open_time as user_shop_daily_open_time,
@@ -334,6 +338,8 @@ class User_model extends CI_Model{
             user.user_notice_shop_status as user_notice_shop_status,
             user.user_lat as user_lat,
             user.user_lng as user_lng,
+            user.user_shop_type as user_shop_type,
+            user.user_shop_num as user_shop_num,
             user.user_register_date as user_register_date,
             user.user_update_date as user_update_date            
             ";
@@ -377,9 +383,26 @@ class User_model extends CI_Model{
                 user.user_state = 1
                 and
                 user.user_status = 3
+                and
+                user.user_shop_type = 2              
             order by user.user_register_date ".$data['order']."                
             ".$limit."
             ";               
+        } elseif ( $type == 'shop_general' ) {            
+            $sql = "
+            select
+                ".$select."
+            FROM
+                user AS user
+            WHERE
+                user.user_state = 1
+                and
+                user.user_status = 3
+                and
+                user.user_shop_type = 1             
+            order by user.user_register_date ".$data['order']."                
+            ".$limit."
+            ";                           
         } elseif ( $type == 'shop_gps_order' ) {            
             // round(( 6371 * acos( cos( radians(".$data['lat'].") ) * cos( radians( stamp.stamp_lat ) ) * cos( radians( stamp.stamp_lng ) - radians(".$data['lng'].") ) + sin( radians(".$data['lat'].") ) * sin( radians( stamp.stamp_lat ) ) ) ),1) as stamp_distance,
             $sql = "

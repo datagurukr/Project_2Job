@@ -56,13 +56,14 @@ $route['default_controller'] = 'main';
 $route['admin/auth/login'] = 'admin/auth/login'; // 로그인
 
 // user > list
-$route['admin'] = 'admin/user/index/1'; // 일반 회원관리
+$route['admin'] = 'admin/auth/login'; // 일반 회원관리
 $route['admin/user/list/1'] = 'admin/user/index/1'; // 일반 회원관리
 $route['admin/user/list/2'] = 'admin/user/index/2';// 영업사원 회원관리
 $route['admin/user/list/3'] = 'admin/user/index/3'; // 가맹점 회원관리
 $route['admin/user/list/4'] = 'admin/user/index/4'; // 틸퇴 회원관리
 // user > edit
-$route['admin/user/(:num)'] = 'admin/user/edit/$1'; // 상세보기
+$route['admin/user/(:num)'] = 'admin/user/detail/$1'; // 상세보기
+$route['admin/user/edit/(:num)'] = 'admin/user/edit/$1'; // 상세보기
 
 // shop > ㅣlist
 $route['admin/shop/list/1'] = 'admin/shop/main/index/1'; // 일반 가맹점 관리
@@ -85,6 +86,11 @@ $route['admin/post/list/4'] = 'admin/post/index/4'; // 고객센터
 // post > edit
 $route['admin/post/(:num)/(:num)'] = 'admin/post/edit/$1/$2'; // 상세보기
 $route['admin/post/detail/(:num)/(:num)'] = 'admin/post/detail/$1/$2'; // 상세보기
+
+// auth > login
+$route['admin/auth'] = 'admin/auth/login'; // 상세보기
+$route['admin/auth/login'] = 'admin/auth/login'; // 상세보기
+$route['admin/auth/logout'] = 'admin/auth/logout'; // 상세보기
 
 /* Front */
 // auth
@@ -141,9 +147,13 @@ $route['user/active/booking'] = 'user/active/1';
 $route['user/active/recommender'] = 'user/active/2';
 $route['user/active/salary'] = 'user/active/3';
 
+// Page
+$route['privacy'] = "page/privacy";
+$route['terms'] = "page/terms";
+
 /* API */
 $route['api/shop/out/gps'] = "api/shop_out/shop_gps";
-$route['api/upload'] = "api/upload/ckupload";
+$route['api/upload/ckupload'] = "api/ckupload";
 
 /* api/1.0 
 $route['api/app/code'] = "api/app/code";
